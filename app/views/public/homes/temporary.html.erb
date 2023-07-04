@@ -1,0 +1,18 @@
+<h1>仮ページ</h1>
+
+<% if admin_signed_in? %>
+  <!-- 管理者がログインしている場合の表示 -->
+  <%= link_to '管理者ログアウト', destroy_admin_session_path, method: :delete %>
+<% else %>
+  <!-- 管理者がログインしていない場合の表示 -->
+  <%= link_to '管理者ログイン', new_admin_session_path %>
+<% end %>
+
+<% if customer_signed_in? %>
+  <!-- 会員がログインしている場合の表示 -->
+  <%= link_to '会員ログアウト', destroy_customer_session_path, method: :delete %>
+<% else %>
+  <!-- 会員がログインしていない場合の表示 -->
+  <%= link_to '会員新規登録', new_customer_registration_path %>
+  <%= link_to '会員ログイン', new_customer_session_path %>
+<% end %>

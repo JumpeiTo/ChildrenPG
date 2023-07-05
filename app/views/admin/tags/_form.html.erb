@@ -1,0 +1,20 @@
+<%= form_with(model: tag, url: (tag.persisted? ? admin_tag_path(tag) : admin_tags_path), class: 'form flex-grow-1') do |f| %>
+  <div class="col form-group mb-4 d-flex px-2 my-4">
+    <div class="col-md-11 form-row px-0">
+      <div class="col-md-2 px-md-0 d-flex">
+        <label class="col-form-label font-weight-bold">タグ名</label>
+      </div>
+      <div class="col-9 col-sm-7 col-md-6 px-md-3">
+        <%= f.text_field :name, class: 'form-control', placeholder: 'タグ名' %>
+        <%= render "layouts/error", model: f, attribute: :name %>
+      </div>
+      <div class="col-md-4 pl-md-3 mt-2 mt-md-0">
+        <% if tag.new_record? %>
+          <%= f.submit '新規登録', class: 'btn btn-primary px-4' %>
+        <% else %>
+          <%= f.submit '更新する', class: 'btn btn-success px-4' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

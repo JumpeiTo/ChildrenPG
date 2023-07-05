@@ -9,14 +9,18 @@ Rails.application.routes.draw do
   
   scope module: :public do
     root to: 'homes#top'
-    get 'homes/temporary'
   end
+  
   
   # 管理者用
   # URL /admin/sign_in ...
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
+  
+  namespace :admin do
+    resources :tags, only: [:index, :create, :edit, :update, :destroy]
+  end
   
   
 end

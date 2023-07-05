@@ -1,0 +1,71 @@
+<header>
+  <!--ナビゲーションメニュー-->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#f4e4d4;">
+    <div class="container">
+      <div class="row">
+        <%= link_to root_path do %>
+          <%= image_tag 'logo.png', size: '160x76' %>
+        <% end %>
+      </div>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="row collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+          <!--会員ログイン後ヘッダー-->
+          <% if customer_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "マイページ", "#", class: 'nav-link text-dark btn btn-light ml-5' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "商品一覧", "#", class: 'nav-link text-dark btn btn-light ml-2' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "カート", "#", class: 'nav-link text-dark btn btn-light ml-2' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "会員ログアウト",destroy_customer_session_path, method: :delete, class: 'nav-link text-dark btn btn-light ml-2' %>
+            </li>
+          
+          <!--管理者ログイン後ヘッダー-->
+          <% elsif admin_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "注文履歴一覧", "#", class: 'nav-link text-dark btn btn-light ml-5' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "会員一覧", "#", class: 'nav-link text-dark btn btn-light ml-2' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "商品一覧", "#", class: 'nav-link text-dark btn btn-light ml-2' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "タグ一覧", admin_tags_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "管理者ログアウト",destroy_admin_session_path, method: :delete, class: 'nav-link text-dark btn btn-light ml-2' %>
+            </li>
+          
+          <!--共通ログイン前ヘッダー-->
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "About", "#", class: 'nav-link text-dark btn btn-light ml-2' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "商品一覧", "#", class: 'nav-link text-dark btn btn-light ml-2' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "新規登録", new_customer_registration_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ログイン",new_customer_session_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "管理者ログイン",new_admin_session_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

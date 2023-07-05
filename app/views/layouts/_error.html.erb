@@ -1,0 +1,10 @@
+<!--エラーメッセージ(モデルとカラム指定)-->
+<% if model.object.errors.any? %>
+  <div class="alert col-12 m-0 ml-2 p-0">
+    <ul class="list-unstyled my-auto">
+      <% model.object.errors.full_messages_for(attribute).each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

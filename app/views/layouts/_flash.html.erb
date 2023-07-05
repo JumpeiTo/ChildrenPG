@@ -1,0 +1,18 @@
+<!-- ビュー内でフラッシュメッセージを表示 -->
+<!--色: success=緑,info=青,warning=オレンジ,error=赤-->
+<% if flash.any? %>
+  <script type="text/javascript">
+    <% flash.each do |type, msg| %>
+      <% toastr_type = case type
+                       when "notice" then "info"
+                       when "alert" then "error"
+                       when "error" then "error"
+                       when "success" then "success"
+                       when "info" then "info"
+                       when "warning" then "warning"
+                       else type
+                       end %>
+      toastr['<%= toastr_type %>']('<%= msg %>');
+    <% end %>
+  </script>
+<% end %>

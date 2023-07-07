@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'places/search', to: 'places#search', as: 'places_search'
 
   # 顧客用
   # URL /customers/sign_in ...

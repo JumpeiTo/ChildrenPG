@@ -50,6 +50,8 @@ window.addEventListener('popstate', function(e) {
       }
 });
 
+
+
 Rails.start()
 // Turbolinks.start()フラッシュメッセージ、エラーが残る兼ね合いで
 ActiveStorage.start()

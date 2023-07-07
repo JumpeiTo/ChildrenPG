@@ -1,0 +1,7 @@
+ja:
+  places: #コントローラー名
+    search: #ビューのファイル名
+      types: 
+        park: 公園
+        point_of_interest: 名所・観光地
+        establishment: 施設

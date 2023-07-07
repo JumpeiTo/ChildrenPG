@@ -1,0 +1,26 @@
+<!--API使用遊び場検索結果-->
+<% if @places.present? %>
+  <div class="container">
+    <ul class="list-group">
+      <% @places.each do |place| %>
+        <li class="list-group-item">
+          <h4><%= place.name %></h4>
+          <p><%= place.vicinity %></p>
+          <p>評価: <%= place.rating %></p>
+          <p>タイプ: <%= place.types.join(', ') %></p>
+          <% if place.formatted_phone_number.present? %>
+            <p>電話番号: <%= place.formatted_phone_number %></p>
+          <% end %>
+          <% if place.photos.present? %>
+            <% place.photos.each do |photo| %>
+              <% photo_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=#{photo.photo_reference}&key=#{ENV['GOOGLE_API_KEY']}" %>
+              <img src="<%= photo_url %>" alt="写真" width="300" height="200">
+            <% end %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <p>検索結果がありません。</p>
+<% end %>

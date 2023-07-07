@@ -1,10 +1,17 @@
 <h1>遊び場を探す</h1>
 
 <h2>キーワードで探す</h2>
-<%= form_with(url: places_search_path, remote: true, method: :get, id: 'search-f') do |f| %>
+<%= form_with(url: places_keyword_search_path, method: :get, id: 'search-f') do |f| %>
   <%= f.text_field :keyword, placeholder: 'キーワードを入力してください' %>
   <%= f.submit '検索' %>
 <% end %>
 
-<h2>絞り込んで検索</h2>
-
+<h2>絞り込み検索</h2>
+<%= form_with(url: places_search_path, method: :get, id: 'filter-form') do |f| %>
+  <%= f.text_field :name, placeholder: '遊び場名を入力してください' %>
+  <%= f.label :types, 'カテゴリー' %>
+  <%= f.select :types, options_for_select(['', 'park', 'tourist_attraction', 'amusement_park', 'airport', 'aquarium', 'art_gallery', 'book_store', 'bowling_alley', 'cafe', 'campground', 'department_store', 'hardware_store', 'library', 'movie_theater', 'museum', 'pet_store', 'school', 'restaurant', 'shopping_mall', 'stadium', 'store', 'zoo']) %>
+  <%= f.label :radius, '範囲' %>
+  <%= f.select :radius, options_for_select(['', '1000', '5000', '10000']) %>
+  <%= f.submit '絞り込む' %>
+<% end %>

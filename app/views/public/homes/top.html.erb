@@ -2,31 +2,33 @@
   <div class="col-4">
     <h1>遊び場を探す</h1>
     <h2>キーワードで探す</h2>
-    <%= form_with(url: places_keyword_search_path, method: :get, id: 'search-f') do |f| %>
+    <%= form_with(url: places_keyword_search_path, method: :get, id: 'keyword_search_form') do |f| %>
       <%= f.text_field :keyword, placeholder: 'キーワードを入力してください' %>
       <%= f.submit '検索' %>
     <% end %>
     
     <h2>絞り込み検索</h2>
-    <%= form_with(url: places_search_path, method: :get, id: 'filter-form') do |f| %>
-      <p>右のマップで検索したい場所に<br>ピンをさしてください</p>
-      <div class="box d-flex">
-        <label for="pin-coordinates-lat">緯度:</label>
-        <div id="pin-coordinates-lat"></div> <!-- ピンの緯度を表示する要素 -->
-      </div>
-      <div class="box d-flex">
-        <label for="pin-coordinates-lng">経度:</label>
-        <div id="pin-coordinates-lng"></div> <!-- ピンの経度を表示する要素 -->
-      </div>
+    <%= form_with(url: places_search_path, method: :get, id: 'filter-search_form') do |f| %>
+        <p id="error-text">右のマップで検索したい場所に<br>ピンをさしてください</p>
+        <div class="d-flex">
+          <label for="pin-coordinates-lat">緯度:</label>
+          <div id="pin-coordinates-lat"></div> <!-- ピンの緯度を表示する要素 -->
+        </div>
+        <div class="d-flex">
+          <label for="pin-coordinates-lng">経度:</label>
+          <div id="pin-coordinates-lng"></div> <!-- ピンの経度を表示する要素 -->
+        </div>
       <%= f.text_field :name, placeholder: '遊び場名を入力してください' %>
       <%= f.label :types, 'カテゴリー' %>
       <%= f.select :types, options_for_select(['', 'park', 'tourist_attraction', 'amusement_park', 'airport', 'aquarium', 'art_gallery', 'book_store', 'bowling_alley', 'cafe', 'campground', 'department_store', 'hardware_store', 'library', 'movie_theater', 'museum', 'pet_store', 'school', 'restaurant', 'shopping_mall', 'stadium', 'store', 'zoo']) %>
       <%= f.label :radius, '範囲' %>
       <%= f.select :radius, options_for_select(['', '1000', '5000', '10000']) %>
-      
-      <%= f.submit '検索' %>
       <%= f.hidden_field :lat, id: 'lat' %>
       <%= f.hidden_field :lng, id: 'lng' %>
+      
+      <%= f.submit '検索', id: "submit_button" %>
+      <p id="error_message" style="display: none;">ピンを作成してください</p>
+
     <% end %>
 
   </div>
@@ -35,6 +37,7 @@
     <input id="address" type="textbox" placeholder="場所を入力してください" >
     <input type="button" value="探す" onclick="codeAddress()">
     <p>マップ上で左クリック長押しするとピンが表示されます。</p>
+    <p>ピンをドラック＆ドロップで位置の調整ができます。<p>
     <div id="map"></div>
     
     <style>
@@ -48,6 +51,20 @@
       let map;
       let marker;
       let geocoder;
+      
+      // 絞り込み検索のsubmit時に発火
+      document.getElementById("filter-search_form").addEventListener("submit", function(event) {
+        // 緯度経度のvalueが空の時発火
+        if ( document.getElementById("lat").value == "" ||  document.getElementById("lng").value == "") {
+            event.preventDefault(); //submit_buttonにdisabledを追加する
+            document.getElementById("error-text").style.textDecoration = "underline red";
+            document.getElementById("error_message").style.display = "block";
+
+            setTimeout(function() {
+                document.getElementById("submit_button").disabled = false
+            }, 500); // 0.5秒後にボタンを押せる状態に戻す
+        }
+      });
       
       function initMap() {
         geocoder = new google.maps.Geocoder();
@@ -99,7 +116,6 @@
               displayPinCoordinates(this.getPosition().lat(), this.getPosition().lng()); // ピンの緯度経度を表示
             });
           } else {
-            alert("該当する結果がありませんでした：" + status);
           }
         });
       }

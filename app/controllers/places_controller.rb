@@ -5,10 +5,11 @@ class PlacesController < ApplicationController
     client = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
     @keyword = params[:keyword]
     if @keyword.present?
-      query_options = build_query_keyword_options(['park', 'tourist_attraction', 'amusement_park', 'airport', 'aquarium', 'art_gallery', 'book_store', 'bowling_alley', 'cafe', 'campground', 'department_store', 'hardware_store', 'library', 'movie_theater', 'museum', 'pet_store', 'school', 'restaurant', 'shopping_mall', 'stadium', 'store', ''])
+      type_option
       @places = client.spots_by_query(@keyword, query_options)
     else
-      @keyword = []
+      type_option
+      @places = client.spots_by_query("",query_options)
     end
 
     respond_to do |format|
@@ -47,6 +48,10 @@ class PlacesController < ApplicationController
     options = { language: 'ja' }
     options[:types] = types if types.present?
     options
+  end
+  
+  def type_option
+    query_options = build_query_keyword_options(['park', 'tourist_attraction', 'amusement_park', 'airport', 'aquarium', 'art_gallery', 'book_store', 'bowling_alley', 'cafe', 'campground', 'department_store', 'hardware_store', 'library', 'movie_theater', 'museum', 'pet_store', 'school', 'restaurant', 'shopping_mall', 'stadium', 'store', ''])
   end
 
   # 絞り込み検索用オプション

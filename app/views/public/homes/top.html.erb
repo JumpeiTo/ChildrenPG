@@ -3,13 +3,13 @@
     <h1>遊び場を探す</h1>
     <h2>キーワードで探す</h2>
     <%= form_with(url: places_keyword_search_path, method: :get, id: 'keyword_search_form') do |f| %>
-      <%= f.text_field :keyword, placeholder: 'キーワードを入力してください' %>
+      <%= f.text_field :keyword, placeholder: 'キーワードを入力してください' %></br>
       <%= f.submit '検索' %>
     <% end %>
     
     <h2>絞り込み検索</h2>
     <%= form_with(url: places_search_path, method: :get, id: 'filter-search_form') do |f| %>
-        <p id="error-text">右のマップで検索したい場所に<br>ピンをさしてください</p>
+        <p id="error-text">マップで検索したい場所に<br>ピンをさしてください</p>
         <div class="d-flex">
           <label for="pin-coordinates-lat">緯度:</label>
           <div id="pin-coordinates-lat"></div> <!-- ピンの緯度を表示する要素 -->
@@ -18,11 +18,12 @@
           <label for="pin-coordinates-lng">経度:</label>
           <div id="pin-coordinates-lng"></div> <!-- ピンの経度を表示する要素 -->
         </div>
-      <%= f.text_field :name, placeholder: '遊び場名を入力してください' %>
+      <%= f.label :name, '遊び場名' %>
+      <%= f.text_field :name, placeholder: '遊び場名を入力してください' %></br>
       <%= f.label :types, 'カテゴリー' %>
-      <%= f.select :types, options_for_select(['', 'park', 'tourist_attraction', 'amusement_park', 'airport', 'aquarium', 'art_gallery', 'book_store', 'bowling_alley', 'cafe', 'campground', 'department_store', 'hardware_store', 'library', 'movie_theater', 'museum', 'pet_store', 'school', 'restaurant', 'shopping_mall', 'stadium', 'store', 'zoo']) %>
+      <%= f.select :types, options_for_select([['カテゴリー選択', nil], ['公園', 'park'], ['観光名所', 'tourist_attraction'], ['遊園地', 'amusement_park'], ['空港', 'airport'], ['水族館', 'aquarium'], ['美術館', 'art_gallery'], ['書店', 'book_store'], ['ボウリング場', 'bowling_alley'], ['カフェ', 'cafe'], ['キャンプ場', 'campground'], ['デパート', 'department_store'], ['図書館', 'library'], ['映画館', 'movie_theater'], ['博物館', 'museum'], ['ペットショップ', 'pet_store'], ['学校', 'school'], ['レストラン', 'restaurant'], ['ショッピングモール', 'shopping_mall'], ['スタジアム', 'stadium'], ['店舗', 'store'], ['動物園', 'zoo']]), {} %></br>
       <%= f.label :radius, '範囲' %>
-      <%= f.select :radius, options_for_select(['', '1000', '5000', '10000']) %>
+      <%= f.select :radius, options_for_select([['範囲選択', nil], '1000', '5000', '10000']) %></br>
       <%= f.hidden_field :lat, id: 'lat' %>
       <%= f.hidden_field :lng, id: 'lng' %>
       
@@ -70,13 +71,14 @@
         geocoder = new google.maps.Geocoder();
         
         map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: 35.155396, lng: 136.918969 },
-          zoom: 13,
+          center: { lat: 35.155396, lng: 136.918969 },　// マップ表示時のデフォルト位置(名古屋の鶴舞公園)
+          zoom: 12, // デフォルトズーム倍率
         });
         
         google.maps.event.addListener(map, "click", function(event) {
+          //マーカーが複数できないようにする
           if (marker) {
-            marker.setMap(null);
+            marker.setMap(null); 
           }
           marker = new google.maps.Marker({
             position: event.latLng,

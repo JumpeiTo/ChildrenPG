@@ -1,1 +1,15 @@
-<%= render partial: 'search_results', locals: { places: @places } %>
+<div class="row">
+  <div class="col-md-3">
+    <h3>キーワードで探す</h3>
+    <%= form_with(url: places_keyword_search_path, method: :get, id: 'keyword_search_form') do |f| %>
+      <%= f.text_field :keyword, placeholder: 'キーワードを入力してください', value: @keyword%>
+      <%= f.submit '検索' %>
+    <% end %>
+  </div>
+  <!--検索リザルト結果-->
+  <div class="col-md-9">
+    <%= render partial: 'search_results', locals: { places: @places } %>
+  </div>
+</div>
+
+

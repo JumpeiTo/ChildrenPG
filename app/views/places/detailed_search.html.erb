@@ -1,0 +1,56 @@
+<h2>詳細検索結果</h2>
+
+<% if @place.present? %>
+  <div>
+    <h4><%= @place.name %></h4>
+
+    <% if @place.formatted_address.present? %>
+      <p>住所: <%= @place.formatted_address %></p>
+    <% else %>
+      <p>住所: 不明</p>
+    <% end %>
+
+
+    <% if @place.rating.present? %>
+      <p>Google評価: <%= @place.rating %></p>
+    <% else %>
+      <p>Google評価: なし</p>
+    <% end %>
+
+    <% if @place.opening_hours.present? && @place.opening_hours.is_a?(Hash) %>
+      <h5>営業時間</h5>
+      <% if @place.opening_hours["open_now"] %>
+        <p>現在営業中</p>
+      <% else %>
+        <p>現在営業していません</p>
+      <% end %>
+
+      <% if @place.opening_hours["weekday_text"].present? %>
+        <ul>
+          <% @place.opening_hours["weekday_text"].each do |weekday| %>
+            <li><%= weekday %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+
+    <% if @place.website.present? %>
+      <p>公式ウェブサイト: <a href="<%= @place.website %>"><%= @place.website %></a></p>
+    <% end %>
+
+    <% if @place.international_phone_number.present? %>
+      <p>電話番号: <%= @place.international_phone_number %></p>
+    <% end %>
+
+    <% if @place.photos.present? %>
+      <% @place.photos.each do |photo| %>
+        <% photo_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=#{photo.photo_reference}&key=#{ENV['GOOGLE_API_KEY']}" %>
+        <img src="<%= photo_url %>" alt="写真" width="210" height="140">
+      <% end %>
+    <% else %>
+      <img src="/assets/no_image32.png" width="210" height="140">
+    <% end %>
+  </div>
+<% else %>
+  <p>詳細情報がありません。</p>
+<% end %>

@@ -1,1 +1,122 @@
-<%= render partial: 'search_results', locals: { places: @places } %>
+<div class="row">
+  <div class="col-md-3">
+    <h2>絞り込み検索</h2>
+    <%= form_with(url: places_search_path, method: :get, id: 'filter-search_form') do |f| %>
+        <p id="error-text">マップで検索したい場所に<br>ピンをさしてください</p>
+        <div class="d-flex">
+          <label for="pin-coordinates-lat">緯度:</label>
+          <div id="pin-coordinates-lat"></div> <!-- ピンの緯度を表示する要素 -->
+        </div>
+        <div class="d-flex">
+          <label for="pin-coordinates-lng">経度:</label>
+          <div id="pin-coordinates-lng"></div> <!-- ピンの経度を表示する要素 -->
+        </div>
+      <%= f.text_field :name, value: params[:name], placeholder: '遊び場名を入力してください' %>
+      <%= f.label :types, 'カテゴリー' %>
+      <%= f.select :types, options_for_select([['カテゴリー選択', nil], ['公園', 'park'], ['観光名所', 'tourist_attraction'], ['遊園地', 'amusement_park'], ['空港', 'airport'], ['水族館', 'aquarium'], ['美術館', 'art_gallery'], ['書店', 'book_store'], ['ボウリング場', 'bowling_alley'], ['カフェ', 'cafe'], ['キャンプ場', 'campground'], ['デパート', 'department_store'], ['図書館', 'library'], ['映画館', 'movie_theater'], ['博物館', 'museum'], ['ペットショップ', 'pet_store'], ['学校', 'school'], ['レストラン', 'restaurant'], ['ショッピングモール', 'shopping_mall'], ['スタジアム', 'stadium'], ['店舗', 'store'], ['動物園', 'zoo']]), selected: params[:types] %>
+      <%= f.label :radius, '範囲' %>
+      <%= f.select :radius, options_for_select([['範囲選択', nil], '1000', '5000', '10000']), selected: params[:radius] %>
+      <%= f.hidden_field :lat, value: params[:lat], id: 'lat' %>
+      <%= f.hidden_field :lng, value: params[:lng], id: 'lng' %>
+      
+      <%= f.submit '検索', id: "submit_button" %>
+      <p id="error_message" style="display: none;">ピンを作成してください</p>
+    <% end %>
+    <input id="address" type="textbox" placeholder="場所を入力してください" >
+    <input type="button" value="探す" onclick="codeAddress()">
+    <div id="map"></div>
+    
+    <style>
+      #map {
+        height: 250px;
+        width: 250px;
+      }
+    </style>
+    
+    <script>
+      let map;
+      let marker;
+      let geocoder;
+      
+      // 絞り込み検索のsubmit時に発火
+      document.getElementById("filter-search_form").addEventListener("submit", function(event) {
+        // 緯度経度のvalueが空の時発火
+        if ( document.getElementById("lat").value == "" ||  document.getElementById("lng").value == "") {
+            event.preventDefault(); //submit_buttonにdisabledを追加する
+            document.getElementById("error-text").style.textDecoration = "underline red";
+            document.getElementById("error_message").style.display = "block";
+
+            setTimeout(function() {
+                document.getElementById("submit_button").disabled = false
+            }, 500); // 0.5秒後にボタンを押せる状態に戻す
+        }
+      });
+      
+      function initMap() {
+        geocoder = new google.maps.Geocoder();
+        var lat = <%= params[:lat].presence %>;
+        var lng = <%= params[:lng].presence %>;
+        
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: lat, lng: lng },　// マップ表示時のデフォルト位置(名古屋の鶴舞公園)
+          zoom: 10, // デフォルトズーム倍率
+        });
+        
+        google.maps.event.addListener(map, "click", function(event) {
+          //マーカーが複数できないようにする
+          if (marker) {
+            marker.setMap(null); 
+          }
+          marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map,
+            draggable: true,
+          });
+          document.getElementById("lat").value = event.latLng.lat();
+          document.getElementById("lng").value = event.latLng.lng();
+          displayPinCoordinates(event.latLng.lat(), event.latLng.lng()); // ピンの緯度経度を表示
+          google.maps.event.addListener(marker, "dragend", function(event) {
+            document.getElementById("lat").value = this.getPosition().lat();
+            document.getElementById("lng").value = this.getPosition().lng();
+            displayPinCoordinates(this.getPosition().lat(), this.getPosition().lng()); // ピンの緯度経度を表示
+          });
+        });
+      }
+      
+      function codeAddress() {
+        let inputAddress = document.getElementById("address").value;
+        geocoder.geocode({ address: inputAddress }, function(results, status) {
+          if (status == "OK") {
+            if (marker) {
+              marker.setMap(null);
+            }
+            map.setCenter(results[0].geometry.location);
+            marker = new google.maps.Marker({
+              position: results[0].geometry.location,
+              map: map,
+              draggable: true,
+            });
+            document.getElementById("lat").value = results[0].geometry.location.lat();
+            document.getElementById("lng").value = results[0].geometry.location.lng();
+            displayPinCoordinates(results[0].geometry.location.lat(), results[0].geometry.location.lng()); // ピンの緯度経度を表示
+            google.maps.event.addListener(marker, "dragend", function(event) {
+              document.getElementById("lat").value = this.getPosition().lat();
+              document.getElementById("lng").value = this.getPosition().lng();
+              displayPinCoordinates(this.getPosition().lat(), this.getPosition().lng()); // ピンの緯度経度を表示
+            });
+          } else {
+          }
+        });
+      }
+      function displayPinCoordinates(lat, lng) {
+        document.getElementById("pin-coordinates-lat").textContent = lat;
+        document.getElementById("pin-coordinates-lng").textContent = lng;
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+  </div>
+  <!--検索リザルト結果-->
+  <div class="col-md-9">
+    <%= render partial: 'search_results', locals: { places: @places } %>
+  </div>
+</div>

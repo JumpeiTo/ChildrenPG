@@ -1,17 +1,114 @@
-<h1>遊び場を探す</h1>
+<div class="row">
+  <div class="col-4">
+    <h1>遊び場を探す</h1>
+    <h2>キーワードで探す</h2>
+    <%= form_with(url: places_keyword_search_path, method: :get, id: 'search-f') do |f| %>
+      <%= f.text_field :keyword, placeholder: 'キーワードを入力してください' %>
+      <%= f.submit '検索' %>
+    <% end %>
+    
+    <h2>絞り込み検索</h2>
+    <%= form_with(url: places_search_path, method: :get, id: 'filter-form') do |f| %>
+      <p>右のマップで検索したい場所に<br>ピンをさしてください</p>
+      <div class="box d-flex">
+        <label for="pin-coordinates-lat">緯度:</label>
+        <div id="pin-coordinates-lat"></div> <!-- ピンの緯度を表示する要素 -->
+      </div>
+      <div class="box d-flex">
+        <label for="pin-coordinates-lng">経度:</label>
+        <div id="pin-coordinates-lng"></div> <!-- ピンの経度を表示する要素 -->
+      </div>
+      <%= f.text_field :name, placeholder: '遊び場名を入力してください' %>
+      <%= f.label :types, 'カテゴリー' %>
+      <%= f.select :types, options_for_select(['', 'park', 'tourist_attraction', 'amusement_park', 'airport', 'aquarium', 'art_gallery', 'book_store', 'bowling_alley', 'cafe', 'campground', 'department_store', 'hardware_store', 'library', 'movie_theater', 'museum', 'pet_store', 'school', 'restaurant', 'shopping_mall', 'stadium', 'store', 'zoo']) %>
+      <%= f.label :radius, '範囲' %>
+      <%= f.select :radius, options_for_select(['', '1000', '5000', '10000']) %>
+      
+      <%= f.submit '検索' %>
+      <%= f.hidden_field :lat, id: 'lat' %>
+      <%= f.hidden_field :lng, id: 'lng' %>
+    <% end %>
 
-<h2>キーワードで探す</h2>
-<%= form_with(url: places_keyword_search_path, method: :get, id: 'search-f') do |f| %>
-  <%= f.text_field :keyword, placeholder: 'キーワードを入力してください' %>
-  <%= f.submit '検索' %>
-<% end %>
+  </div>
+  
+  <div class="col-8">
+    <input id="address" type="textbox" placeholder="場所を入力してください" >
+    <input type="button" value="探す" onclick="codeAddress()">
+    <p>マップ上で左クリック長押しするとピンが表示されます。</p>
+    <div id="map"></div>
+    
+    <style>
+      #map {
+        height: 450px;
+        width: 700px;
+      }
+    </style>
+    
+    <script>
+      let map;
+      let marker;
+      let geocoder;
+      
+      function initMap() {
+        geocoder = new google.maps.Geocoder();
+        
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 35.155396, lng: 136.918969 },
+          zoom: 13,
+        });
+        
+        google.maps.event.addListener(map, "click", function(event) {
+          if (marker) {
+            marker.setMap(null);
+          }
+          marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map,
+            draggable: true,
+          });
+          document.getElementById("lat").value = event.latLng.lat();
+          document.getElementById("lng").value = event.latLng.lng();
+          displayPinCoordinates(event.latLng.lat(), event.latLng.lng()); // ピンの緯度経度を表示
+          google.maps.event.addListener(marker, "dragend", function(event) {
+            document.getElementById("lat").value = this.getPosition().lat();
+            document.getElementById("lng").value = this.getPosition().lng();
+            displayPinCoordinates(this.getPosition().lat(), this.getPosition().lng()); // ピンの緯度経度を表示
+          });
+        });
+      }
+      
+      function codeAddress() {
+        let inputAddress = document.getElementById("address").value;
+        geocoder.geocode({ address: inputAddress }, function(results, status) {
+          if (status == "OK") {
+            if (marker) {
+              marker.setMap(null);
+            }
+            map.setCenter(results[0].geometry.location);
+            marker = new google.maps.Marker({
+              position: results[0].geometry.location,
+              map: map,
+              draggable: true,
+            });
+            document.getElementById("lat").value = results[0].geometry.location.lat();
+            document.getElementById("lng").value = results[0].geometry.location.lng();
+            displayPinCoordinates(results[0].geometry.location.lat(), results[0].geometry.location.lng()); // ピンの緯度経度を表示
+            google.maps.event.addListener(marker, "dragend", function(event) {
+              document.getElementById("lat").value = this.getPosition().lat();
+              document.getElementById("lng").value = this.getPosition().lng();
+              displayPinCoordinates(this.getPosition().lat(), this.getPosition().lng()); // ピンの緯度経度を表示
+            });
+          } else {
+            alert("該当する結果がありませんでした：" + status);
+          }
+        });
+      }
 
-<h2>絞り込み検索</h2>
-<%= form_with(url: places_search_path, method: :get, id: 'filter-form') do |f| %>
-  <%= f.text_field :name, placeholder: '遊び場名を入力してください' %>
-  <%= f.label :types, 'カテゴリー' %>
-  <%= f.select :types, options_for_select(['', 'park', 'tourist_attraction', 'amusement_park', 'airport', 'aquarium', 'art_gallery', 'book_store', 'bowling_alley', 'cafe', 'campground', 'department_store', 'hardware_store', 'library', 'movie_theater', 'museum', 'pet_store', 'school', 'restaurant', 'shopping_mall', 'stadium', 'store', 'zoo']) %>
-  <%= f.label :radius, '範囲' %>
-  <%= f.select :radius, options_for_select(['', '1000', '5000', '10000']) %>
-  <%= f.submit '絞り込む' %>
-<% end %>
+      function displayPinCoordinates(lat, lng) {
+        document.getElementById("pin-coordinates-lat").textContent = lat;
+        document.getElementById("pin-coordinates-lng").textContent = lng;
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+  </div>
+</div>

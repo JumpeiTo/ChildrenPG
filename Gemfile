@@ -63,5 +63,4 @@ gem 'toastr-rails'
 gem 'devise-i18n'
 gem 'dotenv-rails'
 gem 'google_places'
-gem 'geocoder'
 

@@ -24,10 +24,12 @@ class PlacesController < ApplicationController
     @name = params[:name]
     @types = params[:types]
     @radius = params[:radius]
+    @lat = params[:lat]
+    @lng = params[:lng]
 
     if @types.present? || @radius.present? || @name.present?
       query_options = build_query_search_options(@types, @radius, @name)
-      @places = client.spots(34.980764, 137.161668, query_options)
+      @places = client.spots(@lat, @lng, query_options)
     else
       @places = []
     end

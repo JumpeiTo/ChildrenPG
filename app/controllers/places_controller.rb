@@ -7,9 +7,7 @@ class PlacesController < ApplicationController
     @radius = params[:radius]
     @lat = params[:lat]
     @lng = params[:lng]
-
     
-    # binding.pry
     if coordinate_present?
       query_options = build_query_options
        @places = client.spots(@lat, @lng, query_options)

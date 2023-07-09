@@ -1,26 +1,26 @@
 <div class="row">
   <div class="col-md-3">
-    <h2>絞り込み検索</h2>
+    <h2>検索結果</h2>
     <%= form_with(url: places_search_path, method: :get, id: 'filter-search_form') do |f| %>
-        <p id="error-text">マップで検索したい場所に<br>ピンをさしてください</p>
-        <div class="d-flex">
-          <label for="pin-coordinates-lat">緯度:</label>
-          <div id="pin-coordinates-lat"></div> <!-- ピンの緯度を表示する要素 -->
-        </div>
-        <div class="d-flex">
-          <label for="pin-coordinates-lng">経度:</label>
-          <div id="pin-coordinates-lng"></div> <!-- ピンの経度を表示する要素 -->
-        </div>
       <%= f.text_field :name, value: params[:name], placeholder: '遊び場名を入力してください' %>
       <%= f.label :types, 'カテゴリー' %>
-      <%= f.select :types, options_for_select([['カテゴリー選択', nil], ['公園', 'park'], ['観光名所', 'tourist_attraction'], ['遊園地', 'amusement_park'], ['空港', 'airport'], ['水族館', 'aquarium'], ['美術館', 'art_gallery'], ['書店', 'book_store'], ['ボウリング場', 'bowling_alley'], ['カフェ', 'cafe'], ['キャンプ場', 'campground'], ['デパート', 'department_store'], ['図書館', 'library'], ['映画館', 'movie_theater'], ['博物館', 'museum'], ['ペットショップ', 'pet_store'], ['学校', 'school'], ['レストラン', 'restaurant'], ['ショッピングモール', 'shopping_mall'], ['スタジアム', 'stadium'], ['店舗', 'store'], ['動物園', 'zoo']],selected: params[:types])  %>
-      <%= f.label :radius, '範囲' %>
-      <%= f.select :radius, options_for_select([['範囲選択', nil], ['1Km','1000'], ['5Km','5000'], ['10Km','10000'], ['30Km','30000']], selected: params[:radius]) %>
+      <%= f.select :types, options_for_select([['どこに遊びに？', nil], ['公園', 'park'], ['動物園', 'zoo'], ['観光名所', 'tourist_attraction'], ['遊園地', 'amusement_park'], ['水族館', 'aquarium'], ['美術館', 'art_gallery'], ['書店', 'book_store'], ['ボウリング場', 'bowling_alley'], ['カフェ', 'cafe'], ['キャンプ場', 'campground'], ['デパート', 'department_store'], ['図書館', 'library'], ['映画館', 'movie_theater'], ['博物館', 'museum'], ['ペットショップ', 'pet_store'], ['学校', 'school'], ['レストラン', 'restaurant'], ['ショッピングモール', 'shopping_mall'], ['スタジアム', 'stadium'], ['店舗', 'store']],selected: params[:types])  %>
+      <p id="error-text">検索したい周辺の位置に<br>ピンをさしてください</p>
+      <div class="d-flex">
+        <label for="pin-coordinates-lat">緯度:</label>
+        <div id="pin-coordinates-lat"></div> <!-- ピンの緯度を表示する要素 -->
+      </div>
+      <div class="d-flex">
+        <label for="pin-coordinates-lng">経度:</label>
+        <div id="pin-coordinates-lng"></div> <!-- ピンの経度を表示する要素 -->
+      </div>
+      <%= f.label :radius, '検索範囲:' %>
+      <%= f.select :radius, options_for_select([['どこまで遠くに？', nil], ['1Km','1000'], ['5Km','5000'], ['10Km','10000'], ['30Km','30000']], selected: params[:radius]) %>
       <%= f.hidden_field :lat, value: params[:lat], id: 'lat' %>
       <%= f.hidden_field :lng, value: params[:lng], id: 'lng' %>
       
       <%= f.submit '検索', id: "submit_button" %>
-      <p id="error_message" style="display: none;">ピンを作成してください</p>
+      <%= button_tag '条件リセット', type: 'button', id: "condition_reset_button" %>
     <% end %>
     <input id="address" type="textbox" placeholder="場所を入力してください" >
     <input type="button" value="探す" onclick="codeAddress()">
@@ -38,18 +38,13 @@
       let marker;
       let geocoder;
       
-      // 絞り込み検索のsubmit時に発火
-      document.getElementById("filter-search_form").addEventListener("submit", function(event) {
-        // 緯度経度のvalueが空の時発火
-        if ( document.getElementById("lat").value == "" ||  document.getElementById("lng").value == "") {
-            event.preventDefault(); //submit_buttonにdisabledを追加する
-            document.getElementById("error-text").style.textDecoration = "underline red";
-            document.getElementById("error_message").style.display = "block";
-
-            setTimeout(function() {
-                document.getElementById("submit_button").disabled = false
-            }, 500); // 0.5秒後にボタンを押せる状態に戻す
-        }
+      /*条件リセット*/
+      document.getElementById('condition_reset_button').addEventListener('click', function() {
+        document.getElementById('name').value = ""; // 名前フィールドの値を空にする
+        let typesSelect = document.getElementById("types");
+        typesSelect.selectedIndex = 0; // カテゴリーセレクトボックスを初期値に戻す
+        let radiusSelect = document.getElementById("radius");
+        radiusSelect.selectedIndex = 0; // 検索範囲セレクトボックスを初期値に戻す
       });
       
       function initMap() {
@@ -58,6 +53,7 @@
         var lat = <%= params[:lat].presence %>;
         var lng = <%= params[:lng].presence %>;
         
+        // 緯度経度が送られてきたら表示する
         if (lat !== null) {
         displayPinCoordinates(lat,lng)
         }

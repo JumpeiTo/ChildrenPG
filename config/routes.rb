@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   get 'places/search', to: 'places#search', as: 'places_search'
-  get 'places/keyword_search', to: 'places#keyword_search', as: 'places_keyword_search'
   get 'places/detailed_search', to: 'places#detailed_search', as: 'places_detailed_search'
 
   # 顧客用

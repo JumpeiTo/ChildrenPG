@@ -1,13 +1,7 @@
 <div class="row">
   <div class="col-4">
-    <h1>遊び場を探す</h1>
-    <h2>キーワードで探す</h2>
-    <%= form_with(url: places_keyword_search_path, method: :get, id: 'keyword_search_form') do |f| %>
-      <%= f.text_field :keyword, placeholder: 'キーワードを入力してください' %></br>
-      <%= f.submit '検索' %>
-    <% end %>
     
-    <h2>絞り込み検索</h2>
+    <h2>遊び場検索</h2>
     <%= form_with(url: places_search_path, method: :get, id: 'filter-search_form') do |f| %>
         <p id="error-text">マップで検索したい場所に<br>ピンをさしてください</p>
         <div class="d-flex">
@@ -23,7 +17,7 @@
       <%= f.label :types, 'カテゴリー' %>
       <%= f.select :types, options_for_select([['カテゴリー選択', nil], ['公園', 'park'], ['観光名所', 'tourist_attraction'], ['遊園地', 'amusement_park'], ['空港', 'airport'], ['水族館', 'aquarium'], ['美術館', 'art_gallery'], ['書店', 'book_store'], ['ボウリング場', 'bowling_alley'], ['カフェ', 'cafe'], ['キャンプ場', 'campground'], ['デパート', 'department_store'], ['図書館', 'library'], ['映画館', 'movie_theater'], ['博物館', 'museum'], ['ペットショップ', 'pet_store'], ['学校', 'school'], ['レストラン', 'restaurant'], ['ショッピングモール', 'shopping_mall'], ['スタジアム', 'stadium'], ['店舗', 'store'], ['動物園', 'zoo']]), {} %></br>
       <%= f.label :radius, '範囲' %>
-      <%= f.select :radius, options_for_select([['範囲選択', nil], '1000', '5000', '10000']) %></br>
+      <%= f.select :radius, options_for_select([['範囲選択', nil], ['1Km','1000'], ['5Km','5000'], ['10Km','10000'], ['30Km','30000']]) %></br>
       <%= f.hidden_field :lat, id: 'lat' %>
       <%= f.hidden_field :lng, id: 'lng' %>
       
@@ -53,19 +47,6 @@
       let marker;
       let geocoder;
       
-      // 絞り込み検索のsubmit時に発火
-      document.getElementById("filter-search_form").addEventListener("submit", function(event) {
-        // 緯度経度のvalueが空の時発火
-        if ( document.getElementById("lat").value == "" ||  document.getElementById("lng").value == "") {
-            event.preventDefault(); //submit_buttonにdisabledを追加する
-            document.getElementById("error-text").style.textDecoration = "underline red";
-            document.getElementById("error_message").style.display = "block";
-
-            setTimeout(function() {
-                document.getElementById("submit_button").disabled = false
-            }, 500); // 0.5秒後にボタンを押せる状態に戻す
-        }
-      });
       
       function initMap() {
         geocoder = new google.maps.Geocoder();

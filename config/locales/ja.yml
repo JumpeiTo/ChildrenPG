@@ -1,5 +1,8 @@
 ---
 ja:
+  select2:
+    errorLoading: 'データの読み込み中にエラーが発生しました'
+    inputTooLong: '入力が長すぎます'
   activerecord:
     errors:
       messages:

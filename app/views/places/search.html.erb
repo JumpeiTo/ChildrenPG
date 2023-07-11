@@ -47,28 +47,38 @@
         radiusSelect.selectedIndex = 0; // 検索範囲セレクトボックスを初期値に戻す
       });
       
+      // javascriptでパラメーターを受取るための記述
+      function getParam(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+      
       function initMap() {
         geocoder = new google.maps.Geocoder();
-        
-        var lat = <%= params[:lat].presence %>;
-        var lng = <%= params[:lng].presence %>;
-        
-        // 緯度経度が送られてきたら表示する
-        if (lat !== null) {
-        displayPinCoordinates(lat,lng)
-        }
-        
-        map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: lat, lng: lng },　// マップ表示時のデフォルト位置
-          zoom: 10, // デフォルトズーム倍率
-        });
-        
-        var marker = new google.maps.Marker({
-          position: { lat: lat, lng: lng }, // マーカーの位置情報
-          map: map, // マーカーを表示するマップオブジェクト
-        });
-        
-        
+          // 三項演算子でlat!==""でtrueなら左falseなら右の値を変数に入れる
+          var lat = getParam("lat") !== "" ? Number(getParam("lat")) : 35.155396 
+          var lng = getParam("lng") !== "" ? Number(getParam("lng")) : 136.918969
+          // 緯度経度を表示させる
+          function displayPinCoordinates(lat, lng) {
+            document.getElementById("pin-coordinates-lat").textContent = lat;
+            document.getElementById("pin-coordinates-lng").textContent = lng;
+          }
+          // 緯度経度が送られてきたら表示する
+          if (lat !== 35.155396) {
+          displayPinCoordinates(lat,lng)
+          }
+          console.log('params[:lat]の値が存在します');
+          // params[:lat]の値が存在する場合の処理
+          map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: lat, lng: lng },
+            zoom: 10,
+          });
+
         google.maps.event.addListener(map, "click", function(event) {
           //マーカーが複数できないようにする
           if (marker) {
@@ -115,10 +125,7 @@
           }
         });
       }
-      function displayPinCoordinates(lat, lng) {
-        document.getElementById("pin-coordinates-lat").textContent = lat;
-        document.getElementById("pin-coordinates-lng").textContent = lng;
-      }
+      
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
   </div>

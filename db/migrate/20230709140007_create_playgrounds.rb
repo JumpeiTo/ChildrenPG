@@ -16,8 +16,7 @@ class CreatePlaygrounds < ActiveRecord::Migration[6.1]
       t.text :business_hours
       t.string :website
       t.string :phone_number
-      t.text :photo_urls
-      t.text :category
+      t.string :photo_url
       t.timestamps
     end
   end

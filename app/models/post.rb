@@ -3,6 +3,12 @@ class Post < ApplicationRecord
   
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
+  has_many :post_target_ages, dependent: :destroy
+  has_many :target_ages, through: :post_target_ages
+  belongs_to :customer
+  belongs_to :playground
+  
+  enum playtime_method: { 'oneday' => 0, '2hours' => 1, '4hours' => 2, '6hours' => 3, '8hours' => 4 }
   
   def get_item_image(width, height)
     unless image.attached?
@@ -11,5 +17,4 @@ class Post < ApplicationRecord
     end
     image.variant(resize_to_limit: [width, height]).processed
   end
-
 end

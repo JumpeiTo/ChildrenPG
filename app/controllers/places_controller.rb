@@ -48,7 +48,7 @@ class PlacesController < ApplicationController
     if @radius.present?
       options[:radius] = @radius
     else
-      options[:radius] = 20000
+      options[:radius] = 50000
     end
     options
   end

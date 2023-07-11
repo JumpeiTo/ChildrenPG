@@ -1,0 +1,56 @@
+<h1>新規投稿</h1>
+
+<%= form_with model: @post, url: (@post.persisted? ? new_post_path(@post) : new_post_path), class: 'form', local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :写真 %></br>
+    <%= f.file_field :image, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :title,"タイトル" %></br>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :text,"本文" %></br>
+    <%= f.text_area :text, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :rate,"評価" %></br>
+    <%= f.number_field :rate, in: 0..100, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :playtime,"遊べる時間(必須)" %></br>
+    <% Post.playtime_methods.each do |key, _value| %>
+      <div class="form-check form-check-inline">
+        <%= f.radio_button :playtime, key, class: 'form-check-input' %>
+        <%= f.label :playtime, I18n.t("enums.post.playtime.#{key}"), class: 'form-check-label' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :target_age_ids, "対象年齢(複数選択可)" %></br>
+    <% @ages.each do |age| %>
+      <%= f.check_box :target_age_ids, { multiple: true }, age.id, nil %>
+      <%= f.label age.age %>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= f.label :tag_ids, "タグ(複数選択可)" %></br>
+    <div class="d-inline">
+    <% @tags.each do |tag| %>
+    <label>
+      <%= f.check_box :tag_ids, { multiple: true }, tag.id, nil %>
+      <%= f.label tag.name %>
+    </label>
+
+    <% end %>
+    </div>
+  </div>
+
+
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>

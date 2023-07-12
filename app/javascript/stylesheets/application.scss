@@ -1,7 +1,6 @@
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~toastr/toastr";
 
-
 // main領域が少ない時footer固定化
 body {
   display: flex;
@@ -20,4 +19,24 @@ main {
 // エラー時フォームの色変化
 div.field_with_errors input {
   background-color: #fce4b4;
+}
+
+a {
+  color: #4d4945;
+
+  &:hover {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+// 投稿一覧
+.post {
+  background-color: #fffaf0;
+  border-radius: 7px;
+  
+  &:hover {
+    background-color: #fff7e6;
+    text-decoration: none;
+  }
 }

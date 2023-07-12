@@ -10,7 +10,7 @@ class Post < ApplicationRecord
   
   enum playtime_method: { 'oneday' => 0, '2hours' => 1, '4hours' => 2, '6hours' => 3, '8hours' => 4 }
   
-  def get_item_image(width, height)
+  def get_post_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image32.png')
       image.attach(io: File.open(file_path), filename: 'default-image.png', content_type: 'image/png')

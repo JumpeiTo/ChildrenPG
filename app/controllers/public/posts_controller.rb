@@ -3,17 +3,20 @@ class Public::PostsController < ApplicationController
     @ages = TargetAge.all
     @tags = Tag.all
     @post = Post.new
-    @post.customer_id = current_customer.id
-    @post.playground_id = params[:playground_id]
+    @post.playground_id = params[:playground_id] if params[:playground_id].present?
     @post.post_tags.build
+    @post.post_target_ages.build
   end
 
   def create
     @post = Post.new(post_params)
+    @post.customer_id = current_customer.id
+    @ages = TargetAge.all
+    @tags = Tag.all
     if @post.valid?
       if @post.save
         flash[:success] = "投稿が作成されました"
-        redirect_to root_path
+        redirect_to posts_path
       else
         flash[:warning] = "未記入項目があります"
         flash.discard
@@ -22,8 +25,12 @@ class Public::PostsController < ApplicationController
     else
       flash[:warning] = "投稿に失敗しました"
       flash.discard
-      render 'new'
+      render :new
     end
+  end
+  
+  def index
+    @posts = Post.all
   end
 
   private

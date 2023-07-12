@@ -57,11 +57,11 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
-gem 'jquery-rails'
 gem 'kaminari', '~> 1.2', '>= 1.2.1'
 gem 'bootstrap5-kaminari-views', '~> 0.0.1'
 gem 'toastr-rails'
-gem 'devise-i18n'
+gem 'rails-i18n'
 gem 'dotenv-rails'
 gem 'google_places'
 gem "enum_help"
+gem 'image_processing', '~> 1.2'

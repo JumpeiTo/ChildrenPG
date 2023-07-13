@@ -21,20 +21,20 @@ div.field_with_errors input {
   background-color: #fce4b4;
 }
 
-a {
-  color: #4d4945;
 
+
+// 遊び場検索結果一覧リンク
+.places {
   &:hover {
-    color: black;
+    background-color: #fffaf0;
     text-decoration: none;
   }
 }
 
-// 投稿一覧
+// 投稿一覧リンク
 .post {
   background-color: #fffaf0;
   border-radius: 7px;
-  
   &:hover {
     background-color: #fff7e6;
     text-decoration: none;

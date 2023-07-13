@@ -27,12 +27,21 @@ class PlacesController < ApplicationController
     end
   end
 
-  def detailed_search
+ def detailed_search
     Dotenv.load
     client = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
     place_id = params[:place_id]
-    @place = client.spot(place_id, language: 'ja')
+    # Playgroundに一致するplace_idがあるか検索
+    playground = Playground.find_by(place_id: place_id)
+    if playground.present?
+      # 一致するPlaygroundが存在する場合は、それを使用
+      redirect_to playground_path(playground)
+    else
+      # 一致するPlaygroundが存在しない場合は、Google Places APIを使用して情報を取得
+      @place = client.spot(place_id, language: 'ja')
+    end
   end
+
 
   private
 

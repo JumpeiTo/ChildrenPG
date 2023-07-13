@@ -8,6 +8,8 @@ class Post < ApplicationRecord
   belongs_to :customer
   belongs_to :playground
   
+  validates :rate, presence: true
+  
   enum playtime_method: { 'oneday' => 0, '2hours' => 1, '4hours' => 2, '6hours' => 3, '8hours' => 4 }
   
   def get_post_image(width, height)

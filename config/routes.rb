@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   
   scope module: :public do
     root to: 'homes#top'
-    resources :playgrounds, only: [:create]
+    resources :playgrounds, only: [:create, :show]
     resources :posts, only: [:index, :show, :edit, :update, :new, :create, :destroy]
   end
   

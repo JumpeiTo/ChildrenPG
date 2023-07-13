@@ -7,21 +7,22 @@
   </div>
   <div class="form-group">
     <%= f.label :title,"タイトル" %></br>
-    <%= f.text_field :title, class: 'form-control' %>
+    <%= f.text_field :title, class: 'form-control', placeholder: 'タイトルを入力してください'  %>
   </div>
 
   <div class="form-group">
     <%= f.label :text,"本文" %></br>
-    <%= f.text_area :text, class: 'form-control' %>
+    <%= f.text_area :text, class: 'form-control', placeholder: '追記したいことを書いてください' %>
   </div>
   
   <div class="form-group">
     <%= f.label :rate,"評価" %></br>
-    <%= f.number_field :rate, in: 0..100, class: 'form-control' %>
+    <%= f.number_field :rate, in: 0..100, class: 'form-control', placeholder: '0~100で遊び場の評価をしてください' %>
+    <%= render "layouts/error", model: f, attribute: :rate %>
   </div>
 
   <div class="form-group">
-    <p class="mb-2">遊べる時間(必須)</p>
+    <p class="mb-2">遊べる時間 (必須)</p>
     <% Post.playtime_methods.each do |key, value| %>
       <div class="form-check form-check-inline">
         <%= f.radio_button :playtime, :"#{value}", class: 'form-check-input' %>
@@ -31,7 +32,7 @@
   </div>
   
   <div>
-    <p class="mb-2">対象年齢(複数選択可)</p>
+    <p class="mb-2">対象年齢 (複数選択可)</p>
     <% @ages.each do |age| %>
       <%= f.check_box :target_age_ids, { multiple: true }, age.id, nil %>
       <%= f.label age.age, for: "post_target_age_ids_#{age.id}" %>
@@ -39,7 +40,7 @@
   </div>
   
   <div>
-    <p class="mb-2">タグ(複数選択可)</p>
+    <p class="mb-2">タグ (複数選択可)</p>
     <% @tags.each do |tag| %>
       <%= f.check_box :tag_ids, { multiple: true }, tag.id, nil %>
       <%= f.label tag.name, for: "post_tag_ids_#{tag.id}" %>

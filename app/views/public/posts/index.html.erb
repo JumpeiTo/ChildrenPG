@@ -2,16 +2,22 @@
 
 <% @posts.each do |post| %>
   <div>
-    <%= link_to post_path(post.id), class: 'text-dark' do %>
-      <div class="row post">
-        <div class="col-3">
-          <%= image_tag post.get_post_image(150, 100), class: "img-fluid" %>
+    <%= link_to post_path(post.id), class: 'text-dark post' do %>
+      <div class="row post col-lg-10">
+        <div class="col-4">
+            <%= post.playground.name %></br>
+            <%= image_tag post.playground.photo_url, size: "180x120" %>
         </div>
-        <div class="col-9">
-          <h3><%= post.title %></h3>
+        <div class="col-8 d-flex">
+          <div>
+            <%= image_tag post.get_post_image(150, 100), class: "img-fluid" %>
+          </div>
+          <div>
+            <h3><%= post.title %></h3>
           <p><%= post.text %></p>
           <p>評価: <%= post.rate %></p>
           <p>投稿日時: <%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+          </div>
         </div>
       </div>
     <% end %>

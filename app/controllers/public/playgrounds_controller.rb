@@ -6,11 +6,15 @@ class Public::PlaygroundsController < ApplicationController
       input_categories = params[:playground][:category].split(",")
       @playground.assign_attributes(playground_params)
       @playground.categories = Category.where(name: input_categories)
-      @playground.create_categories(input_categories)
+      @playground.create_categories(input_categories) # メソッド呼び出し
       @playground.save
     end
-
     redirect_to new_post_path(playground_id: @playground.id)
+  end
+  
+  def show
+    @playground = Playground.find(params[:id])
+    @posts = @playground.post
   end
 
   private

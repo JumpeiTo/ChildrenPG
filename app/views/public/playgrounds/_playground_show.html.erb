@@ -1,0 +1,25 @@
+<h4><img src="<%= playground.icon %>" alt="アイコン" width="40" height="40"> <%= playground.name %></h4>
+<img src="<%= playground.photo_url %>" alt="写真">
+<p>概要: <%= playground.overview %></p>
+<p>郵便番号: <%= playground.postal_code %></p>
+<p>住所: <%= playground.address %></p>
+<p>都道府県: <%= playground.prefecture %></p>
+<p>評価: <%= playground.rate %></p>
+<p>営業中: <%= playground.open_now %></p>
+<% if playground.business_hours %>
+  <p>営業時間:</p>
+  <ul>
+    <% JSON.parse(playground.business_hours).each do |hours| %>
+      <% day, time_range = hours.split(': ') %>
+      <li><%= day %>: <%= time_range %></li>
+    <% end %>
+  </ul>
+<% end %>
+<p>ウェブサイト: <%= link_to playground.website, playground.website, target: "_blank" %></p>
+<p>電話番号: <%= playground.phone_number %></p>
+<h2>カテゴリー</h2>
+<ul>
+  <% playground.categories.each do |category| %>
+    <li><%= I18n.t("categories.name.#{category.name}") %></li>
+  <% end %>
+</ul>

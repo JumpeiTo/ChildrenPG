@@ -64,15 +64,6 @@
     <% latitude = location["lat"] %>
     <% longitude = location["lng"] %>
   <% end %>
-  
-  <% if @place.types.present? %>
-    <h5>タイプ</h5>
-    <ul>
-      <% @place.types.each do |type| %>
-        <li><%= type %></li>
-      <% end %>
-    </ul>
-  <% end %>
 
   <% if customer_signed_in? %>
     <%= form_with model: Playground.new, url: playgrounds_path, method: :post, local: true do |f| %>

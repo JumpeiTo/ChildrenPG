@@ -1,13 +1,18 @@
 <h4><img src="<%= playground.icon %>" alt="アイコン" width="40" height="40"> <%= playground.name %></h4>
 <img src="<%= playground.photo_url %>" alt="写真">
 <p>概要: <%= playground.overview %></p>
-<p>郵便番号: <%= playground.postal_code %></p>
-<p>住所: <%= playground.address %></p>
-<p>都道府県: <%= playground.prefecture %></p>
-<p>評価: <%= playground.rate %></p>
-<p>営業中: <%= playground.open_now %></p>
+<p></p>
+<p>住所: 〒<%= playground.postal_code %></br>
+<%= playground.prefecture %><%= playground.address %></p>
+<p>
+  営業状況:
+  <% if playground.open_now %>
+  営業中
+<% else %>
+  営業時間外
+<% end %>
+</p>
 <% if playground.business_hours %>
-  <p>営業時間:</p>
   <ul>
     <% JSON.parse(playground.business_hours).each do |hours| %>
       <% day, time_range = hours.split(': ') %>

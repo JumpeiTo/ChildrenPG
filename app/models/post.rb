@@ -10,7 +10,7 @@ class Post < ApplicationRecord
   
   validates :rate, presence: true
   
-  enum playtime_method: { 'oneday' => 0, '2hours' => 1, '4hours' => 2, '6hours' => 3, '8hours' => 4 }
+  enum playtime_method: { 'oneday': 0, '2hours': 1, '4hours': 2, '6hours': 3, '8hours': 4 }
   
   def get_post_image(width, height)
     unless image.attached?

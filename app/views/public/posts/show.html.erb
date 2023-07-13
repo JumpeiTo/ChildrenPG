@@ -1,2 +1,20 @@
-<h1>Public::Posts#show</h1>
-<p>Find me in app/views/public/posts/show.html.erb</p>
+<div class="row">
+  <div class="col-4">
+    <%= render 'public/playgrounds/playground_show', playground: @playground %>
+  </div>
+  <div class="col-8">
+    <div class="post-group d-flex">
+      <div>
+        <%= image_tag @post.get_post_image(210, 140), class: "img-fluid" %>
+      </div>
+      <div>
+        <h3><%= @post.title %></h3>
+        <p><%= @post.text %></p>
+        <p>遊べる時間: <%= Post.playtime_methods.key(@post.playtime) %></p>
+        <p>遊べる時間: <%= Post.playtime_methods_i18n[@post.playtime] %></p>
+        <p>更新日時: <%= @post.updated_at %></p>
+      </div>
+    </div>
+    <p><%= @post.customer.nickname %></p>
+  </div>
+</div>

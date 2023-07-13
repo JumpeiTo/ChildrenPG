@@ -1,4 +1,6 @@
 class Public::PostsController < ApplicationController
+  before_action :set_post, only: [:show, :edit]
+  
   def new
     @ages = TargetAge.all
     @tags = Tag.all
@@ -32,10 +34,18 @@ class Public::PostsController < ApplicationController
   def index
     @posts = Post.all
   end
-
+  
+  def show
+    @playground =  @post.playground
+  end
+  
   private
 
   def post_params
     params.require(:post).permit(:image,:customer_id, :playground_id, :title, :text, :playtime, :rate, target_age_ids: [], tag_ids: [])
+  end
+  
+  def set_post
+    @post = Post.find(params[:id]) 
   end
 end

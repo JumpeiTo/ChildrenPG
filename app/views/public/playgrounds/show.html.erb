@@ -1,8 +1,14 @@
 <div class="row">
-  <div class="col-5">
+  <div class="col-4">
     <%= render 'playground_show', playground: @playground %>
   </div>
-  <div class="col-7">
+  <div class="col-8">
+    <% if customer_signed_in? %>
+      <%= form_with model: Playground.new, url: playgrounds_path, method: :post, local: true do |f| %>
+        <%= f.hidden_field :place_id, value: @playground.place_id if @playground.place_id.present? %>
+        <%= f.submit "投稿する" %>
+      <% end %>
+    <% end %>
     <h1>投稿一覧</h1>
 
     <% @posts.each do |post| %>

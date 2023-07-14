@@ -38,6 +38,7 @@ class Public::PostsController < ApplicationController
   def show
     @playground = @post.playground
     @post_comment = PostComment.new
+    
   end
   
   def edit

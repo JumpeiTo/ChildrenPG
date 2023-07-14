@@ -1,0 +1,9 @@
+<% if post.favorited_by?(current_customer) %>
+  <%= link_to post_post_favorites_path(post_id: post.id), method: :delete, class: "btn p-0 text-danger favorite-btn", remote: true do %>
+    ♥<%= post.post_favorites.count %>
+  <% end %>
+<% else %>
+  <%= link_to post_post_favorites_path(post_id: post.id), method: :post, class: "btn p-0 text-primary favorite-btn", remote: true do %>
+    ♡<%= post.post_favorites.count %>
+  <% end %>
+<% end %>

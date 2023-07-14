@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_14_101018) do
+ActiveRecord::Schema.define(version: 2023_07_14_160105) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -111,6 +111,16 @@ ActiveRecord::Schema.define(version: 2023_07_14_101018) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "post_favorites", force: :cascade do |t|
+    t.integer "customer_id"
+    t.integer "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id", "post_id"], name: "index_post_favorites_on_customer_id_and_post_id", unique: true
+    t.index ["customer_id"], name: "index_post_favorites_on_customer_id"
+    t.index ["post_id"], name: "index_post_favorites_on_post_id"
+  end
+
   create_table "post_tags", force: :cascade do |t|
     t.integer "post_id"
     t.integer "tag_id"
@@ -156,6 +166,8 @@ ActiveRecord::Schema.define(version: 2023_07_14_101018) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "playground_categories", "categories"
   add_foreign_key "playground_categories", "playgrounds"
+  add_foreign_key "post_favorites", "customers"
+  add_foreign_key "post_favorites", "posts"
   add_foreign_key "post_tags", "posts"
   add_foreign_key "post_tags", "tags"
   add_foreign_key "post_target_ages", "posts"

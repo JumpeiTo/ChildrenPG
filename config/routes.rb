@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :playgrounds, only: [:create, :show]
     resources :posts, only: [:index, :show, :edit, :update, :new, :create, :destroy] do
       resources :post_comments, only: [:create, :destroy, :edit, :update]
+      resource :post_favorites, only: [:create, :destroy]
     end
   end
   

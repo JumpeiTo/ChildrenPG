@@ -5,6 +5,11 @@
   <div class="col-8">
     <div class="post-group d-flex">
       <div>
+        <!--いいねボタン-->
+        <div class="favorite-btn">
+          <%= render 'public/post_favorites/post_favorites', post: @post %>
+        </div>
+        
         <%= image_tag @post.get_post_image(210, 140), class: "img-fluid" %>
       </div>
       <div>

@@ -1,16 +1,22 @@
-<h4><img src="<%= playground.icon %>" alt="アイコン" width="40" height="40"> <%= playground.name %></h4>
-<img src="<%= playground.photo_url %>" alt="写真">
+<%= link_to playground_path(playground), class: 'text-dark' do %>
+  <h4><img src="<%= playground.icon %>" alt="アイコン" width="40" height="40"> <%= playground.name %></h4>
+  <% if playground.photo_url.present? %>
+    <%= image_tag playground.photo_url, alt: "写真", width: "210", height: "140" %>
+  <% else %>
+    <img src="/assets/no_image32.png" width="210" height="140" alt="デフォルト画像">
+  <% end %>
+<% end %>
 <p>概要: <%= playground.overview %></p>
 <p></p>
-<p>住所: 〒<%= playground.postal_code %></br>
-<%= playground.prefecture %><%= playground.address %></p>
+<p>住所: 〒<%= playground.postal_code %><br>
+  <%= playground.prefecture %><%= playground.address %></p>
 <p>
   営業状況:
   <% if playground.open_now %>
-  営業中
-<% else %>
-  営業時間外
-<% end %>
+    営業中
+  <% else %>
+    営業時間外
+  <% end %>
 </p>
 <% if playground.business_hours %>
   <ul>

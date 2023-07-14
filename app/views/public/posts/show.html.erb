@@ -9,11 +9,23 @@
       </div>
       <div>
         <h3><%= @post.title %></h3>
-        <p><%= @post.text %></p>
-        <p>遊べる時間: <%= Post.playtime_methods_i18n[Post.playtime_methods.invert[@post.playtime]] %></p>
+        <p><%= simple_format(h(@post.text)) %></p>
+        <p><%= @post.rate %>点</p>
+        <p>遊べる時間: <span class="badge badge-warning"><%= Post.playtime_methods_i18n[Post.playtime_methods.invert[@post.playtime]] %></span></p>
+        <p>関連タグ:
+          <% @post.tags.each do |tag| %>
+            <span class="badge badge-info"><%= tag.name %></span>
+          <% end %>
+        </p>
+        <p>対象年齢:
+          <% @post.target_ages.each do |target_age| %>
+            <span class="badge badge-success"><%= target_age.age %></span>
+          <% end %>
+        </p>
         <p>更新日時: <%= @post.updated_at %></p>
       </div>
     </div>
-    <p><%= @post.customer.nickname %></p>
+    <%= @post.customer.nickname %>
+    <%= link_to '編集する',edit_post_path(@post), class: 'btn btn-sm btn-success' %>
   </div>
 </div>

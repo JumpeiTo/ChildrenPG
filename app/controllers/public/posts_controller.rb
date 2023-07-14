@@ -1,5 +1,5 @@
 class Public::PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
   
   def new
     @ages = TargetAge.all
@@ -36,13 +36,36 @@ class Public::PostsController < ApplicationController
   end
   
   def show
-    @playground =  @post.playground
+    @playground = @post.playground
+  end
+  
+  def edit
+    @playground = @post.playground
+    @ages = TargetAge.all
+    @tags = Tag.all
+  end
+  
+  def update
+    if @post.update(post_params)
+      flash[:success] = "投稿が更新されました"
+      redirect_to post_path(@post)
+    else
+      flash[:warning] = "更新に失敗しました"
+      flash.discard
+      render :edit
+    end
+  end
+  
+  def destroy
+    @post.destroy
+    flash[:error] = "投稿が削除されました"
+    redirect_to posts_path
   end
   
   private
 
   def post_params
-    params.require(:post).permit(:image,:customer_id, :playground_id, :title, :text, :playtime, :rate, target_age_ids: [], tag_ids: [])
+    params.require(:post).permit(:image, :customer_id, :playground_id, :title, :text, :playtime, :rate, target_age_ids: [], tag_ids: [])
   end
   
   def set_post

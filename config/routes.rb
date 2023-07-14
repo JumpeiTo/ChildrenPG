@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     resources :playgrounds, only: [:create, :show]
-    resources :posts, only: [:index, :show, :edit, :update, :new, :create, :destroy]
+    resources :posts, only: [:index, :show, :edit, :update, :new, :create, :destroy] do
+      resources :post_comments, only: [:create, :destroy, :edit, :update]
+    end
   end
   
   # 管理者用

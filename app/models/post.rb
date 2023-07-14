@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   has_many :tags, through: :post_tags
   has_many :post_target_ages, dependent: :destroy
   has_many :target_ages, through: :post_target_ages
+  has_many :post_comments, dependent: :destroy
   belongs_to :customer
   belongs_to :playground
   

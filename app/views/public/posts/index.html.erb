@@ -16,7 +16,7 @@
             <h3><%= post.title %></h3>
           <p><%= post.text %></p>
           <p>評価: <%= post.rate %></p>
-          <p>投稿日時: <%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+          <p>更新日時: <%= time_ago_in_words(post.updated_at) %>前</p>
           </div>
         </div>
       </div>

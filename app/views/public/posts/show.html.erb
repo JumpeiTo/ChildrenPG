@@ -22,10 +22,40 @@
             <span class="badge badge-success"><%= target_age.age %></span>
           <% end %>
         </p>
-        <p>更新日時: <%= @post.updated_at %></p>
+        <p>更新日時: <%= time_ago_in_words(@post.updated_at) %>前</p>
       </div>
     </div>
     <%= @post.customer.nickname %>
     <%= link_to '編集する',edit_post_path(@post), class: 'btn btn-sm btn-success' %>
+    <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
+    
+    <div class="mt-3">
+      <div>
+        <%= form_with model: [@post, @post_comment] do |f| %>
+          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" , class: "form-control w-75", style: "height: 70px;" %>
+          <%= f.submit "送信する" , class: 'btn btn-sm btn-info' %>
+          <%= render "layouts/error", model: f, attribute: :comment %>
+        <% end %>
+      </div>
+      <div>
+        <p>コメント件数：<%= @post.post_comments.count %></p>
+        <% @post.post_comments.each do |post_comment| %>
+          <div class="d-flex">
+            <div>
+              <span class="badge badge-secondary"><%= post_comment.customer.nickname %></span>
+              <%= post_comment.comment %>
+            </div>
+            <div>
+              更新日時:<%= time_ago_in_words(post_comment.created_at) %>前
+            </div>
+            <div>
+              <% if @post.customer == current_customer %>
+                <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), data: { confirm: '本当に削除しますか？' }, method: :delete, class: 'text-danger' %></br>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

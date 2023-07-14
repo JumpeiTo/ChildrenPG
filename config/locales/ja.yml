@@ -2,19 +2,19 @@
 ja:
   enums:
     post:
-      playtime:
-        oneday: '1日中'
-        2hours: '2時間'
-        4hours: '4時間'
-        6hours: '6時間'
-        8hours: '8時間'
+      playtime_method:
+        oneday: "1日中"
+        2hours: "2時間"
+        4hours: "4時間"
+        6hours: "6時間"
+        8hours: "8時間"
   select2:
-    errorLoading: 'データの読み込み中にエラーが発生しました'
-    inputTooLong: '入力が長すぎます'
+    errorLoading: "データの読み込み中にエラーが発生しました"
+    inputTooLong: "入力が長すぎます"
   activerecord:
     errors:
       messages:
-        record_invalid: 'バリデーションに失敗しました: %{errors}'
+        record_invalid: "バリデーションに失敗しました: %{errors}"
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
@@ -240,9 +240,9 @@ ja:
           quadrillion: 千兆
           thousand: 千
           trillion: 兆
-          unit: ''
+          unit: ""
       format:
-        delimiter: ''
+        delimiter: ""
         precision: 3
         significant: true
         strip_insignificant_zeros: true
@@ -258,11 +258,11 @@ ja:
           tb: TB
     percentage:
       format:
-        delimiter: ''
+        delimiter: ""
         format: "%n%"
     precision:
       format:
-        delimiter: ''
+        delimiter: ""
   support:
     array:
       last_word_connector: "、"

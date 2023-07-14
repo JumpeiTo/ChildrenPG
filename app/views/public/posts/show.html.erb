@@ -10,8 +10,7 @@
       <div>
         <h3><%= @post.title %></h3>
         <p><%= @post.text %></p>
-        <p>遊べる時間: <%= Post.playtime_methods.key(@post.playtime) %></p>
-        <p>遊べる時間: <%= Post.playtime_methods_i18n[@post.playtime] %></p>
+        <p>遊べる時間: <%= Post.playtime_methods_i18n[Post.playtime_methods.invert[@post.playtime]] %></p>
         <p>更新日時: <%= @post.updated_at %></p>
       </div>
     </div>

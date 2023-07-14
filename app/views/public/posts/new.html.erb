@@ -26,7 +26,7 @@
     <% Post.playtime_methods.each do |key, value| %>
       <div class="form-check form-check-inline">
         <%= f.radio_button :playtime, :"#{value}", class: 'form-check-input' %>
-        <%= f.label "playtime_#{value}", I18n.t("enums.post.playtime.#{key}"), class: 'form-check-label' %>
+        <%= f.label "playtime_#{value}", I18n.t("enums.post.playtime_method.#{key}"), class: 'form-check-label' %>
       </div>
     <% end %>
   </div>

@@ -20,7 +20,9 @@
             <div>
               <!-- いいねボタン -->
               <div class="favorite-btn-<%= post.id %>">
-                <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
+                <% if customer_signed_in? %>
+                  <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
+                <% end %>
               </div>
             </div>
           </div>

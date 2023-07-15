@@ -3,8 +3,7 @@ class Public::CustomersController < ApplicationController
   before_action :set_customer, only: [:edit, :update, :withdrawal]
   
   def show
-    @customer = current_customer
-    
+    @customer = params[:post_customer_id].present? ? Customer.find(params[:post_customer_id]) : Customer.find(current_customer.id)
   end
 
   def edit

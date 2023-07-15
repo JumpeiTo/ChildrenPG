@@ -7,7 +7,9 @@
       <div>
         <!--いいねボタン-->
         <div class="favorite-btn">
-          <%= render 'public/post_favorites/post_favorites', post: @post %>
+          <% if customer_signed_in? %>
+            <%= render 'public/post_favorites/post_favorites', post: @post %>
+          <% end %>
         </div>
         
         <%= image_tag @post.get_post_image(210, 140), class: "img-fluid" %>
@@ -30,18 +32,22 @@
         <p>更新日時: <%= time_ago_in_words(@post.updated_at) %>前</p>
       </div>
     </div>
-    <%= @post.customer.nickname %>
-    <%= link_to '編集する',edit_post_path(@post), class: 'btn btn-sm btn-success' %>
-    <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
+    <%= link_to @post.customer.nickname, customers_path(post_customer_id: @post.customer.id) %>
+    <% if @post.customer == current_customer %>
+      <%= link_to '編集する',edit_post_path(@post), class: 'btn btn-sm btn-success' %>
+      <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
+    <% end %>
     
     <div class="mt-3">
-      <div>
-        <%= form_with model: [@post, @post_comment] do |f| %>
-          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" , class: "form-control w-75", style: "height: 70px;" %>
-          <%= f.submit "送信する" , class: 'btn btn-sm btn-info' %>
-          <%= render "layouts/error", model: f, attribute: :comment %>
-        <% end %>
-      </div>
+      <% if customer_signed_in? %>
+        <div>
+          <%= form_with model: [@post, @post_comment] do |f| %>
+            <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" , class: "form-control w-75", style: "height: 70px;" %>
+            <%= f.submit "送信する" , class: 'btn btn-sm btn-info' %>
+            <%= render "layouts/error", model: f, attribute: :comment %>
+          <% end %>
+        </div>
+      <% end %>
       <div>
         <p>コメント件数：<%= @post.post_comments.count %></p>
         <% @post.post_comments.each do |post_comment| %>
@@ -54,7 +60,7 @@
               更新日時:<%= time_ago_in_words(post_comment.created_at) %>前
             </div>
             <div>
-              <% if @post.customer == current_customer %>
+              <% if post_comment.customer == current_customer %>
                 <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), data: { confirm: '本当に削除しますか？' }, method: :delete, class: 'text-danger' %></br>
               <% end %>
             </div>

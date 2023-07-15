@@ -49,8 +49,8 @@
         </div>
       <% end %>
       <div>
-        <p>コメント件数：<%= @post.post_comments.count %></p>
-        <% @post.post_comments.each do |post_comment| %>
+        <p>コメント件数：<%=@post_comments.count %></p>
+        <% @post_comments.each do |post_comment| %>
           <div class="d-flex">
             <div>
               <span class="badge badge-secondary"><%= post_comment.customer.nickname %></span>
@@ -66,6 +66,9 @@
             </div>
           </div>
         <% end %>
+        <div class="pagination mt-3 col-8">
+          <%= paginate @post_comments, theme: 'bootstrap-5' %>
+        </div>
       </div>
     </div>
   </div>

@@ -32,12 +32,14 @@ class Public::PostsController < ApplicationController
   end
   
   def index
-    @posts = Post.all
+    # 公開ユーザーのみ表示
+    @posts = Post.joins(:customer).where(customers: { is_hidden: false }).page(params[:page]).per(10)
   end
   
   def show
     @playground = @post.playground
     @post_comment = PostComment.new
+    @post_comments = @post.post_comments.page(params[:page]).per(10)
   end
   
   def edit

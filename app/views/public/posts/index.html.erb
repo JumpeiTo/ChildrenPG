@@ -30,3 +30,6 @@
       </div>
     <p><%= post.customer.nickname %></p>
 <% end %>
+<div class="pagination mt-3">
+  <%= paginate @posts, theme: 'bootstrap-5' %>
+</div>

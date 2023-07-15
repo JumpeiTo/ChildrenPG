@@ -1,26 +1,30 @@
 <h1>投稿一覧</h1>
 
 <% @posts.each do |post| %>
-  <div>
-    <%= link_to post_path(post.id), class: 'text-dark post' do %>
-      <div class="row post col-lg-10">
+      <div class="row post">
         <div class="col-4">
             <%= post.playground.name %></br>
             <%= image_tag post.playground.photo_url, size: "180x120" %>
         </div>
-        <div class="col-8 d-flex">
-          <div>
-            <%= image_tag post.get_post_image(150, 100), class: "img-fluid" %>
+        <%= link_to post_path(post.id), class: 'text-dark post' do %>
+          <div class="col-8 d-flex">
+            <div>
+              <%= image_tag post.get_post_image(150, 100), class: "img-fluid" %>
+            </div>
+            <div>
+              <h3><%= post.title %></h3>
+              <p><%= post.text %></p>
+              <p>評価: <%= post.rate %></p>
+              <p>更新日時: <%= time_ago_in_words(post.updated_at) %>前</p>
+            </div>
+            <div>
+              <!-- いいねボタン -->
+              <div class="favorite-btn-<%= post.id %>">
+                <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
+              </div>
+            </div>
           </div>
-          <div>
-            <h3><%= post.title %></h3>
-          <p><%= post.text %></p>
-          <p>評価: <%= post.rate %></p>
-          <p>更新日時: <%= time_ago_in_words(post.updated_at) %>前</p>
-          </div>
-        </div>
+        <% end %>
       </div>
-    <% end %>
     <p><%= post.customer.nickname %></p>
-  </div>
 <% end %>

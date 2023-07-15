@@ -1,0 +1,25 @@
+<div class="container my-4 px-sm-1">
+  <div class="row">
+    <div class="col-5">
+      <h1>マイページ</h1>
+      <div class="d-flex align-items-center my-3">
+        <h5 class="my-0 font-weight-bold">登録情報</h5>
+        <%= link_to "編集する", edit_customers_path, class: "btn btn-success btn-sm px-4 ml-3 m-0" %>
+      </div>
+      <%= image_tag @customer.get_profile_image(100,100) %></br>
+      <%= @customer.name %></br>
+      <%= @customer.nickname %></br>
+      <%= @customer.email %></br>
+      <% publish = @customer.is_hidden? ? '非公開' : '公開' %>
+      公開設定:<%= publish %>
+    </div>
+    <div class="col-7">
+      <!-- カスタマーの投稿一覧表示 -->
+      <% @customer.posts.each do |post| %>
+        <div class="row post col-lg-10">
+          <!-- 投稿の表示 -->
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

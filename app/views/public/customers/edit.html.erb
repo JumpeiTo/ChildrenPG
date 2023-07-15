@@ -1,0 +1,28 @@
+<div class="col-5">
+  <h1>登録情報編集</h1>
+  <%= form_for @customer, url: customers_path(@customer), method: :patch, html: { class: "form" } do |f| %>
+    <div class="form-group">
+      <%= f.label :name, "名前" %>
+      <%= f.text_field :name, autofocus: true, class: "form-control" %>
+      <%= render "layouts/error", model: f, attribute: :name %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :nickname, "ニックネーム" %>
+      <%= f.text_field :nickname, autofocus: true, class: "form-control" %>
+      <%= render "layouts/error", model: f, attribute: :nickname %>
+    </div>
+    
+    <div class="form-group">
+      <p>公開設定</p>
+      <%= f.radio_button :is_hidden, false, id: "public-radio", checked: !@customer.is_hidden? %>
+      <%= label_tag "public-radio", "公開" %>
+      <%= f.radio_button :is_hidden, true, id: "private-radio", checked: @customer.is_hidden? %>
+      <%= label_tag "private-radio", "非公開" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "更新", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

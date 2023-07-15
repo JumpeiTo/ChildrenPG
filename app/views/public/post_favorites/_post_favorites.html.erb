@@ -1,9 +1,13 @@
-<% if post.favorited_by?(current_customer) %>
-  <%= link_to post_post_favorites_path(post_id: post.id), method: :delete, class: "btn p-0 text-danger favorite-btn", remote: true do %>
-    ♥<%= post.post_favorites.count %>
+<div class="favorite-wrapper">
+  <% if post.favorited_by?(current_customer) %>
+    <%= link_to post_post_favorites_path(post_id: post.id), method: :delete, class: "text-danger", remote: true do %>
+      <i class="fa-solid fa-heart"></i>
+      いいね！<%= post.post_favorites.count %>
+    <% end %>
+  <% else %>
+    <%= link_to post_post_favorites_path(post_id: post.id), method: :post, class: "text-muted", remote: true do %>
+      <i class="fa-regular fa-heart"></i>
+      いいね！<%= post.post_favorites.count %>
+    <% end %>
   <% end %>
-<% else %>
-  <%= link_to post_post_favorites_path(post_id: post.id), method: :post, class: "btn p-0 text-primary favorite-btn", remote: true do %>
-    ♡<%= post.post_favorites.count %>
-  <% end %>
-<% end %>
+</div>

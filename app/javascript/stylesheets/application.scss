@@ -40,3 +40,18 @@ div.field_with_errors input {
     text-decoration: none;
   }
 }
+
+// いいねボタン設定
+.favorite-wrapper {
+  display: inline-block;
+  background-color: #fffaf0;
+  border-radius: 50px;
+  padding: 1px 8px;
+  border: 2px solid #deb887;
+}
+
+.favorite-wrapper a:hover {
+  background-color: #fff7e6;
+  text-decoration: none;
+}
+

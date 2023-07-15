@@ -15,7 +15,7 @@ class Public::CustomersController < ApplicationController
       flash[:success] = "会員情報が更新されました。"
       redirect_to customers_path
     else
-      flash.now[:danger] = '未記入項目があります'
+      flash.now[:warning] = '未記入項目があります'
       render :edit
     end
   end
@@ -26,7 +26,7 @@ class Public::CustomersController < ApplicationController
   def withdrawal
     @customer.update(is_deleted: true)
     reset_session
-    flash[:danger] = "退会処理を実行いたしました"
+    flash[:error] = "退会処理を実行いたしました"
     redirect_to root_path
   end
 

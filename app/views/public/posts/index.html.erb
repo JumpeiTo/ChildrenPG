@@ -28,8 +28,18 @@
           </div>
         <% end %>
       </div>
-    <p><%= post.customer.nickname %></p>
+    <div class="nickname mb-2">
+      <%= link_to customers_path(customer_id: post.customer.id), class: "badge-bg badge badge-pill badge-secondary" do %>
+        <% if post.customer.is_hidden? %>
+          非公開ユーザー
+        <% elsif post.customer.is_deleted? %>
+          退会済ユーザー
+        <% else %>
+          <%= post.customer.nickname %>
+        <% end %>
+      <% end %>
+    </div>
 <% end %>
-<div class="pagination mt-3">
+<div class="pagination">
   <%= paginate @posts, theme: 'bootstrap-5' %>
 </div>

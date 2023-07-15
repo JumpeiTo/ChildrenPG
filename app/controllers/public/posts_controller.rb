@@ -40,6 +40,14 @@ class Public::PostsController < ApplicationController
     @playground = @post.playground
     @post_comment = PostComment.new
     @post_comments = @post.post_comments.page(params[:page]).per(10)
+    
+    if @post.customer.is_hidden?
+      @post_customer_nickname = "非公開ユーザー"
+    elsif @post.customer.is_deleted?
+      @post_customer_nickname = "退会済ユーザー"
+    else
+      @post_customer_nickname = @post.customer.nickname
+    end
   end
   
   def edit
@@ -74,4 +82,5 @@ class Public::PostsController < ApplicationController
   def set_post
     @post = Post.find(params[:id]) 
   end
+  
 end

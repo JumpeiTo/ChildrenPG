@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resource :customers, only: [:show, :edit, :update]
     get 'customers/check' => "customers#check"
     patch 'customers/withdrawal' => "customers#withdrawal"
+    get 'customers/favorites' =>  'customers#favorites', as: 'customer_favorite_posts'
+    get 'customers/comments' =>  'customers#comments', as: 'customer_comment_posts'
     
     resources :playgrounds, only: [:create, :show]
     

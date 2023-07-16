@@ -4,6 +4,7 @@
   </div>
   <div class="col-8">
     <% unless  @post.customer.is_hidden? %>
+      <%= render 'public/posts/posts_name', post: @post %>
       <div class="post-group d-flex">
         <div>
           <!--いいねボタン-->
@@ -33,9 +34,7 @@
           <p>更新日時: <%= time_ago_in_words(@post.updated_at) %>前</p>
         </div>
       </div>
-      <div class="nickname">
-        <%= link_to @post_customer_nickname, customers_path(customer_id: @post.customer.id), class: "badge-bg badge badge-pill badge-secondary" %>
-      </div>
+      
       <% if @post.customer == current_customer %>
         <%= link_to '編集する',edit_post_path(@post), class: 'btn btn-sm btn-success' %>
         <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
@@ -67,6 +66,8 @@
                         非公開ユーザー
                       <% elsif post_comment.customer.is_deleted? %>
                         退会済ユーザー
+                      <% elsif post_comment.customer == current_customer %>
+                        自分
                       <% else %>
                         <%= post_comment.customer.nickname %>
                       <% end %>

@@ -48,6 +48,5 @@
       </div>
       <!--遊び場IDを送るための記述-->
       <%= f.hidden_field :playground_id, value: post.playground_id %>
-      
       <%= f.submit (action_name == 'new' ? '新規登録' : '変更を保存'), class: (action_name == 'new' ? 'btn btn-primary px-4' : 'btn btn-success px-4') %>
     <% end %>

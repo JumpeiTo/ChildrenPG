@@ -1,3 +1,4 @@
+<!--遊び場詳細-->
 <div class="row">
   <div class="col-4">
     <%= render 'playground_show', playground: @playground %>
@@ -13,8 +14,9 @@
 
     <% @posts.each do |post| %>
       <div>
+        <%= render 'public/posts/posts_name', post: post %>
         <%= link_to post_path(post.id), class: 'text-dark post' do %>
-          <div class="row post">
+          <div class="row post mb-3">
             <div class="col-3">
               <%= image_tag post.get_post_image(150, 100), class: "img-fluid" %>
             </div>
@@ -24,9 +26,17 @@
               <p>評価: <%= post.rate %></p>
               <p>投稿日時: <%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
             </div>
+            <!-- いいねボタン -->
+            <div class="favorite-btn-<%= post.id %> d-inline-block">
+              <% if customer_signed_in? %>
+                <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
+              <% end %>
+            </div>
           </div>
         <% end %>
-        <%= post.customer.nickname %>
+        <div class="pagination">
+          <%= paginate @posts, theme: 'bootstrap-5' %>
+        </div>
       </div>
     <% end %>
   </div>

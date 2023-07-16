@@ -14,7 +14,7 @@ class Public::PlaygroundsController < ApplicationController
   
   def show
     @playground = Playground.find(params[:id])
-    @posts = @playground.post
+    @posts = @playground.post.page(params[:page]).per(10)
   end
 
   private

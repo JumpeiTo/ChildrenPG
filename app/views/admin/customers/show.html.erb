@@ -1,0 +1,47 @@
+<div class="col-sm-12 col-md-11 col-lg-10 col-xl-9 mx-auto">
+  <div class="px-1">
+    <h5 class="bg-light text-center ml-3 my-3" style="width: 300px;"><%=  @customer.name %>さんの会員詳細</h5>				
+  </div>
+  <div class="row">
+    <div class="col-7 pr-0">
+      <table class="table table-borderless">
+        <tr>
+          <th>会員ID</th>
+          <td class="px-0"><%= @customer.id %></td>
+        </tr>
+        <tr>
+          <th>氏名</th>
+          <td class="px-0"><%= @customer.name %></td>
+        </tr>
+        <tr>
+          <th>ニックネーム</th>
+          <td class="px-0"><%= @customer.nickname %></td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td class="px-0"><%= @customer.email %></td>
+        </tr>
+        <tr>
+          <th>公開設定</th>
+          <td class="<%= @customer.is_hidden == false ? 'text-success px-0' : 'text-muted px-0' %>">
+            <strong><%= @customer.is_hidden == false ? '公開' : '非公開' %></strong>
+          </td>
+        </tr>
+        <tr>
+          <th>会員ステータス</th>
+          <td class="<%= @customer.is_deleted == false ? 'text-success px-0' : 'text-muted px-0' %>">
+            <strong><%= @customer.is_deleted == false ? '有効' : '退会' %></strong>
+          </td>
+        </tr>
+        <th></th>
+        <td>
+          <%= link_to "編集する", edit_admin_customer_path(@customer), class: "btn btn-success btn-sm mr-2 mr-md-5 px-4" %>
+        </td>
+      </table>
+    </div>
+      
+    <div class="col-5 pl-0">
+      <%= image_tag @customer.get_profile_image("90%", "90%") %>
+    </div>
+  </div>
+</div>

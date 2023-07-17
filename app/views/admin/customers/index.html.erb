@@ -1,0 +1,35 @@
+<div class="mx-auto col-10">
+  <div class="px-1 ml-md-2">
+    <h5 class="bg-light text-center ml-3 my-3" style="width: 130px;">会員一覧</h5>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="bg-light">会員ID</th>
+        <th class="bg-light">氏名</th>
+        <th class="bg-light">メールアドレス</th>
+        <th class="bg-light">公開設定</th>
+        <th class="bg-light">ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @customers.each do |customer| %>
+      <tr>
+        <td><%= link_to customer.id, admin_customer_path(customer), class: "text-dark" %></td>
+        <td><%= link_to customer.name, admin_customer_path(customer), class: "text-dark" %></td>
+        <td><%= link_to customer.email, admin_customer_path(customer), class: "text-dark" %></td>
+        <td class="<%= customer.is_hidden == false ? 'text-success' : 'text-muted' %>">
+          <strong><%= customer.is_hidden == false ? '公開' : '非公開' %></strong>
+        </td>
+        <td class="<%= customer.is_deleted == false ? 'text-success' : 'text-muted' %>">
+          <strong><%= customer.is_deleted == false ? '有効' : '退会' %></strong>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div>
+    <%= paginate @customers, theme: 'bootstrap-5' %>
+  </div>
+</div>

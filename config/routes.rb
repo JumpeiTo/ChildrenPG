@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   # admin ルーティング
   namespace :admin do
     resources :tags, except: [:show, :new]
+    resources :customers, only: [:index, :show, :edit, :update] 
   end
   
   # devise customer ルーティング

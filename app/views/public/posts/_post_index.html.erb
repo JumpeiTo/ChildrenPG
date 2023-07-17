@@ -1,0 +1,32 @@
+<div class="row post mb-3">
+  <div class="col-4">
+    <%= link_to playground_path(post.playground_id), class: 'text-dark post' do %>
+      <div>
+        <%= post.playground.name %></br>
+        <%= image_tag post.playground.photo_url, size: "180x120" %>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to post_path(post.id), class: 'text-dark post' do %>
+    <div class="col-8 d-flex">
+      <div>
+        <%= image_tag post.get_post_image(150, 100), class: "img-fluid" %>
+      </div>
+      <div>
+        <h3><%= post.title %></h3>
+        <p><%= post.text %></p>
+        <p>評価: <%= post.rate %></p>
+        <p>更新日時: <%= time_ago_in_words(post.updated_at) %>前</p>
+      </div>
+      <div>
+        <!-- いいねボタン -->
+        <div class="favorite-btn-<%= post.id %>">
+          <% if customer_signed_in? %>
+            <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+

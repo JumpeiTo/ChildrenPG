@@ -1,0 +1,27 @@
+<!--ユーザー詳細の投稿一覧-->
+<div class="row">
+  <% unless @customer.is_hidden? %>
+    <div class="col-md-4">
+      <%= render 'show', customer: @customer %>
+    </div>
+  
+    <div class="col-8">
+      <div class="mb-1">
+        <%= link_to "投稿一覧", customers_path(customer_id: @customer.id), class: "btn btn-sm btn-warning" %>
+        <%= link_to "いいねした投稿", customer_favorite_posts_path(customer_id: @customer.id), class: "btn btn-sm btn-outline-warning" %>
+        <%= link_to "コメントした投稿", customer_comment_posts_path(customer_id: @customer.id), class: "btn btn-sm btn-outline-warning" %>
+      </div>
+      <!-- カスタマーの投稿一覧表示 -->
+      <div id="post-list">
+        <% @posts.each do |post| %>
+          <%= render 'public/posts/post_index', post: post %>
+        <% end %>
+      </div>
+      <div class="pagination">
+        <%= paginate @posts, theme: 'bootstrap-5' %>
+      </div>
+    </div>
+  <% else %>
+    <h3>非公開のユーザーです</h3>
+  <% end %>
+</div>

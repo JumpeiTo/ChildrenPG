@@ -1,2 +1,8 @@
-<h1>Public::Posts#edit</h1>
-<p>Find me in app/views/public/posts/edit.html.erb</p>
+<div class="row">
+  <div class="col-4">
+    <%= render 'public/playgrounds/playground_show', playground: @post.playground %>
+  </div>
+  <div class="col-8">
+    <%= render 'form', post: @post %>
+  </div>
+</div>

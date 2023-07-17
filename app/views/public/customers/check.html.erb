@@ -1,0 +1,16 @@
+<div class="container my-5 px-sm-1">
+  <div class="row align-middle">
+    <div class="col-md-8 offset-md-2 text-center my-5">
+      <h4 class="my-3 font-weight-bold">本当に退会しますか？</h4>
+      <p class="font-weight-bold">
+        退会すると、会員登録情報や<br>
+        これまでの投稿が閲覧できなくなります。<br>
+        退会する場合は、「退会する」をクリックしてください。
+      </p>
+      <div class="text-center mt-4">
+        <%= link_to "退会しない", customers_path, class: "btn btn-primary px-3 mr-3" %>
+        <%= link_to "退会する", customers_withdrawal_path, method: :patch, class: "btn btn-danger px-4", data: { confirm: "本当に退会しますか？" } %>
+      </div>
+    </div>
+  </div>
+</div>

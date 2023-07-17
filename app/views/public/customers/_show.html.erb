@@ -1,0 +1,20 @@
+<% if customer == current_customer %>
+  <h2>マイページ</h2>
+<% else %>
+  <h2><%= customer.nickname %>の詳細</h2>
+<% end %>
+<div class="d-flex align-items-center my-3">
+  <h5 class="my-0 font-weight-bold">登録情報</h5>
+  <% if customer == current_customer %>
+    <%= link_to "編集する", edit_customers_path, class: "btn btn-sm btn-success" %>
+    <%= link_to "退会する", customers_check_path, class: "btn btn-sm btn-danger" %>
+  <% end %>
+</div>
+<%= image_tag customer.get_profile_image(100,100) %><br>
+<% if customer == current_customer %>
+  <%= customer.email %><br>
+  <%= customer.name %><br>
+<% end %>
+<%= customer.nickname %><br>
+<% publish = customer.is_hidden? ? '非公開' : '公開' %>
+公開設定: <%= publish %>

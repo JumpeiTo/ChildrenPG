@@ -1,9 +1,9 @@
 <% if places.present? %>
   <div class="row">
     <% places.each do |place| %>
-      <ul class="list-group">
-        <%= link_to places_detailed_search_path(place_id: place.place_id) do %>
-          <li class="list-group-item d-flex">
+      <%= link_to places_detailed_search_path(place_id: place.place_id), class: 'text-dark places' do %>
+        <ul class="list-group">
+          <li class="list-group-item d-flex places">
             <div class="mr-3">
               <% if place.photos.present? %>
                 <% place.photos.each do |photo| %>
@@ -34,8 +34,8 @@
               <% end %>
             </div>
           </li>
-        <% end %>
-      </ul>
+        </ul>
+      <% end %>
     <% end %>
   </div>
 <% else %>

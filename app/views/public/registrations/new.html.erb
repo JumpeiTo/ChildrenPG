@@ -16,6 +16,19 @@
             <%= f.text_field :nickname, autofocus: true, class: "form-control" %>
             <%= render "layouts/error", model: f, attribute: :nickname %>
           </div>
+          
+          <div class="form-group">
+            <%= f.label :profile_image, "プロフィール画像" %>
+            <%= f.file_field :profile_image, accept: "image/*", class: "form-control" %>
+          </div>
+          
+          <div class="form-group">
+            <p>公開設定</p>
+            <%= f.radio_button :is_hidden, false, id: "public-radio" %>
+            <%= label_tag "public-radio", "公開" %>
+            <%= f.radio_button :is_hidden, true, id: "private-radio" %>
+            <%= label_tag "private-radio", "非公開" %>
+          </div>
 
           <div class="form-group">
             <%= f.label :email, "メールアドレス" %>

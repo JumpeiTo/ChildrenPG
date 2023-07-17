@@ -37,6 +37,9 @@
       let map;
       let marker;
       let geocoder;
+      // 三項演算子でlat!==""でtrueなら左falseなら右の値を変数に入れる
+      let lat = getParam("lat") !== "" ? Number(getParam("lat")) : 35.155396 
+      let lng = getParam("lng") !== "" ? Number(getParam("lng")) : 136.918969
       
       /*条件リセット*/
       document.getElementById('condition_reset_button').addEventListener('click', function() {
@@ -45,6 +48,11 @@
         typesSelect.selectedIndex = 0; // カテゴリーセレクトボックスを初期値に戻す
         let radiusSelect = document.getElementById("radius");
         radiusSelect.selectedIndex = 0; // 検索範囲セレクトボックスを初期値に戻す
+        document.getElementById("pin-coordinates-lat").textContent = ""; // ピンの緯度を空にする
+        document.getElementById("pin-coordinates-lng").textContent = ""; // ピンの経度を空にする
+        if (marker) {
+          marker.setMap(null); // ピンを地図上から削除する
+        }
       });
       
       // javascriptでパラメーターを受取るための記述
@@ -60,25 +68,26 @@
       
       function initMap() {
         geocoder = new google.maps.Geocoder();
-          // 三項演算子でlat!==""でtrueなら左falseなら右の値を変数に入れる
-          var lat = getParam("lat") !== "" ? Number(getParam("lat")) : 35.155396 
-          var lng = getParam("lng") !== "" ? Number(getParam("lng")) : 136.918969
-          // 緯度経度を表示させる
-          function displayPinCoordinates(lat, lng) {
-            document.getElementById("pin-coordinates-lat").textContent = lat;
-            document.getElementById("pin-coordinates-lng").textContent = lng;
-          }
-          // 緯度経度が送られてきたら表示する
-          if (lat !== 35.155396) {
-          displayPinCoordinates(lat,lng)
-          }
+        // 緯度経度を表示させる
+        function displayPinCoordinates(lat, lng) {
+          document.getElementById("pin-coordinates-lat").textContent = lat;
+          document.getElementById("pin-coordinates-lng").textContent = lng;
+        }
+        // params[:lat]の値が存在する場合の処理
+        if (lat !== 35.155396) {
           console.log('params[:lat]の値が存在します');
-          // params[:lat]の値が存在する場合の処理
-          map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: lat, lng: lng },
-            zoom: 10,
-          });
-
+          displayPinCoordinates(lat,lng)
+        }
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: lat, lng: lng },
+          zoom: 10,
+        });
+        // デフォルトのピンを設定
+        marker = new google.maps.Marker({
+          position: { lat: lat, lng: lng },
+          map: map,
+          draggable: true
+        });
         google.maps.event.addListener(map, "click", function(event) {
           //マーカーが複数できないようにする
           if (marker) {
@@ -99,7 +108,7 @@
           });
         });
       }
-      
+      // 場所検索時の挙動
       function codeAddress() {
         let inputAddress = document.getElementById("address").value;
         geocoder.geocode({ address: inputAddress }, function(results, status) {
@@ -121,8 +130,7 @@
               document.getElementById("lng").value = this.getPosition().lng();
               displayPinCoordinates(this.getPosition().lat(), this.getPosition().lng()); // ピンの緯度経度を表示
             });
-          } else {
-          }
+          } else {}
         });
       }
       

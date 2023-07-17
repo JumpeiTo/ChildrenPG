@@ -1,4 +1,4 @@
-class PlacesController < ApplicationController
+class Public::PlacesController < ApplicationController
   def search
     Dotenv.load
     client = GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])

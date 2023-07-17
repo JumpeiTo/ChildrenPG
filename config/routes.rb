@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   root to: 'public/homes#top'
   
-  # places ルーティング
-  get 'places/search', to: 'places#search', as: 'places_search'
-  get 'places/detailed_search', to: 'places#detailed_search', as: 'places_detailed_search'
+
   
   # public ルーティング
   scope module: :public do
@@ -13,6 +11,9 @@ Rails.application.routes.draw do
     get 'customers/favorites' =>  'customers#favorites', as: 'customer_favorite_posts'
     get 'customers/comments' =>  'customers#comments', as: 'customer_comment_posts'
     
+    get 'places/search', to: 'places#search', as: 'places_search'
+    get 'places/detailed_search', to: 'places#detailed_search', as: 'places_detailed_search'
+      
     resources :playgrounds, only: [:create, :show]
     
     resources :posts, only: [:index, :show, :edit, :update, :new, :create, :destroy] do

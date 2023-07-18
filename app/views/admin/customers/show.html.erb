@@ -1,6 +1,6 @@
-<div class="col-sm-12 col-md-11 col-lg-10 col-xl-9 mx-auto">
+<div class="col-sm-12 col-md-11 col-lg-10 col-xl-10 mx-auto">
   <div class="px-1">
-    <h5 class="bg-light text-center ml-3 my-3" style="width: 300px;"><%=  @customer.name %>さんの会員詳細</h5>				
+    <h5 class="bg-light text-center ml-3 my-3 px-3" style="width: fit-content;"><%=  @customer.name %>さんの会員詳細</h5>				
   </div>
   <div class="row">
     <div class="col-7 pr-0">
@@ -37,15 +37,27 @@
           <th>投稿数</th>
           <td class="px-0"><%= @customer.posts.count %></td>
         </tr>
+        <tr>
+          <th>作成日</th>
+          <td class="px-0"><%= @customer.created_at.strftime("%Y年%m月%d日") %></td>
+        </tr>
         <th></th>
-        <td>
-          <%= link_to "編集する", edit_admin_customer_path(@customer), class: "btn btn-success btn-sm mr-2 mr-md-5 px-4" %>
+        <td class="px-0">
+          <%= link_to admin_posts_path(customer_id: @customer.id), class: "btn btn-info btn-sm px-4 mr-2" do %>
+            <i class="fa-solid fa-file-pen"> 投稿一覧を見る</i>
+          <% end %>
+          <%= link_to admin_post_comments_path(customer_id: @customer.id), class: "btn btn-info btn-sm px-4" do %>
+            <i class="fa-solid fa-file-pen"> コメント一覧を見る</i>
+          <% end %></br>
+          <%= link_to edit_admin_customer_path(@customer), class: "btn btn-success btn-sm px-4 mt-2" do %>
+            <i class="fa-solid fa-trash"> 編集する</i>
+          <% end %>
         </td>
       </table>
     </div>
       
     <div class="col-5 pl-0">
-      <%= image_tag @customer.get_profile_image("90%", "90%") %>
+      <%= image_tag @customer.get_profile_image("80%", "80%") %>
     </div>
   </div>
 </div>

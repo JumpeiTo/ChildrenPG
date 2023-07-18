@@ -10,9 +10,15 @@
       </div>
       <div class="col-md-4 pl-md-3 mt-2 mt-md-0">
         <% if tag.new_record? %>
-          <%= f.submit '新規登録', class: 'btn btn-primary px-4' %>
+          <%= f.button :submit, class: 'btn btn-primary px-4' do %>
+            <i class="fa-solid fa-square-plus"></i>
+            新規登録
+          <% end %>
         <% else %>
-          <%= f.submit '更新する', class: 'btn btn-success px-4' %>
+          <%= f.button :submit, class: 'btn btn-success px-4' do %>
+            <i class="fa-solid fa-pen-to-square"></i>
+            更新する
+          <% end %>
         <% end %>
       </div>
     </div>

@@ -1,0 +1,45 @@
+<div class="mx-auto col-12">
+  <div class="px-1 ml-md-2">
+    <h5 class="bg-light text-center ml-3 my-3 px-3" style="width: fit-content;">
+      <%= @customer ? "#{@customer.name}さんの投稿一覧" : "投稿一覧" %>
+    </h5>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="bg-light" style="width: 6%;">投稿ID</th>
+        <th class="bg-light" style="width: 10%;">投稿者</th>
+        <th class="bg-light" style="width: 25%;">遊び場</th>
+        <th class="bg-light" style="width: 25%;">タイトル</th>
+        <th class="bg-light" style="width: 9%;">コメント数</th>
+        <th class="bg-light" style="width: 2%;"></th>
+        <th class="bg-light" style="width: 2%;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @posts.each do |post| %>
+      <tr>
+        <td><%= link_to post.id, admin_post_path(post), class: "text-dark" %></td>
+        <td><%= link_to post.customer.name, admin_customer_path(post.customer), class: "text-dark" %></td>
+        <td><%= post.playground.name %></td>
+        <td><%= link_to post.title, admin_post_path(post), class: "text-dark" %></td>
+        <td><%= link_to post.post_comments.count, admin_post_path(post), class: "text-dark" %></td>
+        <td>
+          <%= link_to admin_post_path(post), class: "text-info" do %>
+            <i class="fa-solid fa-file-pen"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to admin_post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "text-danger" do %>
+            <i class="fa-solid fa-trash"></i>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div>
+    <%= paginate @posts, theme: 'bootstrap-5' %>
+  </div>
+</div>

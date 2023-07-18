@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   root to: 'public/homes#top'
   
-
-  
   # public ルーティング
   scope module: :public do
     resource :customers, only: [:show, :edit, :update]
@@ -26,6 +24,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :tags, except: [:show, :new]
     resources :customers, only: [:index, :show, :edit, :update] 
+    resources :posts, only: [:index, :show, :edit, :update, :destroy]
+    resources :post_comments, only: [:index, :destroy]
   end
   
   # devise customer ルーティング

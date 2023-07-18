@@ -1,6 +1,6 @@
 <div class="mx-auto col-10">
   <div class="px-1 ml-md-2">
-    <h5 class="bg-light text-center ml-3 my-3" style="width: 130px;">会員一覧</h5>
+    <h5 class="bg-light text-center ml-3 my-3 px-3" style="width: fit-content;">会員一覧</h5>
   </div>
   <table class="table">
     <thead>
@@ -11,6 +11,7 @@
         <th class="bg-light">公開設定</th>
         <th class="bg-light">ステータス</th>
         <th class="bg-light">投稿数</th>
+        <th class="bg-light"></th>
       </tr>
     </thead>
     <tbody>
@@ -26,6 +27,11 @@
           <strong><%= customer.is_deleted == false ? '有効' : '退会' %></strong>
         </td>
         <td><%= customer.posts.count %></td>
+         <td>
+          <%= link_to admin_customer_path(customer), class: "text-info" do %>
+            <i class="fa-solid fa-file-pen"></i>
+          <% end %>
+        </td>
       </tr>
       <% end %>
     </tbody>

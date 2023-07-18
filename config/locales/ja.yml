@@ -19,18 +19,56 @@ ja:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
     models:
+      admin: "管理者"
+      customer: "ユーザー"
+      playground: "遊び場"
+      post: "投稿"
+      category: "カテゴリー"
       tag: "タグ"
+      target_age: "対象年齢"
+      post_favorite: "いいね"
+      post_comment: "コメント"
+      playground_category: "遊び場⇔カテゴリー"
+      post_tag: "投稿⇔タグ"
+      post_target_age: "投稿⇔対象年齢"
+      
     attributes:
-      tag:
-        name: "タグ名"
+      admin:
+        email: 'メールアドレス'
       customer:
         name: "名前"
         nickname: "ニックネーム"
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "確認パスワード"
+        is_deleted: '退会済'
+        is_hidden: '非公開'
+      playground:
+        place_id: 'PlaceID'
+        latitude: '緯度'
+        longitude: '経度'
+        name: '名前'
+        overview: '概要'
+        icon: 'アイコン'
+        postal_code: '郵便番号'
+        address: '住所'
+        prefecture: '住所（県）'
+        rate: '評価'
+        open_now: '営業状況'
+        business_hours: '営業時間'
+        website: 'ウェブサイト'
+        phone_number: '電話番号'
+        photo_url: '画像'
       post:
+        customer: 'ユーザー'
+        playground: '遊び場'
+        title: 'タイトル'
+        text: '本文'
         rate: "評価"
+        image: '画像'
+      tag:
+        name: "タグ名"
+        
   categories:
     name:
       park: "公園"

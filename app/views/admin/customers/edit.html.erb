@@ -45,9 +45,10 @@
 
       <div class="form-group row ml-3 mb-2">
         <label class="col-md-3 col-form-label">メールアドレス</label>
-        <div class="col-md-9 form-row y-middle">
-          <div class="col-md-4 d-flex align-items-center">
-            <%= content_tag :div, @customer.email %>
+        <div class="col-md-9 form-row">
+          <div class="col-md-8">
+            <%= f.email_field :email, class: "form-control" %>
+            <%= render "layouts/error", model: f, attribute: :email %>
           </div>
         </div>
       </div>

@@ -10,7 +10,6 @@
         <th class="bg-light">メールアドレス</th>
         <th class="bg-light">公開設定</th>
         <th class="bg-light">ステータス</th>
-        <th class="bg-light">投稿数</th>
       </tr>
     </thead>
     <tbody>
@@ -25,7 +24,6 @@
         <td class="<%= customer.is_deleted == false ? 'text-success' : 'text-muted' %>">
           <strong><%= customer.is_deleted == false ? '有効' : '退会' %></strong>
         </td>
-        <td><%= customer.posts.count %></td>
       </tr>
       <% end %>
     </tbody>

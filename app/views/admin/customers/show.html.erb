@@ -33,13 +33,9 @@
             <strong><%= @customer.is_deleted == false ? '有効' : '退会' %></strong>
           </td>
         </tr>
-        <tr>
-          <th>投稿数</th>
-          <td class="px-0"><%= @customer.posts.count %></td>
-        </tr>
         <th></th>
         <td>
-          <%= link_to "編集する", edit_admin_customer_path(@customer), class: "btn btn-success btn-sm px-4" %>
+          <%= link_to "編集する", edit_admin_customer_path(@customer), class: "btn btn-success btn-sm mr-2 mr-md-5 px-4" %>
         </td>
       </table>
     </div>

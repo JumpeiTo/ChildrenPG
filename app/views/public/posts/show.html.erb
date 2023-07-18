@@ -76,6 +76,11 @@
                 </div>
                 <div>
                   <%= time_ago_in_words(post_comment.created_at) %>前
+                  <!--管理者だけ表示-->
+                  <% if post_comment.customer == current_customer %>
+                    <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), data: { confirm: '本当に削除しますか？' }, method: :delete, class: 'text-danger' %></br>
+                  <% end %>
+                  <!--自分のコメントだけ表示-->
                   <% if post_comment.customer == current_customer %>
                     <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), data: { confirm: '本当に削除しますか？' }, method: :delete, class: 'text-danger' %></br>
                   <% end %>

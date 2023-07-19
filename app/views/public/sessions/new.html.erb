@@ -1,26 +1,27 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="col-sm-8 col-xl-5 mx-auto">
+  <h2>ログイン</h2>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "login-form" }) do |f| %>
+    <div class="form-group">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+    </div>
+  
+    <div class="form-group">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+    </div>
+  
+    <div class="text-center">
+      <%= f.submit "ログイン", class: "btn btn-info btn-block" %>
+      <p class="my-2"><span>-------</span> 会員登録がまだの方はこちらから <span>-------</span></p>
+      <div class="form-group my-0">
+        <%= link_to "新規登録", new_customer_registration_path , class: "btn btn-primary btn-block" %>
+      </div>
+      <p class="my-2"><span>-----</span> ゲストログインはこちら（企業様用） <span>-----</span></p>
+      <div class="form-group">
+        <%= link_to 'ゲストログイン（閲覧用）', public_guest_sign_in_path, method: :post, class: "btn btn-info btn-block" %>
+      </div>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "public/shared/links" %>
+  
+</div>

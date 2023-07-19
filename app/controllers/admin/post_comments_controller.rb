@@ -4,10 +4,12 @@ class Admin::PostCommentsController < ApplicationController
   def index
     if params[:customer_id]
       @customer = Customer.find(params[:customer_id])
-      @post_comments = @customer.post_comments.page(params[:page]).per(10)
+      @q =@customer.post_comments.ransack(params[:q])
+      @post_comments = @q.result(distinct: true).page(params[:page]).per(10)
     elsif params[:post_id]
       @post = Post.find(params[:post_id])
-      @post_comments = @post.post_comments.page(params[:page]).per(10)
+      @q =@post.post_comments.ransack(params[:q])
+      @post_comments = @q.result(distinct: true).page(params[:page]).per(10)
     else
       @q =PostComment.ransack(params[:q])
       @post_comments = @q.result(distinct: true).page(params[:page]).per(10)

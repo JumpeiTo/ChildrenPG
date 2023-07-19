@@ -1,0 +1,13 @@
+<%= search_form_for @q, url: url do |f| %>
+      <div class="d-flex">
+        <%= f.search_field :comment_or_customer_name_cont, class: 'form-control mr-2', placeholder: '名前,コメント', style: "width: 250px;" %>
+        <button class="btn btn-outline-success mr-3" type="submit" style="width: 80px; ">
+          検索 <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <select class="custom-select" id="sort_by" onChange="location.href=value;" style="width: 140px;">
+          <option value="">並び替え</option>
+          <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'created_at+desc') %>">新しいコメント</option>
+          <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'created_at+ask') %>">古いコメント</option>
+        </select>
+      </div>
+    <% end %>

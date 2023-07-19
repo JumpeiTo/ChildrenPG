@@ -22,6 +22,16 @@ class Customer < ApplicationRecord
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
+  
+  # ゲストログイン用
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |customer|
+      customer.password = SecureRandom.urlsafe_base64
+      customer.name = 'ゲストユーザー'
+      customer.nickname = 'ゲストユーザー'
+      customer.is_hidden = true
+    end
+  end
 
   # is_deletedがfalseならtrueを返すようにしている
   def active_for_authentication?

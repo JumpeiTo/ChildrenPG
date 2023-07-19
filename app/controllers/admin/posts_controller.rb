@@ -6,8 +6,9 @@ class Admin::PostsController < ApplicationController
   def index
     if params[:customer_id]
       @customer = Customer.find(params[:customer_id])
-      @posts = @customer.posts.page(params[:page]).per(10)
-    else
+      @q = @customer.posts.ransack(params[:q])
+      @posts = @q.result(distinct: true).page(params[:page]).per(10)
+      else
       @q = Post.ransack(params[:q])
       @posts = @q.result(distinct: true).page(params[:page]).per(10)
     end

@@ -1,18 +1,25 @@
 <div class="mx-auto col-12">
   <div class="d-flex justify-content-between">
-    <h5 class="bg-light text-center ml-3 my-3 px-3" style="width: fit-content;">
+    <h5 class="bg-light text-center ml-3 my-3 px-3" style="width: fit-content; height: fit-content;">
       <%= @customer ? "#{@customer.name}さんの投稿一覧" : "投稿一覧" %>
     </h5>
-    <%= search_form_for @q, url: admin_posts_path do |f| %>
-      <div class="d-flex">
-        <%= f.search_field :title_or_text_cont, class: 'form-control mr-2', placeholder: 'タイトル,本文', style: "width: 200px;" %>
-        <%= f.search_field :playground_name_cont, class: 'form-control mr-2', placeholder: '遊び場名', style: "width: 200px;" %>
-        <%= f.search_field :customer_name_cont, class: 'form-control mr-2', placeholder: '投稿者名', style: "width: 150px;" %>
-        <button class="btn btn-outline-success" type="submit" style="width: 80px; ">
-          検索 <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </div>
-    <% end %>
+    <div>
+      <%= search_form_for @q, url: admin_posts_path do |f| %>
+        <div class="d-flex">
+          <%= f.search_field :title_or_text_cont, class: 'form-control mr-2', placeholder: 'タイトル,本文', style: "width: 200px;" %>
+          <%= f.search_field :playground_name_cont, class: 'form-control mr-2', placeholder: '遊び場名', style: "width: 200px;" %>
+          <%= f.search_field :customer_name_cont, class: 'form-control mr-2', placeholder: '投稿者名', style: "width: 150px;" %>
+          <button class="btn btn-outline-success mr-3" type="submit" style="width: 80px; ">
+            検索 <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <select class="custom-select" id="sort_by" onChange="location.href=value;" style="width: 120px;">
+            <option value="">並び替え</option>
+            <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'created_at+desc') %>">新しい投稿</option>
+            <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'created_at+ask') %>">古い投稿</option>
+          </select>
+        </div>
+      <% end %>
+    </div>
   </div>
   
   <table class="table">

@@ -3,16 +3,25 @@
     <h5 class="bg-light text-center ml-3 my-3 px-3" style="width: fit-content;">
       <%= @customer ? "#{@customer.name}さんの投稿一覧" : "投稿一覧" %>
     </h5>
-    <%= render 'search', q: @q, url: admin_posts_path %>
+    <%= search_form_for @q, url: admin_posts_path do |f| %>
+      <div class="d-flex">
+        <%= f.search_field :title_or_text_cont, class: 'form-control mr-2', placeholder: 'タイトル,本文', style: "width: 200px;" %>
+        <%= f.search_field :playground_name_cont, class: 'form-control mr-2', placeholder: '遊び場名', style: "width: 200px;" %>
+        <%= f.search_field :customer_name_cont, class: 'form-control mr-2', placeholder: '投稿者名', style: "width: 150px;" %>
+        <button class="btn btn-outline-success" type="submit" style="width: 80px; ">
+          検索 <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    <% end %>
   </div>
   
   <table class="table">
     <thead>
       <tr>
-        <th class="bg-light" style="width: 6%;">投稿ID</th>
-        <th class="bg-light" style="width: 10%;">投稿者</th>
-        <th class="bg-light" style="width: 25%;">遊び場</th>
-        <th class="bg-light" style="width: 25%;">タイトル</th>
+        <th class="bg-light" style="width: 8%;"><%= sort_link(@q, :created_at, "投稿ID",class:"text-dark") %></th>
+        <th class="bg-light" style="width: 10%;"><%= sort_link(@q, :customer_name, "投稿者",class:"text-dark") %></th>
+        <th class="bg-light" style="width: 25%;"><%= sort_link(@q, :playground_name, "遊び場",class:"text-dark") %></th>
+        <th class="bg-light" style="width: 25%;"><%= sort_link(@q, :title, "タイトル",class:"text-dark") %></th>
         <th class="bg-light" style="width: 9%;">コメント数</th>
         <th class="bg-light" style="width: 2%;"></th>
         <th class="bg-light" style="width: 2%;"></th>

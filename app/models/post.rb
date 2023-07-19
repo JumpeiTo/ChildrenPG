@@ -34,7 +34,7 @@ class Post < ApplicationRecord
   end
   # ransack検索するカラム
   def self.ransackable_attributes(auth_object = nil)
-    ["text", "title"]
+    ["text", "title", "created_at"]
   end
   
 end

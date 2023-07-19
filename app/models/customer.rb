@@ -30,10 +30,10 @@ class Customer < ApplicationRecord
   
   # ransack検索カラムのアソシエーション
   def self.ransackable_associations(auth_object = nil)
-    ["post_comments", "post_favorite_posts", "post_favorites", "posts", "profile_image_attachment", "profile_image_blob"]
+    ["post_comments", "post_favorite_posts", "post_favorites", "posts"]
   end
   # ransack検索するカラム
   def self.ransackable_attributes(auth_object = nil)
-    ["name", "nickname", "email"]
+    ["name", "nickname", "email", "created_at","is_hidden","is_deleted"]
   end
 end

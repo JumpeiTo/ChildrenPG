@@ -9,7 +9,8 @@ class Admin::PostCommentsController < ApplicationController
       @post = Post.find(params[:post_id])
       @post_comments = @post.post_comments.page(params[:page]).per(10)
     else
-      @post_comments = PostComment.page(params[:page]).per(10)
+      @q =PostComment.ransack(params[:q])
+      @post_comments = @q.result(distinct: true).page(params[:page]).per(10)
     end
   end
   

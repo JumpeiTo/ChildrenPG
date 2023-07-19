@@ -27,4 +27,14 @@ class Post < ApplicationRecord
   def favorited_by?(customer)
     post_favorites.exists?(customer_id: customer.id)
   end
+  
+  # ransack検索カラムのアソシエーション
+  def self.ransackable_associations(auth_object = nil)
+    ["customer", "image_attachment", "image_blob", "playground", "post_comments", "post_favorite_customers", "post_favorites", "post_tags", "post_target_ages", "tags", "target_ages"]
+  end
+  # ransack検索するカラム
+  def self.ransackable_attributes(auth_object = nil)
+    ["text", "title"]
+  end
+  
 end

@@ -27,4 +27,13 @@ class Customer < ApplicationRecord
   def active_for_authentication?
     super && (is_deleted == false)
   end
+  
+  # ransack検索カラムのアソシエーション
+  def self.ransackable_associations(auth_object = nil)
+    ["post_comments", "post_favorite_posts", "post_favorites", "posts", "profile_image_attachment", "profile_image_blob"]
+  end
+  # ransack検索するカラム
+  def self.ransackable_attributes(auth_object = nil)
+    ["name", "nickname", "email"]
+  end
 end

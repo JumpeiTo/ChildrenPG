@@ -1,6 +1,7 @@
-<div class="mx-auto col-10">
-  <div class="px-1 ml-md-2">
+<div class="mx-auto col-12">
+  <div class="d-flex justify-content-between">
     <h5 class="bg-light text-center ml-3 my-3 px-3" style="width: fit-content;">会員一覧</h5>
+    <%= render 'search', q: @q, url: admin_customers_path %>
   </div>
   <table class="table">
     <thead>

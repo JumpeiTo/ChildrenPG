@@ -9,4 +9,9 @@ class Playground < ApplicationRecord
       categories << new_category unless categories.include?(new_category) # 登録するplaygroundのcategoryに紐づける（中間テーブルにも反映される）
     end
   end
+  
+  # ransack検索するカラム
+  def self.ransackable_attributes(auth_object = nil)
+    ["name"]
+  end
 end

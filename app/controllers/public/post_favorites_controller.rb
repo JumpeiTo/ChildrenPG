@@ -1,4 +1,5 @@
 class Public::PostFavoritesController < ApplicationController
+  before_action :authenticate_customer!
   before_action :set_post
 
   def create

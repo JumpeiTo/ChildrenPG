@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-4">
+  <div class="col-lg-4">
     
     <h2>遊び場検索</h2>
     <%= form_with(url: places_search_path, method: :get, id: 'filter-search_form') do |f| %>
@@ -27,7 +27,7 @@
 
   </div>
   
-  <div class="col-8">
+  <div class="col-lg-8">
     <input id="address" type="textbox" placeholder="場所を入力してください" >
     <input type="button" value="探す" onclick="codeAddress()">
     <p>マップ上で左クリック長押しするとピンが表示されます。</p>
@@ -37,7 +37,7 @@
     <style>
       #map {
         height: 400px;
-        width: 700px;
+        width: 100%;
       }
     </style>
     
@@ -60,7 +60,7 @@
         
         map = new google.maps.Map(document.getElementById("map"), {
           center: { lat: 35.155396, lng: 136.918969 },　// マップ表示時のデフォルト位置(名古屋の鶴舞公園)
-          zoom: 12, // デフォルトズーム倍率
+          zoom: 10, // デフォルトズーム倍率
         });
         
         google.maps.event.addListener(map, "click", function(event) {
@@ -82,6 +82,34 @@
             displayPinCoordinates(this.getPosition().lat(), this.getPosition().lng()); // ピンの緯度経度を表示
           });
         });
+        //遊び場情報をマーカーとして表示
+        <% @playgrounds.each do |playground| %>
+          (function() { 
+            let markerLatLng = { lat: <%= playground.latitude %>, lng: <%= playground.longitude %> };
+            let marker = new google.maps.Marker({ 
+              position: markerLatLng, 
+              map: map,
+              icon: {
+                url: 'https://maps.google.com/mapfiles/ms/icons/orange-dot.png', // ここでマーカーのアイコンを指定します
+                scaledSize: new google.maps.Size(25, 25) // マーカーアイコンのサイズを指定します
+              }
+            });
+            let infowindow = new google.maps.InfoWindow({
+              position: markerLatLng,
+              content: `<div><a href='<%= playground_path(playground.id) %>' target='_blank'><%= playground.name %></a><br>投稿数 <%= playground.post.count %></div>`
+            });
+            let isOpen = false; // ウィンドウが開かれているかを示すフラグ
+            marker.addListener('click', function() {
+              if (isOpen) {
+                infowindow.close(); // ウィンドウが開かれていれば閉じる
+                isOpen = false; // フラグをfalseに設定
+              } else {
+                infowindow.open(map, marker); // ウィンドウが閉じていれば開く
+                isOpen = true; // フラグをtrueに設定
+              }
+            });
+          })();
+        <% end %>
       }
       
       function codeAddress() {

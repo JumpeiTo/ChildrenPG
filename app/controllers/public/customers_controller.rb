@@ -1,6 +1,7 @@
 class Public::CustomersController < ApplicationController
   before_action :authenticate_customer!, only: [:edit, :update, :withdrawal]
   before_action :set_customer, only: [:edit, :update, :withdrawal]
+  before_action :ensure_guest_customer, only: [:edit, :withdrawal]
   
   def show
     @customer = params[:customer_id].present? ? Customer.find(params[:customer_id]) : Customer.find(current_customer.id)
@@ -53,4 +54,13 @@ class Public::CustomersController < ApplicationController
   def set_customer
     @customer = Customer.find(current_customer.id)
   end
+  
+  def ensure_guest_customer
+    @customer = Customer.find(current_customer.id)
+    if @customer.email == "guest@example.com"
+      flash[:warning] = 'ゲストユーザーはこのページへ遷移できません。'
+      redirect_to customers_path(current_customer)
+    end
+  end  
+  
 end

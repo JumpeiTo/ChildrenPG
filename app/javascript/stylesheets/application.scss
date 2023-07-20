@@ -21,8 +21,6 @@ div.field_with_errors input {
   background-color: #fce4b4;
 }
 
-
-
 // 遊び場検索結果一覧リンク
 .places {
   &:hover {
@@ -54,7 +52,6 @@ div.field_with_errors input {
   text-decoration: none;
 }
 
-
 // 主に名前表示で使用
 .nickname a:hover {
   text-decoration: none;
@@ -73,3 +70,7 @@ div.field_with_errors input {
   justify-content: center;
 }
 
+// マーカーの投稿数
+.info-window span {
+  font-weight: bold;
+}

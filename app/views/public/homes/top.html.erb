@@ -101,7 +101,7 @@
             });
             let infowindow = new google.maps.InfoWindow({
               position: markerLatLng,
-              content: `<div><a href='<%= playground_path(playground.id) %>' target='_blank'><%= playground.name %></a><br>投稿数 <%= playground.post.count %></div>`
+              content: `<div class='info-window'><a href='<%= playground_path(playground.id) %>' target='_blank'><%= playground.name %></a><br>投稿数 [ <span><%= playground.post.count %></span> ]</div>`
             });
             let isOpen = false; // ウィンドウが開かれているかを示すフラグ
             marker.addListener('click', function() {

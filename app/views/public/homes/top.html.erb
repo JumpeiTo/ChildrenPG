@@ -1,13 +1,11 @@
 <div class="row">
   <div class="col-lg-4">
-    
     <h2>遊び場検索</h2>
     <%= form_with(url: places_search_path, method: :get, id: 'filter-search_form') do |f| %>
       <%= f.label :name, '遊び場名' %>
       <%= f.text_field :name, placeholder: '遊び場名を入力してください' %></br>
       <%= f.label :types, 'カテゴリー' %>
       <%= f.select :types, options_for_select([['どこに遊びに？', nil], ['公園', 'park'], ['動物園', 'zoo'], ['観光名所', 'tourist_attraction'], ['遊園地', 'amusement_park'], ['水族館', 'aquarium'], ['美術館', 'art_gallery'], ['書店', 'book_store'], ['ボウリング場', 'bowling_alley'], ['カフェ', 'cafe'], ['キャンプ場', 'campground'], ['デパート', 'department_store'], ['図書館', 'library'], ['映画館', 'movie_theater'], ['博物館', 'museum'], ['ペットショップ', 'pet_store'], ['学校', 'school'], ['レストラン', 'restaurant'], ['ショッピングモール', 'shopping_mall'], ['スタジアム', 'stadium'], ['店舗', 'store']]), {} %></br>
-      <p id="error-text">検索したい周辺の位置に<br>ピンをさしてください</p>
       <div class="d-flex">
         <label for="pin-coordinates-lat">緯度:</label>
         <div id="pin-coordinates-lat"></div> <!-- ピンの緯度を表示する要素 -->
@@ -20,17 +18,15 @@
       <%= f.select :radius, options_for_select([['どこまで遠くに？', nil], ['1Km','1000'], ['5Km','5000'], ['10Km','10000'], ['30Km','30000']]) %></br>
       <%= f.hidden_field :lat, id: 'lat' %>
       <%= f.hidden_field :lng, id: 'lng' %>
-      
       <%= f.submit '検索', id: "submit_button" %>
       <%= button_tag '条件リセット', type: 'button', id: "condition_reset_button" %>
     <% end %>
-
   </div>
   
   <div class="col-lg-8">
     <input id="address" type="textbox" placeholder="場所を入力してください" >
     <input type="button" value="探す" onclick="codeAddress()">
-    <p>マップ上で左クリック長押しするとピンが表示されます。</p>
+    <p>マップ上で長押しするとピンが表示されます。</p>
     <p>ピンをドラック＆ドロップで位置の調整ができます。<p>
     <div id="map"></div>
     
@@ -41,10 +37,15 @@
       }
     </style>
     
+    <!-- マーカークラスタリング用のスクリプト -->
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    
+    <!-- Google マップ表示とマーカー表示のスクリプト -->
     <script>
       let map;
       let marker;
       let geocoder;
+      let markersArray = []; // クラスタ表示にする為マーカーを配列で保持するための配列を宣言
       
       /*条件リセット*/
       document.getElementById('condition_reset_button').addEventListener('click', function() {
@@ -60,13 +61,13 @@
         
         map = new google.maps.Map(document.getElementById("map"), {
           center: { lat: 35.155396, lng: 136.918969 },　// マップ表示時のデフォルト位置(名古屋の鶴舞公園)
-          zoom: 10, // デフォルトズーム倍率
+          zoom: 6, // デフォルトズーム倍率
         });
-        
-        google.maps.event.addListener(map, "click", function(event) {
-          //マーカーが複数できないようにする
+        // 0.6秒長押しでマーカーを生成する
+        google.maps.event.addListener(map, "mousedown", function(event) {
+          pressTimer = setTimeout(function() {
           if (marker) {
-            marker.setMap(null); 
+            marker.setMap(null);
           }
           marker = new google.maps.Marker({
             position: event.latLng,
@@ -81,6 +82,10 @@
             document.getElementById("lng").value = this.getPosition().lng();
             displayPinCoordinates(this.getPosition().lat(), this.getPosition().lng()); // ピンの緯度経度を表示
           });
+          }, 600); // 600ミリ秒 (0.6秒) の長押しを検出
+        });
+        google.maps.event.addListener(map, "mouseup", function(event) {
+          clearTimeout(pressTimer); // 長押しのタイマーをクリア
         });
         //遊び場情報をマーカーとして表示
         <% @playgrounds.each do |playground| %>
@@ -102,14 +107,21 @@
             marker.addListener('click', function() {
               if (isOpen) {
                 infowindow.close(); // ウィンドウが開かれていれば閉じる
-                isOpen = false; // フラグをfalseに設定
+                isOpen = false; 
               } else {
                 infowindow.open(map, marker); // ウィンドウが閉じていれば開く
-                isOpen = true; // フラグをtrueに設定
+                isOpen = true; 
               }
             });
+            // マーカーを配列に追加
+            markersArray.push(marker);
           })();
         <% end %>
+        // マーカークラスタリングの設定
+        const markerCluster = new MarkerClusterer(map, markersArray, {
+          imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+          maxZoom: 12, // ズームレベル15以上でクラスタリングが解除されるように設定
+        });
       }
       
       function codeAddress() {

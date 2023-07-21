@@ -14,7 +14,9 @@ class Public::PlaygroundsController < ApplicationController
   
   def show
     @playground = Playground.find(params[:id])
-    @posts = @playground.post.page(params[:page]).per(10)
+    # 公開ユーザーのみ表示
+    @q =  @playground.post.ransack(params[:q])
+    @posts = @q.result(distinct: true).joins(:customer).where(customers: { is_hidden: false }).page(params[:page]).per(10)
   end
 
   private

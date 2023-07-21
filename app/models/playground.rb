@@ -12,6 +12,6 @@ class Playground < ApplicationRecord
   
   # ransack検索するカラム
   def self.ransackable_attributes(auth_object = nil)
-    ["name"]
+    ["name", "address", "prefecture", "overview"]
   end
 end

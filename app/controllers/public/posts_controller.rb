@@ -34,8 +34,10 @@ class Public::PostsController < ApplicationController
   
   def index
     # 公開ユーザーのみ表示
-    @posts = Post.joins(:customer).where(customers: { is_hidden: false }).page(params[:page]).per(10)
+    @q = Post.ransack(params[:q])
+    @posts = @q.result(distinct: true).joins(:customer).where(customers: { is_hidden: false }).page(params[:page]).per(10)
   end
+
   
   def show
     @playground = @post.playground

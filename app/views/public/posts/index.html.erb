@@ -1,8 +1,23 @@
 <h1>投稿一覧</h1>
-<% @posts.each do |post| %>
-  <%= render 'public/posts/posts_name', post: post %>
-  <%= render 'post_index', post: post %>
-<% end %>
-<div class="pagination">
-  <%= paginate @posts, theme: 'bootstrap-5' %>
+<div class="row">
+  <div class="col-4">
+    <%= search_form_for @q, url: posts_path do |f| %>
+      <div class="">
+        <%= f.search_field :title_or_text_or_playground_address_or_playground_prefecture_or_playground_name_or_playground_overview_cont, class: 'form-control mr-2', placeholder: 'キーワード', style: "width: 200px;" %>
+        <button class="btn btn-outline-success mr-3" type="submit" style="width: 80px; ">
+          検索 <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-8">
+    <% @posts.each do |post| %>
+      <%= render 'public/posts/posts_name', post: post %>
+      <%= render 'post_index', post: post %>
+    <% end %>
+    <div class="pagination">
+      <%= paginate @posts, theme: 'bootstrap-5' %>
+    </div>
+  </div>
 </div>
+

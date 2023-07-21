@@ -28,11 +28,25 @@ class Post < ApplicationRecord
     post_favorites.exists?(customer_id: customer.id)
   end
   
-   # 日別の投稿数を集計するスコープ
-  scope :group_by_day_count, -> { group("DATE(created_at)").count.transform_keys { |date| date.to_date } }
+  # 日別の投稿数を集計するスコープ
+  scope :group_by_day_count, -> {
+    start_date = Post.minimum(:created_at)&.to_date
+    end_date = Date.today
+    counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
+    date_range = (start_date..end_date).to_a
+    filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
+    filled_counts
+  }
 
   # 月別の投稿数を集計するスコープ
-  scope :group_by_month_count, -> { group("strftime('%Y-%m', created_at)").count }
+  scope :group_by_month_count, -> {
+    start_date = Post.minimum(:created_at)&.to_date.beginning_of_month
+    end_date = Date.today.end_of_month
+    counts = group("strftime('%Y-%m', created_at)").count
+    date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }
+    filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
+    filled_counts
+  }
   
   # ransack検索カラムのアソシエーション
   def self.ransackable_associations(auth_object = nil)
@@ -42,5 +56,4 @@ class Post < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     ["text", "title", "created_at"]
   end
-  
 end

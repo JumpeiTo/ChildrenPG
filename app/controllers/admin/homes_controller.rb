@@ -1,5 +1,6 @@
 class Admin::HomesController < ApplicationController
   def top
+    # binding.pry
     # 日別の投稿数を取得するクエリ（Postモデルのスコープを使用）
     @daily_post_chart_data = Post.group_by_day_count
 

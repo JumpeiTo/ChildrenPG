@@ -28,6 +28,12 @@ class Post < ApplicationRecord
     post_favorites.exists?(customer_id: customer.id)
   end
   
+   # 日別の投稿数を集計するスコープ
+  scope :group_by_day_count, -> { group("DATE(created_at)").count.transform_keys { |date| date.to_date } }
+
+  # 月別の投稿数を集計するスコープ
+  scope :group_by_month_count, -> { group("strftime('%Y-%m', created_at)").count }
+  
   # ransack検索カラムのアソシエーション
   def self.ransackable_associations(auth_object = nil)
     ["customer", "image_attachment", "image_blob", "playground", "post_comments", "post_favorite_customers", "post_favorites", "post_tags", "post_target_ages", "tags", "target_ages"]

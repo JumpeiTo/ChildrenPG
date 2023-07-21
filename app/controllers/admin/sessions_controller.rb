@@ -5,7 +5,7 @@ class Admin::SessionsController < Devise::SessionsController
   
   # 管理者ログイン後に遷移するページ
   def after_sign_in_path_for(resource)
-    admin_posts_path
+    admin_homes_top_path
   end
  
   def after_sign_out_path_for(resource)

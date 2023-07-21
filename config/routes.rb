@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   
   # admin ルーティング
   namespace :admin do
+    get 'homes/top' =>'homes#top'
     resources :tags, except: [:show, :new]
     resources :customers, only: [:index, :show, :edit, :update] 
     resources :posts, only: [:index, :show, :edit, :update, :destroy]

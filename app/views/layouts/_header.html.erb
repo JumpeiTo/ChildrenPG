@@ -3,7 +3,7 @@
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#f4e4d4;">
     <div class="container">
       <div class="row">
-        <%= link_to root_path ,data: {"turbolinks"=>false} do %> <!--マップ表示エラーが出るためターボリンクスを切っている-->
+        <%= link_to root_path, data: {"turbolinks"=>false} do %> <!--マップ表示エラーが出るためターボリンクスを切っている-->
           <%= image_tag 'logo.png', size: '160x76' %>
         <% end %>
       </div>
@@ -31,7 +31,10 @@
           <!--管理者ログイン後ヘッダー-->
           <% elsif admin_signed_in? %>
             <li class="nav-item">
-              <%= link_to "投稿一覧", admin_posts_path, class: 'nav-link text-dark btn btn-light ml-5' %>
+              <%= link_to "データ推移", admin_homes_top_path, class: 'nav-link text-dark btn btn-light ml-5', data: {"turbolinks"=>false} %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "投稿一覧", admin_posts_path, class: 'nav-link text-dark btn btn-light ml-2' %>
             </li>
             <li class="nav-item">
               <%= link_to "会員一覧", admin_customers_path, class: 'nav-link text-dark btn btn-light ml-2' %>

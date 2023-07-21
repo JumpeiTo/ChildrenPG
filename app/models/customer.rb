@@ -38,6 +38,12 @@ class Customer < ApplicationRecord
     super && (is_deleted == false)
   end
   
+   # 日別の登録数を集計するスコープ
+  scope :group_by_day_count, -> { group("DATE(created_at)").count.transform_keys { |date| date.to_date } }
+
+  # 月別の登録数を集計するスコープ
+  scope :group_by_month_count, -> { group("strftime('%Y-%m', created_at)").count }
+  
   # ransack検索カラムのアソシエーション
   def self.ransackable_associations(auth_object = nil)
     ["post_comments", "post_favorite_posts", "post_favorites", "posts"]

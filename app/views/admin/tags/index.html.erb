@@ -1,14 +1,13 @@
-<h5 class="bg-light text-center ml-3 my-3 px-3" style="width: fit-content;">タグ一覧・追加</h5>
-<div class="col-sm-12 col-md-10 col-lg-9 col-xl-7 px-sm-0 px-md-1">
+<div class="col-sm-12 col-md-11 col-lg-9 col-xl-7 mx-auto">
+  <h5 class="bg-light text-center ml-3 my-3 px-3" style="width: fit-content;">タグ一覧・追加</h5>
   <%= render 'form', tag: @tag %>
   
   <div class="col-md-10 ml-0 mt-4 px-0">
     <table class="table table-hover">
       <thead>
         <tr>
-          <th class="bg-light col-4 col-sm-4">タグ</th>
-          <th class="bg-light col-4 col-sm-4"></th>
-          <th class="bg-light col-4 col-sm-4"></th>
+          <th class="bg-light col-4 col-sm-3">タグ</th>
+          <th class="bg-light col-4 col-sm-3"></th>
         </tr>
       </thead>
       <tbody>
@@ -16,11 +15,9 @@
           <tr>
             <td><%= tag.name %></td>
             <td>
-              <%= link_to edit_admin_tag_path(tag), class: "btn btn-sm btn-success" do %>
+              <%= link_to edit_admin_tag_path(tag), class: "btn btn-sm btn-success mr-4 mb-sm-0 mb-2" do %>
                 <i class="fa-solid fa-pen-to-square"> 編集する</i>
               <% end %>
-            </td>
-            <td>
               <%= link_to admin_tag_path(tag), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger" do %>
                 <i class="fa-solid fa-trash"> 削除する</i>
               <% end %>

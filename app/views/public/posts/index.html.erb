@@ -1,6 +1,7 @@
 <h1>投稿一覧</h1>
 <div class="row">
   <div class="col-4">
+    <!--ransackの検索フォーム-->
     <%= search_form_for @q, url: posts_path do |f| %>
       <div class="">
         <%= f.search_field :title_or_text_or_playground_address_or_playground_prefecture_or_playground_name_or_playground_overview_cont, class: 'form-control mr-2', placeholder: 'キーワード', style: "width: 200px;" %>
@@ -11,6 +12,17 @@
     <% end %>
   </div>
   <div class="col-8">
+    <!--並び替えのリンク「.to_unsafe_h」は検索のパラメーターをハッシュに変換して保持している-->
+    <%= link_to '新着順', posts_path(sort_by: "latest", q: params[:q]&.to_unsafe_h) %>
+    <%= link_to '古い順', posts_path(sort_by: "old", q: params[:q]&.to_unsafe_h) %>
+    <%= link_to '評価（高）', posts_path(sort_by: "rate_high", q: params[:q]&.to_unsafe_h) %>
+    <%= link_to '評価（低）', posts_path(sort_by: "rate_low", q: params[:q]&.to_unsafe_h) %>
+    <%= link_to 'いいね（多）', posts_path(sort_by: "likes_count_high", q: params[:q]&.to_unsafe_h) %>
+    <%= link_to 'いいね（少）', posts_path(sort_by: "likes_count_low", q: params[:q]&.to_unsafe_h) %>
+    <%= link_to 'コメント（多）', posts_path(sort_by: "comments_many", q: params[:q]&.to_unsafe_h) %>
+    <%= link_to 'コメント（少）', posts_path(sort_by: "comments_few", q: params[:q]&.to_unsafe_h) %>
+    
+    
     <% @posts.each do |post| %>
       <%= render 'public/posts/posts_name', post: post %>
       <%= render 'post_index', post: post %>

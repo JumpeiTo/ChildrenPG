@@ -48,6 +48,16 @@ class Post < ApplicationRecord
     filled_counts
   }
   
+  # 並び替えメソッド
+  scope :latest, -> { order(created_at: :desc) }  # 登録新しい順
+  scope :old, -> { order(created_at: :asc) }      # 登録古い順
+  scope :rate_high, -> { order(rate: :desc) } # 評価高い順
+  scope :rate_low, -> { order(rate: :asc) }   # 評価低い順
+  scope :likes_count_high, -> { left_joins(:post_favorites).group(:id).order(Arel.sql('COUNT(post_favorites.id) DESC')) } # いいねの数が多い順
+  scope :likes_count_low, -> { left_joins(:post_favorites).group(:id).order(Arel.sql('COUNT(post_favorites.id) ASC')) }  # いいねの数が少ない順
+  scope :comments_many, -> { left_joins(:post_comments).group(:id).order(Arel.sql('COUNT(post_comments.id) DESC')) }  # コメント多い順
+  scope :comments_few, -> { left_joins(:post_comments).group(:id).order(Arel.sql('COUNT(post_comments.id) ASC')) }  # コメント少ない順
+  
   # ransack検索カラムのアソシエーション
   def self.ransackable_associations(auth_object = nil)
     ["customer", "image_attachment", "image_blob", "playground", "post_comments", "post_favorite_customers", "post_favorites", "post_tags", "post_target_ages", "tags", "target_ages"]

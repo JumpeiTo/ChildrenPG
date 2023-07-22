@@ -8,9 +8,6 @@ ja:
         4hours: "4時間"
         6hours: "6時間"
         8hours: "8時間"
-  select2:
-    errorLoading: "データの読み込み中にエラーが発生しました"
-    inputTooLong: "入力が長すぎます"
   activerecord:
     errors:
       messages:

@@ -1,5 +1,5 @@
 <div class="col-sm-12 col-md-11 col-lg-10 col-xl-8 mx-auto">
-  <h5 class="bg-light text-center ml-3 my-3 px-3" style="width: fit-content;"><%= @customer.name %>さんの会員情報編集</h5>
+  <h1><%= @customer.name %>さんの会員情報編集</h1>
   <%= form_with model: @customer, url: admin_customer_path do |f| %>
     <form>
       <div class="form-group row ml-3 mb-2">

@@ -1,6 +1,10 @@
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~toastr/toastr";
 
+* {
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #4d4d4d;
+}
 // main領域が少ない時footer固定化
 body {
   display: flex;
@@ -73,4 +77,26 @@ div.field_with_errors input {
 // マーカーの投稿数
 .info-window span {
   font-weight: bold;
+}
+
+h1 {
+  width: fit-content;
+}
+h1 {
+  font-size: 36px;
+  position: relative;
+  padding-left: 1.2em;
+  margin-bottom: 10px;
+  color: #9c8c84; // 候補 #c9b986
+}
+
+h1:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f1bb";/*アイコンのユニコード*/
+  font-weight: 900;
+  position: absolute;
+  font-size: 1em;
+  left: 2px;
+  top: 2px;
+  color: #c0ca80;
 }

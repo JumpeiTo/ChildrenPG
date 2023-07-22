@@ -1,6 +1,6 @@
 <div class="mx-auto col-12">
   <div class="d-flex justify-content-between">
-    <h5 class="bg-light text-center ml-3 my-3 px-3" style="width: fit-content;">会員一覧</h5>
+    <h1>会員一覧</h1>
     <%= search_form_for @q, url: admin_customers_path do |f| %>
       <div class="d-flex">
         <%= f.search_field :name_or_email_or_nickname_cont, class: 'form-control mr-2', placeholder: '名前,ニックネーム,メール', style: "width: 250px;" %>

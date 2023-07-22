@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-4">
-    <h2>遊び場検索</h2>
+    <h1>遊び場検索</h1>
     <%= form_with(url: places_search_path, method: :get, id: 'filter-search_form') do |f| %>
       <%= f.label :name, '遊び場名' %>
       <%= f.text_field :name, placeholder: '遊び場名を入力してください' %></br>

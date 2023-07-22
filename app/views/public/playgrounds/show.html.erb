@@ -11,7 +11,23 @@
       <% end %>
     <% end %>
     <h1>投稿一覧</h1>
-
+    
+    <!--並び替え-->
+    <%= form_with(url: playground_path(@playground), method: :get, local: true) do |f| %>
+      <div class="form-group">
+        <%= f.select :sort_by,options_for_select(
+          [ ['新着順', 'latest'],
+            ['古い順', 'old'],
+            ['評価(高)', 'rate_high'],
+            ['評価(低)', 'rate_low'],
+            ['いいね(多)', 'likes_count_high'],
+            ['いいね(少)', 'likes_count_low'],
+            ['コメント(多)', 'comments_many'],
+            ['コメント(少)', 'comments_few'] ],
+          params[:sort_by]),{ include_blank: '並び替え' },class: 'form-control', style: "width: 130px;",onChange: "javascript: this.form.submit();" %>
+      </div>
+    <% end %>
+    
     <% @posts.each do |post| %>
       <div>
         <%= render 'public/posts/posts_name', post: post %>

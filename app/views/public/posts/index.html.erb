@@ -49,14 +49,33 @@
   
   <div class="col-8">
     <!--並び替えのリンク「.to_unsafe_h」は検索のパラメーターをハッシュに変換して保持している-->
-    <%= link_to '新着順', posts_path(sort_by: "latest", q: params[:q]&.to_unsafe_h), class: 'mr-1' %>
-    <%= link_to '古い順', posts_path(sort_by: "old", q: params[:q]&.to_unsafe_h), class: 'mr-2' %>
-    <%= link_to '評価(高)', posts_path(sort_by: "rate_high", q: params[:q]&.to_unsafe_h), class: 'mr-1' %>
-    <%= link_to '評価(低)', posts_path(sort_by: "rate_low", q: params[:q]&.to_unsafe_h), class: 'mr-2' %>
-    <%= link_to 'いいね(多)', posts_path(sort_by: "likes_count_high", q: params[:q]&.to_unsafe_h), class: 'mr-1' %>
-    <%= link_to 'いいね(少)', posts_path(sort_by: "likes_count_low", q: params[:q]&.to_unsafe_h), class: 'mr-2' %>
-    <%= link_to 'コメント(多)', posts_path(sort_by: "comments_many", q: params[:q]&.to_unsafe_h), class: 'mr-1' %>
-    <%= link_to 'コメント(少)', posts_path(sort_by: "comments_few", q: params[:q]&.to_unsafe_h), class: '' %>
+    <!--<%= link_to '新着順', posts_path(sort_by: "latest", q: params[:q]&.permit!), class: 'mr-1' %>-->
+    <!--<%= link_to '古い順', posts_path(sort_by: "old", q: params[:q]&.permit!), class: 'mr-2' %>-->
+    <!--<%= link_to '評価(高)', posts_path(sort_by: "rate_high", q: params[:q]&.permit!), class: 'mr-1' %>-->
+    <!--<%= link_to '評価(低)', posts_path(sort_by: "rate_low", q: params[:q]&.permit!), class: 'mr-2' %>-->
+    <!--<%= link_to 'いいね(多)', posts_path(sort_by: "likes_count_high", q: params[:q]&.permit!), class: 'mr-1' %>-->
+    <!--<%= link_to 'いいね(少)', posts_path(sort_by: "likes_count_low", q: params[:q]&.permit!), class: 'mr-2' %>-->
+    <!--<%= link_to 'コメント(多)', posts_path(sort_by: "comments_many", q: params[:q]&.permit!), class: 'mr-1' %>-->
+    <!--<%= link_to 'コメント(少)', posts_path(sort_by: "comments_few", q: params[:q]&.permit!), class: '' %>-->
+
+    <!-- 並び替えのセレクトボックス -->
+    <%= form_with(url: posts_path, method: :get, id: "sort-form") do |f| %>
+      <!--<%= f.hidden_field :q, value: params[:q]&.permit! %>-->
+      <div class="form-group">
+        <%= f.select :sort_by, options_for_select(
+          [
+            ['新着順', 'latest'],
+            ['古い順', 'old'],
+            ['評価(高)', 'rate_high'],
+            ['評価(低)', 'rate_low'],
+            ['いいね(多)', 'likes_count_high'],
+            ['いいね(少)', 'likes_count_low'],
+            ['コメント(多)', 'comments_many'],
+            ['コメント(少)', 'comments_few']
+          ],
+          params[:sort_by]), { include_blank: '並び替え' }, class: 'form-control', style: 'width: 130px;', onchange: 'javascript: $("#sort-form").submit();' %>
+      </div>
+    <% end %>
     
     <% @posts.each do |post| %>
       <%= render 'public/posts/posts_name', post: post %>

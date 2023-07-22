@@ -31,37 +31,16 @@ class Public::PostsController < ApplicationController
       render :new
     end
   end
-  
+
   def index
-    sort_by = params[:sort_by]
-    
-    if sort_by.present?
-      case sort_by # 並び替えの値が何か
-      when "latest"
-        @q = Post.latest.ransack(params[:q])
-      when "old"
-        @q = Post.old.ransack(params[:q])
-      when "rate_high"
-        @q = Post.rate_high.ransack(params[:q])
-      when "rate_low"
-        @q = Post.rate_low.ransack(params[:q])
-      when "likes_count_high"
-        @q = Post.likes_count_high.ransack(params[:q])
-      when "likes_count_low"
-        @q = Post.likes_count_low.ransack(params[:q])
-      when "comments_many"
-        @q = Post.comments_many.ransack(params[:q])
-      when "comments_few"
-        @q = Post.comments_few.ransack(params[:q])
-      end
-    else
-      # デフォルトは「新着順」で並び替える
-      @q = Post.latest.ransack(params[:q])
-    end
     # binding.pry
+    # パラメーターで渡された並び替え条件が有効なものであればそれを使い、無効な場合はデフォルトの「新着順」を使います。
+    sort_by = %w[latest old rate_high rate_low likes_count_high likes_count_low comments_many comments_few].include?(params[:sort_by]) ? params[:sort_by] : "latest"
+    # 並び替えの条件に応じて適切なRansackのクエリを作成します。
+    @q = Post.send(sort_by).ransack(params[:q])
+    # Ransackのクエリを適用して、非表示ユーザーの投稿を除外してページネーションで表示します。
     @posts = @q.result(distinct: true).joins(:customer).where(customers: { is_hidden: false }).page(params[:page]).per(10)
   end
-
   
   def show
     @playground = @post.playground

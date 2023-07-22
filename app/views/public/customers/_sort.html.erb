@@ -1,0 +1,12 @@
+<div class="form-group">
+  <%= f.select :sort_by,options_for_select(
+    [ ['新着順', 'latest'],
+      ['古い順', 'old'],
+      ['評価(高)', 'rate_high'],
+      ['評価(低)', 'rate_low'],
+      ['いいね(多)', 'likes_count_high'],
+      ['いいね(少)', 'likes_count_low'],
+      ['コメント(多)', 'comments_many'],
+      ['コメント(少)', 'comments_few'] ],
+    params[:sort_by]),{ include_blank: '並び替え' },class: 'form-control', style: "width: 140px;",onChange: "javascript: this.form.submit();" %>
+</div>

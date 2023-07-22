@@ -1,27 +1,62 @@
 <h1>投稿一覧</h1>
 <div class="row">
   <div class="col-4">
+    <h2>絞り込み</h2>
     <!--ransackの検索フォーム-->
     <%= search_form_for @q, url: posts_path do |f| %>
       <div class="">
-        <%= f.search_field :title_or_text_or_playground_address_or_playground_prefecture_or_playground_name_or_playground_overview_cont, class: 'form-control mr-2', placeholder: 'キーワード', style: "width: 200px;" %>
+        <!--キーワード-->
+        <%= f.search_field :title_or_text_or_playground_address_or_playground_name_or_playground_overview_cont, class: 'form-control', placeholder: 'キーワード', style: "width: 200px;" %>
+        <!--都道府県-->
+        <%= f.label :playground_prefecture_eq, '都道府県', '評価範囲', class: 'mb-1 mt-2' %>
+        <%= f.select :playground_prefecture_eq, options_for_select(Post::PREFECTURES, params.dig(:q, :playground_prefecture_eq)), { include_blank: '都道府県を選択' }, class: 'form-control mr-2', style: "width: 200px;" %>
+        <!--評価範囲-->
+        <%= f.label :rate_gteq, '評価範囲', class: 'mb-1 mt-2' %>
+        <div class="d-flex">
+          <% rate_ranges = { '0点' => 0, '20点' => 20, '40点' => 40, '60点' => 60, '80点' => 80, '100点' => 100 } %>
+          <%= f.select :rate_gteq, options_for_select(rate_ranges, params.dig(:q, :rate_gteq)), { include_blank: '評価を選択' }, class: 'form-control ', style: "width: 130px;" %>
+          <%= f.label :rate_lteq, '～', class: 'mx-1 mt-1' %>
+          <%= f.select :rate_lteq, options_for_select(rate_ranges, params.dig(:q, :rate_lteq)), { include_blank: '評価を選択' }, class: 'form-control ', style: "width: 130px;" %>
+        </div>
+        <!--遊べる時間-->
+        <div class="form-group mb-0">
+          <p class="mb-1 mt-2">遊べる時間</p>
+          <% Post.playtime_methods.each do |key, value| %>
+            <div class="form-check form-check-inline">
+              <%= radio_button_tag 'q[playtime_eq]', value, params.dig(:q, :playtime_eq).to_s == value.to_s, class: 'form-check-input', id: "playtime_#{value}" %>
+              <%= label_tag "playtime_#{value}", I18n.t("enums.post.playtime_method.#{key}"), class: 'form-check-label' %>
+            </div>
+          <% end %>
+        </div>
+        <!--対象年齢-->
+        <div class="form-group mb-0">
+          <p class="mb-1 mt-2">対象年齢</p>
+          <%= f.select :post_target_ages_target_age_id_eq, options_for_select(TargetAge.all.map { |target_age| [target_age.age, target_age.id] }, params.dig(:q, :post_target_ages_target_age_id_eq)), { include_blank: '対象年齢を選択' }, class: 'form-control', style: "width: 200px;" %>
+        </div>
+        <!--関連タグ-->
+        <div class="form-group">
+          <p class="mb-1 mt-2">関連タグ</p>
+          <%= f.select :post_tags_tag_id_eq, options_for_select(Tag.all.map { |tag| [tag.name, tag.id] }, params.dig(:q, :post_tags_tag_id_eq)), { include_blank: '関連タグを選択' }, class: 'form-control', style: "width: 200px;" %>
+
+        </div>
+        <!--検索ボタン-->
         <button class="btn btn-outline-success mr-3" type="submit" style="width: 80px; ">
           検索 <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
     <% end %>
   </div>
+  
   <div class="col-8">
     <!--並び替えのリンク「.to_unsafe_h」は検索のパラメーターをハッシュに変換して保持している-->
-    <%= link_to '新着順', posts_path(sort_by: "latest", q: params[:q]&.to_unsafe_h) %>
-    <%= link_to '古い順', posts_path(sort_by: "old", q: params[:q]&.to_unsafe_h) %>
-    <%= link_to '評価（高）', posts_path(sort_by: "rate_high", q: params[:q]&.to_unsafe_h) %>
-    <%= link_to '評価（低）', posts_path(sort_by: "rate_low", q: params[:q]&.to_unsafe_h) %>
-    <%= link_to 'いいね（多）', posts_path(sort_by: "likes_count_high", q: params[:q]&.to_unsafe_h) %>
-    <%= link_to 'いいね（少）', posts_path(sort_by: "likes_count_low", q: params[:q]&.to_unsafe_h) %>
-    <%= link_to 'コメント（多）', posts_path(sort_by: "comments_many", q: params[:q]&.to_unsafe_h) %>
-    <%= link_to 'コメント（少）', posts_path(sort_by: "comments_few", q: params[:q]&.to_unsafe_h) %>
-    
+    <%= link_to '新着順', posts_path(sort_by: "latest", q: params[:q]&.to_unsafe_h), class: 'mr-1' %>
+    <%= link_to '古い順', posts_path(sort_by: "old", q: params[:q]&.to_unsafe_h), class: 'mr-2' %>
+    <%= link_to '評価(高)', posts_path(sort_by: "rate_high", q: params[:q]&.to_unsafe_h), class: 'mr-1' %>
+    <%= link_to '評価(低)', posts_path(sort_by: "rate_low", q: params[:q]&.to_unsafe_h), class: 'mr-2' %>
+    <%= link_to 'いいね(多)', posts_path(sort_by: "likes_count_high", q: params[:q]&.to_unsafe_h), class: 'mr-1' %>
+    <%= link_to 'いいね(少)', posts_path(sort_by: "likes_count_low", q: params[:q]&.to_unsafe_h), class: 'mr-2' %>
+    <%= link_to 'コメント(多)', posts_path(sort_by: "comments_many", q: params[:q]&.to_unsafe_h), class: 'mr-1' %>
+    <%= link_to 'コメント(少)', posts_path(sort_by: "comments_few", q: params[:q]&.to_unsafe_h), class: '' %>
     
     <% @posts.each do |post| %>
       <%= render 'public/posts/posts_name', post: post %>

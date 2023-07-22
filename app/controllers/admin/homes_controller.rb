@@ -1,4 +1,6 @@
 class Admin::HomesController < ApplicationController
+  before_action :authenticate_admin!
+  
   def top
     # binding.pry
     # 日別の投稿数を取得するクエリ（Postモデルのスコープを使用）

@@ -36,8 +36,13 @@ class Public::PostsController < ApplicationController
     # binding.pry
     # パラメーターで渡された並び替え条件が有効なものであればそれを使い、無効な場合はデフォルトの「新着順」を使います。
     sort_by = %w[latest old rate_high rate_low likes_count_high likes_count_low comments_many comments_few].include?(params[:sort_by]) ? params[:sort_by] : "latest"
-    # 並び替えの条件に応じて適切なRansackのクエリを作成します。
-    @q = Post.send(sort_by).ransack(params[:q])
+    # 並び替えの条件に応じて適切なRansackのクエリを作成
+    param = params[:q] # params形式だとエラーになるため変数に置き換える
+    if param.is_a?(String)
+      param =  JSON.parse(param, symbolize_names: true)
+    end
+    @q = Post.send(sort_by).ransack(param)
+    @param = param
     # Ransackのクエリを適用して、非表示ユーザーの投稿を除外してページネーションで表示します。
     @posts = @q.result(distinct: true).joins(:customer).where(customers: { is_hidden: false }).page(params[:page]).per(10)
   end

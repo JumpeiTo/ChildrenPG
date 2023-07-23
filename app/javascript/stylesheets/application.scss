@@ -3,8 +3,9 @@
 
 * {
   font-family: 'Noto Sans JP', sans-serif;
-  color: #4d4d4d;
+  // color: #4d4d4d;
 }
+
 // main領域が少ない時footer固定化
 body {
   display: flex;
@@ -73,6 +74,13 @@ div.field_with_errors input {
 .pagination {
   justify-content: center;
 }
+.page-link {
+  color: #6699CC;
+}
+.page-item.active .page-link{
+  background-color: #6699CC;
+  border-color: #6699CC;
+}
 
 // マーカーの投稿数
 .info-window span {
@@ -81,8 +89,6 @@ div.field_with_errors input {
 
 h1 {
   width: fit-content;
-}
-h1 {
   font-size: 36px;
   position: relative;
   padding-left: 1.2em;
@@ -101,14 +107,61 @@ h1:before {
   color: #c0ca80;
 }
 
-.btn,
-a.btn,
-button.btn {
+h2 {
+  margin-left: 3%;
+  font-size: 26px;
+  width: fit-content;
+  position: relative;
 }
 
-a.btn--blue {
+h2:after {
+  content: "";
+  position: absolute;
+  top: 29px;
+  left: 0;
+  bottom: 0;
+  width: 150%;
+  height: 5px;
+  background: -webkit-repeating-linear-gradient(-45deg, #f4e4d4, #f4e4d4 2px, #fff 2px, #fff 4px);
+  background: repeating-linear-gradient(-45deg, #f4e4d4, #f4e4d4 2px, #fff 2px, #fff 4px);
 }
-a.btn--blue:hover {
-}
-a.btn--emboss {
-}
+
+// // 緑
+// .btn-success {
+//   color: #fff;
+//   background-color: #89CA25;
+//   border-color: #89CA25;
+//   &:hover {
+//     color: #fff;
+//     background-color: #97B170;
+//     border-color: #97B170;
+//   }
+// }
+
+// 青
+// .fa-file-pen, .page-link, .btn-info {
+//   color: #6699CC;
+// }
+// // 赤
+// .fa-trash {
+//   color: #EC5766;
+// }
+// 黄色
+// .page-link {
+//   color: #FFF275;
+// }
+
+// 緑 アウトライン？
+// .btn-outline-success, .fa-magnifying-glass, .fa-pen-to-square {
+//   color: #89CA25;
+//   border-color: #89CA25;
+//   &:hover {
+//     color: #fff;
+//     background-color: #97B170;
+//     border-color: #97B170;
+//   }
+// }
+
+
+
+

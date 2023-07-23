@@ -4,8 +4,8 @@
     <%= search_form_for @q, url: admin_customers_path do |f| %>
       <div class="d-flex">
         <%= f.search_field :name_or_email_or_nickname_cont, class: 'form-control mr-2', placeholder: '名前,ニックネーム,メール', style: "width: 250px;" %>
-        <button class="btn btn-outline-success mr-3" type="submit" style="width: 80px; ">
-          検索 <i class="fa-solid fa-magnifying-glass"></i>
+        <button class="btn btn-outline-success mr-3" type="submit" style="width: 80px;" >
+           <i class="fa-solid fa-magnifying-glass">検索</i>
         </button>
         <select class="custom-select" id="sort_by" onChange="location.href=value;" style="width: 120px;">
           <option value="">並び替え</option>

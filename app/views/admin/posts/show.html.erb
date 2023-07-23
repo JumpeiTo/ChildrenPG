@@ -60,7 +60,7 @@
           <%= link_to admin_post_comments_path(post_id: @post.id), class: "btn btn-info btn-sm px-4 mr-2 mb-2" do %>
             <i class="fa-regular fa-comment-dots"></i> コメント一覧を見る</i>
           <% end %></br>
-          <%= link_to edit_admin_post_path(@post), class: "btn btn-success btn-sm px-4" do %>
+          <%= link_to edit_admin_post_path(@post), class: "btn btn-outline-success btn-sm px-4" do %>
             <i class="fa-solid fa-pen-to-square"> 編集する</i>
           <% end %>
           <%= link_to admin_post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger btn-sm px-4" do %>

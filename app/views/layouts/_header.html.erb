@@ -16,55 +16,55 @@
           <!--会員ログイン後ヘッダー-->
           <% if customer_signed_in? %>
             <li class="nav-item">
-              <%= link_to "遊び場を探す", root_path, class: 'nav-link text-dark btn btn-light ml-5', data: {"turbolinks"=>false} %>
+              <%= link_to "遊び場を探す", root_path, class: 'nav-link btn btn-light ml-5', data: {"turbolinks"=>false} %>
             </li>
             <li class="nav-item">
-              <%= link_to "投稿一覧", posts_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+              <%= link_to "投稿一覧", posts_path, class: 'nav-link btn btn-light ml-2' %>
             </li>
             <li class="nav-item">
-              <%= link_to "マイページ",customers_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+              <%= link_to "マイページ",customers_path, class: 'nav-link btn btn-light ml-2' %>
             </li>
             <li class="nav-item">
-              <%= link_to "会員ログアウト",destroy_customer_session_path, method: :delete, class: 'nav-link text-dark btn btn-light ml-2' %>
+              <%= link_to "会員ログアウト",destroy_customer_session_path, method: :delete, class: 'nav-link btn btn-light ml-2' %>
             </li>
           
           <!--管理者ログイン後ヘッダー-->
           <% elsif admin_signed_in? %>
             <li class="nav-item">
-              <%= link_to "データ推移", admin_homes_top_path, class: 'nav-link text-dark btn btn-light ml-5', data: {"turbolinks"=>false} %>
+              <%= link_to "データ推移", admin_homes_top_path, class: 'nav-link btn btn-light ml-5', data: {"turbolinks"=>false} %>
             </li>
             <li class="nav-item">
-              <%= link_to "投稿一覧", admin_posts_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+              <%= link_to "投稿一覧", admin_posts_path, class: 'nav-link btn btn-light ml-2' %>
             </li>
             <li class="nav-item">
-              <%= link_to "会員一覧", admin_customers_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+              <%= link_to "会員一覧", admin_customers_path, class: 'nav-link btn btn-light ml-2' %>
             </li>
             <li class="nav-item">
-              <%= link_to "コメント一覧", admin_post_comments_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+              <%= link_to "コメント一覧", admin_post_comments_path, class: 'nav-link btn btn-light ml-2' %>
             </li>
             <li class="nav-item">
-              <%= link_to "タグ一覧", admin_tags_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+              <%= link_to "タグ一覧", admin_tags_path, class: 'nav-link btn btn-light ml-2' %>
             </li>
             <li class="nav-item">
-              <%= link_to "管理者ログアウト",destroy_admin_session_path, method: :delete, class: 'nav-link text-dark btn btn-light ml-2' %>
+              <%= link_to "管理者ログアウト",destroy_admin_session_path, method: :delete, class: 'nav-link btn btn-light ml-2' %>
             </li>
           
           <!--共通ログイン前ヘッダー-->
           <% else %>
             <li class="nav-item">
-              <%= link_to "About", "#", class: 'nav-link text-dark btn btn-light ml-2' %>
+              <%= link_to "About", "#", class: 'nav-link btn btn-light ml-2' %>
             </li>
             <li class="nav-item">
-              <%= link_to "投稿一覧", posts_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+              <%= link_to "投稿一覧", posts_path, class: 'nav-link btn btn-light ml-2' %>
             </li>
             <li class="nav-item">
-              <%= link_to "新規登録", new_customer_registration_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+              <%= link_to "新規登録", new_customer_registration_path, class: 'nav-link btn btn-light ml-2' %>
             </li>
             <li class="nav-item">
-              <%= link_to "ログイン",new_customer_session_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+              <%= link_to "ログイン",new_customer_session_path, class: 'nav-link btn btn-light ml-2' %>
             </li>
             <li class="nav-item">
-              <%= link_to "管理者ログイン",new_admin_session_path, class: 'nav-link text-dark btn btn-light ml-2' %>
+              <%= link_to "管理者ログイン",new_admin_session_path, class: 'nav-link btn btn-light ml-2' %>
             </li>
           <% end %>
         </ul>

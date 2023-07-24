@@ -12,7 +12,7 @@
     <%= search_form_for @q, url: admin_post_comments_path do |f| %>
       <div class="d-flex">
         <%= f.search_field :comment_or_customer_name_cont, class: 'form-control mr-2', placeholder: '名前,コメント', style: "width: 250px;" %>
-        <button class="btn btn-outline-success mr-3" type="submit" style="width: 80px; ">
+        <button class="btn btn-outline-green mr-3" type="submit" style="width: 80px; ">
           検索 <i class="fa-solid fa-magnifying-glass"></i>
         </button>
         <select class="custom-select" id="sort_by" onChange="location.href=value;" style="width: 140px;">
@@ -44,7 +44,7 @@
         <td><%= post_comment.comment %></td>
         <td><%= post_comment.created_at.strftime("%Y年%m月%d日") %></td>
         <td>
-          <%= link_to admin_post_comment_path(post_comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "text-danger" do %>
+          <%= link_to admin_post_comment_path(post_comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "red" do %>
             <i class="fa-solid fa-trash"></i>
           <% end %>
         </td>

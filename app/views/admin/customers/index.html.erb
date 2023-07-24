@@ -4,7 +4,7 @@
     <%= search_form_for @q, url: admin_customers_path do |f| %>
       <div class="d-flex">
         <%= f.search_field :name_or_email_or_nickname_cont, class: 'form-control mr-2', placeholder: '名前,ニックネーム,メール', style: "width: 250px;" %>
-        <button class="btn btn-outline-success mr-3" type="submit" style="width: 80px;" >
+        <button class="btn btn-outline-green mr-3" type="submit" style="width: 80px;" >
            <i class="fa-solid fa-magnifying-glass">検索</i>
         </button>
         <select class="custom-select" id="sort_by" onChange="location.href=value;" style="width: 120px;">
@@ -22,11 +22,11 @@
   <table class="table">
     <thead>
       <tr>
-        <th class="bg-light"><%= sort_link(@q, :created_at, "会員ID",class:"text-dark") %></th>
-        <th class="bg-light"><%= sort_link(@q, :name, "氏名",class:"text-dark") %></th>
+        <th class="bg-light"><%= sort_link(@q, :created_at, "会員ID") %></th>
+        <th class="bg-light"><%= sort_link(@q, :name, "氏名") %></th>
         <th class="bg-light">メールアドレス</th>
-        <th class="bg-light"><%= sort_link(@q, :is_hidden, "公開設定",class:"text-dark") %></th>
-        <th class="bg-light"><%= sort_link(@q, :is_deleted, "ステータス",class:"text-dark") %></th>
+        <th class="bg-light"><%= sort_link(@q, :is_hidden, "公開設定") %></th>
+        <th class="bg-light"><%= sort_link(@q, :is_deleted, "ステータス") %></th>
         <th class="bg-light">投稿数</th>
         <th class="bg-light"></th>
       </tr>
@@ -37,16 +37,16 @@
         <td><%= link_to customer.id, admin_customer_path(customer), class: "text-dark" %></td>
         <td><%= link_to customer.name, admin_customer_path(customer), class: "text-dark" %></td>
         <td><%= link_to customer.email, admin_customer_path(customer), class: "text-dark" %></td>
-        <td class="<%= customer.is_hidden == false ? 'text-success' : 'text-muted' %>">
-          <strong><%= customer.is_hidden == false ? '公開' : '非公開' %></strong>
+        <td style="<%= customer.is_hidden == false ? 'color: #89CA25;' : 'color: #6c757d;' %>">
+          <strong class="status"><%= customer.is_hidden == false ? '公開' : '非公開' %></strong>
         </td>
-        <td class="<%= customer.is_deleted == false ? 'text-success' : 'text-muted' %>">
-          <strong><%= customer.is_deleted == false ? '有効' : '退会' %></strong>
+        <td style="<%= customer.is_deleted == false ? 'color: #89CA25;' : 'color: #6c757d;' %>">
+          <strong class="status"><%= customer.is_deleted == false ? '有効' : '退会' %></strong>
         </td>
         <td><%= customer.posts.count %></td>
          <td>
           <%= link_to admin_customer_path(customer), class: "text-info" do %>
-            <i class="fa-solid fa-file-pen"></i>
+            <i class="fa-solid fa-file-pen blue"></i>
           <% end %>
         </td>
       </tr>

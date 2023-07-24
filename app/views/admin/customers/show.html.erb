@@ -41,13 +41,13 @@
         </tr>
         <th></th>
         <td class="px-0">
-          <%= link_to admin_posts_path(customer_id: @customer.id), class: "btn btn-info btn-sm px-4 mr-2" do %>
+          <%= link_to admin_posts_path(customer_id: @customer.id), class: "btn btn-blue btn-sm px-4 mr-2" do %>
             <i class="fa-solid fa-file-pen"> 投稿一覧を見る</i>
           <% end %>
-          <%= link_to admin_post_comments_path(customer_id: @customer.id), class: "btn btn-info btn-sm px-4" do %>
+          <%= link_to admin_post_comments_path(customer_id: @customer.id), class: "btn btn-blue btn-sm px-4" do %>
             <i class="fa-solid fa-file-pen"> コメント一覧を見る</i>
           <% end %></br>
-          <%= link_to edit_admin_customer_path(@customer), class: "btn btn-success btn-sm px-4 mt-2" do %>
+          <%= link_to edit_admin_customer_path(@customer), class: "btn btn-green btn-sm px-4 mt-2" do %>
             <i class="fa-solid fa-pen-to-square"> 編集する</i>
           <% end %>
         </td>

@@ -12,14 +12,14 @@
     </div>
   
     <div class="text-center">
-      <%= f.submit "ログイン", class: "btn btn-info btn-block" %>
-      <p class="my-2"><span>-------</span> 会員登録がまだの方はこちらから <span>-------</span></p>
+      <%= f.submit "ログイン", class: "btn btn-blue btn-block" %>
+      <p class="mt-4 mb-2 pt-1 top-border"> 会員登録がまだの方はこちらから </p>
       <div class="form-group my-0">
-        <%= link_to "新規登録", new_customer_registration_path , class: "btn btn-primary btn-block" %>
+        <%= link_to "新規登録", new_customer_registration_path , class: "btn btn-sm btn-outline-blue btn-block" %>
       </div>
-      <p class="my-2"><span>-----</span> ゲストログインはこちら（企業様用） <span>-----</span></p>
+      <p class="mt-4 mb-2 pt-1 top-border"> ゲストログインはこちらから（企業様用） </p>
       <div class="form-group">
-        <%= link_to 'ゲストログイン（閲覧用）', public_guest_sign_in_path, method: :post, class: "btn btn-info btn-block" %>
+        <%= link_to 'ゲストログイン（閲覧用）', public_guest_sign_in_path, method: :post, class: "btn btn-sm btn-outline-blue btn-block" %>
       </div>
     </div>
   <% end %>

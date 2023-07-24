@@ -15,10 +15,10 @@
           <tr>
             <td><%= tag.name %></td>
             <td>
-              <%= link_to edit_admin_tag_path(tag), class: "btn btn-sm btn-success mr-4 mb-sm-0 mb-2" do %>
+              <%= link_to edit_admin_tag_path(tag), class: "btn btn-sm btn-green mr-4 mb-sm-0 mb-2" do %>
                 <i class="fa-solid fa-pen-to-square"> 編集する</i>
               <% end %>
-              <%= link_to admin_tag_path(tag), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger" do %>
+              <%= link_to admin_tag_path(tag), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-red" do %>
                 <i class="fa-solid fa-trash"> 削除する</i>
               <% end %>
             </td>

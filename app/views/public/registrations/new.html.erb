@@ -19,7 +19,7 @@
           
           <div class="form-group">
             <%= f.label :profile_image, "プロフィール画像" %>
-            <%= f.file_field :profile_image, accept: "image/*", class: "form-control" %>
+            <%= f.file_field :profile_image, accept: "image/*", class: "form-control-file" %>
           </div>
           
           <div class="form-group">
@@ -52,14 +52,14 @@
           </div>
 
           <div class="form-group">
-            <%= f.submit "新規登録", class: "btn btn-primary btn-block" %>
+            <%= f.submit "新規登録", class: "btn btn-blue btn-block" %>
           </div>
         <% end %>
 
         <div class="box-newusr text-center">
-          <p><span>------------</span> 既に登録されていますか？ <span>------------</span></p>
+          <p class="mt-4 mb-2 pt-1 top-border"> 既に登録されていますか？ </p>
           <div class="form-group">
-            <%= link_to "ログイン", new_customer_session_path , class: "btn btn-info btn-block"%>
+            <%= link_to "ログイン", new_customer_session_path , class: "btn btn-sm btn-outline-blue btn-block"%>
           </div>
         </div>
       </div>

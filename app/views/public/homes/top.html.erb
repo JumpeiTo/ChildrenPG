@@ -2,37 +2,50 @@
   <div class="col-lg-4">
     <h1>遊び場検索</h1>
     <%= form_with(url: places_search_path, method: :get, id: 'filter-search_form') do |f| %>
-      <%= f.label :name, '遊び場名' %>
-      <%= f.text_field :name, placeholder: '遊び場名を入力してください' %></br>
-      <%= f.label :types, 'カテゴリー' %>
-      <%= f.select :types, options_for_select([['どこに遊びに？', nil], ['公園', 'park'], ['動物園', 'zoo'], ['観光名所', 'tourist_attraction'], ['遊園地', 'amusement_park'], ['水族館', 'aquarium'], ['美術館', 'art_gallery'], ['書店', 'book_store'], ['ボウリング場', 'bowling_alley'], ['カフェ', 'cafe'], ['キャンプ場', 'campground'], ['デパート', 'department_store'], ['図書館', 'library'], ['映画館', 'movie_theater'], ['博物館', 'museum'], ['ペットショップ', 'pet_store'], ['学校', 'school'], ['レストラン', 'restaurant'], ['ショッピングモール', 'shopping_mall'], ['スタジアム', 'stadium'], ['店舗', 'store']]), {} %></br>
-      <div class="d-flex">
-        <label for="pin-coordinates-lat">緯度:</label>
-        <div id="pin-coordinates-lat"></div> <!-- ピンの緯度を表示する要素 -->
+      <div class="form-group">
+        <%= f.label :name, '遊び場名' %>
+        <%= f.text_field :name, placeholder: '遊び場名を入力してください', class: 'form-control', style: "width: 80%;" %>
       </div>
-      <div class="d-flex">
+      <div class="form-group">
+        <%= f.label :types, 'カテゴリー' %>
+        <%= f.select :types, options_for_select([['どこに遊びに？', nil], ['公園', 'park'], ['動物園', 'zoo'], ['観光名所', 'tourist_attraction'], ['遊園地', 'amusement_park'], ['水族館', 'aquarium'], ['美術館', 'art_gallery'], ['書店', 'book_store'], ['ボウリング場', 'bowling_alley'], ['カフェ', 'cafe'], ['キャンプ場', 'campground'], ['デパート', 'department_store'], ['図書館', 'library'], ['映画館', 'movie_theater'], ['博物館', 'museum'], ['ペットショップ', 'pet_store'], ['学校', 'school'], ['レストラン', 'restaurant'], ['ショッピングモール', 'shopping_mall'], ['スタジアム', 'stadium'], ['店舗', 'store']]), {}, class: 'form-control', style: "width: 60%;" %>
+      </div>
+      <p class="mb-1" style="font-size: 0.95em;">マップ上を長押でピンを表示させるか、</br>場所を検索することで検索範囲の座標が出せます</p>
+      <div class="d-flex form-group mb-1">
+        <div for="pin-coordinates-lat">緯度:</div>
+        <div id="pin-coordinates-lat" class="ml-1"></div> <!-- ピンの緯度を表示する要素 -->
+      </div>
+      <div class="d-flex form-group">
         <label for="pin-coordinates-lng">経度:</label>
-        <div id="pin-coordinates-lng"></div> <!-- ピンの経度を表示する要素 -->
+        <div id="pin-coordinates-lng" class="ml-1"></div> <!-- ピンの経度を表示する要素 -->
       </div>
-      <%= f.label :radius, '検索範囲:' %>
-      <%= f.select :radius, options_for_select([['どこまで遠くに？', nil], ['1Km','1000'], ['5Km','5000'], ['10Km','10000'], ['30Km','30000']]) %></br>
+      <div class="form-group">
+        <%= f.label :radius, '検索範囲' %>
+        <%= f.select :radius, options_for_select([['どこまで遠くに？', nil], ['1Km','1000'], ['5Km','5000'], ['10Km','10000'], ['30Km','30000']]),{}, class: 'form-control', style: "width: 60%;" %>
+      </div>
       <%= f.hidden_field :lat, id: 'lat' %>
       <%= f.hidden_field :lng, id: 'lng' %>
-      <%= f.submit '検索', id: "submit_button" %>
-      <%= button_tag '条件リセット', type: 'button', id: "condition_reset_button" %>
+      <%= f.submit '遊び場検索', id: "submit_button", class: "btn btn-blue px-5 mr-2 mb-2" %>
+      <%= button_tag '条件リセット', type: 'button', id: "condition_reset_button", class: "btn btn-sm btn-secondary mb-1" %>
     <% end %>
   </div>
   
-  <div class="col-lg-8">
-    <input id="address" type="textbox" placeholder="場所を入力してください" >
-    <input type="button" value="探す" onclick="codeAddress()">
-    <p>マップ上で長押しするとピンが表示されます。</p>
-    <p>ピンをドラック＆ドロップで位置の調整ができます。<p>
+  <div class="col-lg-8 mt-lg-0 mt-3">
+    <div class="row">
+      <div class="input-group col-lg-6 mb-2 mb-lg-3" style="width: 70%;">
+        <input id="address" type="text" class="form-control" placeholder="場所を入力してください">
+        <button type="button" class="btn btn-outline-blue custom-button" onclick="codeAddress()">探す</button>
+      </div>
+      <div class="pin-operation col-lg-6">
+        <p class="mb-2 mb-lg-0">ピンをドラック＆ドロップで位置の調整が出来ます</p>
+      </div>
+    </div>
+    <!--マップ表示-->
     <div id="map"></div>
     
     <style>
       #map {
-        height: 400px;
+        height: 415px;
         width: 100%;
       }
     </style>

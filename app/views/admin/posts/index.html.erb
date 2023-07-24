@@ -9,7 +9,7 @@
           <%= f.search_field :title_or_text_cont, class: 'form-control mr-2', placeholder: 'タイトル,本文', style: "width: 200px;" %>
           <%= f.search_field :playground_name_cont, class: 'form-control mr-2', placeholder: '遊び場名', style: "width: 200px;" %>
           <%= f.search_field :customer_name_cont, class: 'form-control mr-2', placeholder: '投稿者名', style: "width: 150px;" %>
-          <button class="btn btn-outline-success mr-3" type="submit" style="width: 80px; ">
+          <button class="btn btn-outline-green mr-3" type="submit" style="width: 80px; ">
             検索 <i class="fa-solid fa-magnifying-glass"></i>
           </button>
           <select class="custom-select" id="sort_by" onChange="location.href=value;" style="width: 120px;">
@@ -44,12 +44,12 @@
         <td><%= link_to post.post_comments.count, admin_post_path(post), class: "text-dark" %></td>
         <td>
           <%= link_to admin_post_path(post), class: "text-info" do %>
-            <i class="fa-solid fa-file-pen"></i>
+            <i class="fa-solid fa-file-pen blue"></i>
           <% end %>
         </td>
         <td>
           <%= link_to admin_post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "text-danger" do %>
-            <i class="fa-solid fa-trash"></i>
+            <i class="fa-solid fa-trash red"></i>
           <% end %>
         </td>
       </tr>

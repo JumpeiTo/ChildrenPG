@@ -3,7 +3,18 @@
 
 * {
   font-family: 'Noto Sans JP', sans-serif;
-  // color: #4d4d4d;
+}
+
+:not(.btn, .badge, .fa-solid, .toast-message, .status, .fa-comment-dots) {
+  color: #4d4d4d;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #4d4d4d;
+}
+
+main, .nav-link{
+  background-color: #FFFEF9;
 }
 
 // main領域が少ない時footer固定化
@@ -87,6 +98,18 @@ div.field_with_errors input {
   font-weight: bold;
 }
 
+// ピン操作説明
+.pin-operation {
+  width: fit-content;
+}
+.pin-operation p {
+  font-size: 0.9em;
+}
+
+.top-border {
+  border-top: 1px dotted #4d4d4d;
+}
+
 h1 {
   width: fit-content;
   font-size: 36px;
@@ -121,46 +144,99 @@ h2:after {
   left: 0;
   bottom: 0;
   width: 150%;
-  height: 5px;
-  background: -webkit-repeating-linear-gradient(-45deg, #f4e4d4, #f4e4d4 2px, #fff 2px, #fff 4px);
-  background: repeating-linear-gradient(-45deg, #f4e4d4, #f4e4d4 2px, #fff 2px, #fff 4px);
+  height: 4px;
+  background: -webkit-repeating-linear-gradient(-45deg, #CAC280, #CAC280 2px, #fff 2px, #fff 4px);
+  background: repeating-linear-gradient(-45deg, #CAC280, #CAC280 2px, #fff 2px, #fff 4px);
 }
 
-// // 緑
-// .btn-success {
-//   color: #fff;
-//   background-color: #89CA25;
-//   border-color: #89CA25;
-//   &:hover {
-//     color: #fff;
-//     background-color: #97B170;
-//     border-color: #97B170;
-//   }
-// }
+.custom-button {
+  background-color: #fff;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+// 緑ボタン
+.btn-green {
+  color: #fff;
+  background-color: #b2c72c;
+  &:hover {
+    color: #fff;
+    background-color: #92a322;
+  }
+}
+// 青ボタン
+.btn-blue {
+  color: #fff;
+  background-color: #6699CC;
+  &:hover {
+    color: #fff;
+    background-color: #527aa3;
+  }
+}
+// 赤ボタン
+.btn-red {
+  color: #fff;
+  background-color: #EC5766;
+  &:hover {
+    color: #fff;
+    background-color: #c74854;
+  }
+}
+
+// 黄色ボタン
+.btn-yellow {
+  color: #fff;
+  background-color: #fcce42;
+  &:hover {
+    color: #fff;
+    background-color: #c7bd5b;
+  }
+}
+
+// 緑アウトラインボタン
+.btn-outline-green {
+  color: #89CA25;
+  border-color: #89CA25;
+  &:hover {
+    color: #fff;
+    background-color: #97B170;
+    border-color: #97B170;
+  }
+}
+// 青アウトラインボタン
+.btn-outline-blue {
+  color: #6699CC;
+  border-color: #6699CC;
+  &:hover {
+    color: #fff;
+    background-color: #6699CC;
+    border-color: #6699CC;
+  }
+}
+// 黄色アウトラインボタン
+.btn-outline-yellow {
+  color: #fcce42;
+  border-color: #fcce42;
+  &:hover {
+    color: #fff;
+    background-color: #fcce42;
+    border-color: #fcce42;
+  }
+}
 
 // 青
-// .fa-file-pen, .page-link, .btn-info {
-//   color: #6699CC;
-// }
-// // 赤
-// .fa-trash {
-//   color: #EC5766;
-// }
-// 黄色
-// .page-link {
-//   color: #FFF275;
-// }
-
-// 緑 アウトライン？
-// .btn-outline-success, .fa-magnifying-glass, .fa-pen-to-square {
-//   color: #89CA25;
-//   border-color: #89CA25;
-//   &:hover {
-//     color: #fff;
-//     background-color: #97B170;
-//     border-color: #97B170;
-//   }
-// }
+.blue {
+  color: #6699CC;
+  &:hover {
+    color: #527aa3;
+  }
+}
+// 赤
+.red {
+  color: #EC5766;
+  &:hover {
+    color: #c74854;
+  }
+}
 
 
 

@@ -7,9 +7,9 @@
   
     <div class="col-8">
       <div class="mb-1">
-        <%= link_to "投稿一覧", customers_path(customer_id: @customer.id), class: "btn btn-sm btn-warning" %>
-        <%= link_to "いいねした投稿", customer_favorite_posts_path(customer_id: @customer.id), class: "btn btn-sm btn-outline-warning" %>
-        <%= link_to "コメントした投稿", customer_comment_posts_path(customer_id: @customer.id), class: "btn btn-sm btn-outline-warning" %>
+        <%= link_to "投稿一覧", customers_path(customer_id: @customer.id), class: "btn btn-sm btn-yellow" %>
+        <%= link_to "いいねした投稿", customer_favorite_posts_path(customer_id: @customer.id), class: "btn btn-sm btn-outline-yellow" %>
+        <%= link_to "コメントした投稿", customer_comment_posts_path(customer_id: @customer.id), class: "btn btn-sm btn-outline-yellow" %>
       </div>
       <!--並び替え-->
       <%= form_with(url: customers_path(customer_id: @customer.id), method: :get, local: true) do |f| %>

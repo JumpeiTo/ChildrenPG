@@ -36,8 +36,8 @@
       </div>
       
       <% if @post.customer == current_customer %>
-        <%= link_to '編集する',edit_post_path(@post), class: 'btn btn-sm btn-success' %>
-        <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
+        <%= link_to '編集する',edit_post_path(@post), class: 'btn btn-sm btn-green' %>
+        <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-red' %>
       <% end %>
       
       <div class="mt-3">
@@ -45,7 +45,7 @@
           <div>
             <%= form_with model: [@post, @post_comment] do |f| %>
               <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" , class: "form-control w-75", style: "height: 70px;" %>
-              <%= f.submit "送信する" , class: 'btn btn-sm btn-info' %>
+              <%= f.submit "送信する" , class: 'btn btn-sm btn-blue' %>
               <%= render "layouts/error", model: f, attribute: :comment %>
             <% end %>
           </div>
@@ -77,7 +77,7 @@
                 <div>
                   <%= time_ago_in_words(post_comment.created_at) %>前
                   <% if post_comment.customer == current_customer %>
-                    <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), data: { confirm: '本当に削除しますか？' }, method: :delete, class: 'text-danger' %></br>
+                    <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), data: { confirm: '本当に削除しますか？' }, method: :delete, class: 'red' %></br>
                   <% end %>
                 </div>
               </div>

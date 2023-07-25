@@ -8,12 +8,14 @@
     <div class="col-8">
       <div class="d-flex justify-content-between">
         <h2 class="ml-0 mb-3">投稿一覧</h2>
-        <div class="mr-3">
-          <!--並び替え-->
-          <%= form_with(url: customers_path(customer_id: @customer.id), method: :get, local: true) do |f| %>
-            <%= render 'sort', f: f %>
-          <% end %>
-        </div>
+        <% if @post != nil %>
+          <div class="mr-3">
+            <!--並び替え-->
+            <%= form_with(url: customers_path(customer_id: @customer.id), method: :get, local: true) do |f| %>
+              <%= render 'sort', f: f %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
       <div class="mb-1">
       <%= link_to "投稿一覧", customers_path(customer_id: @customer.id), class: "btn btn-sm btn-yellow" %>
@@ -21,14 +23,18 @@
       <%= link_to "コメントした投稿", customer_comment_posts_path(customer_id: @customer.id), class: "btn btn-sm btn-outline-yellow" %>
       </div>
       <!-- カスタマーの投稿一覧表示 -->
-      <div id="post-list">
-        <% @posts.each do |post| %>
-          <%= render 'public/posts/post_index', post: post %>
-        <% end %>
-      </div>
-      <div class="pagination">
-        <%= paginate @posts, theme: 'bootstrap-5' %>
-      </div>
+      <% if @post != nil %>
+        <div id="post-list">
+          <% @posts.each do |post| %>
+            <%= render 'public/posts/post_index', post: post %>
+          <% end %>
+        </div>
+        <div class="pagination">
+          <%= paginate @posts, theme: 'bootstrap-5' %>
+        </div>
+      <% else %>
+        <h3 class="mt-3">投稿がありません</h3>
+      <% end %>
     </div>
   <% else %>
     <h3>非公開のユーザーです</h3>

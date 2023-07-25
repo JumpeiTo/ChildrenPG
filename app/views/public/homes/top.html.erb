@@ -65,6 +65,8 @@
         document.getElementById('filter-search_form').reset();
         document.getElementById("pin-coordinates-lat").textContent = ""; // ピンの緯度を空にする
         document.getElementById("pin-coordinates-lng").textContent = ""; // ピンの経度を空にする
+        document.getElementById("lat").value = ""; // latのhidden fieldを空にする
+        document.getElementById("lng").value = ""; // lngのhidden fieldを空にする
         if (marker) {
           marker.setMap(null); // マーカーを地図上から削除する
       }});

@@ -40,7 +40,9 @@ class Customer < ApplicationRecord
   
 # 日別の登録数を集計するスコープ
 scope :group_by_day_count, -> {
-  start_date = Post.minimum(:created_at)&.to_date
+  min_created_at = Post.minimum(:created_at)
+  exists = min_created_at.present?
+  start_date = exists ? min_created_at.to_date : Date.today - 1.month
   end_date = Date.today
   counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
   date_range = (start_date..end_date).to_a
@@ -50,7 +52,9 @@ scope :group_by_day_count, -> {
 
 # 月別の登録数を集計するスコープ
 scope :group_by_month_count, -> {
-  start_date = Post.minimum(:created_at)&.to_date.beginning_of_month
+  min_created_at = Post.minimum(:created_at)
+  exists = min_created_at.present?
+  start_date = exists ? min_created_at.to_date.beginning_of_month : Date.today.beginning_of_month - 5.month
   end_date = Date.today.end_of_month
   counts = group("strftime('%Y-%m', created_at)").count
   date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }

@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 2023_07_14_160105) do
     t.text "business_hours"
     t.string "website"
     t.string "phone_number"
-    t.string "photo_url"
+    t.text "photo_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

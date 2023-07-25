@@ -66,6 +66,8 @@
         radiusSelect.selectedIndex = 0; // 検索範囲セレクトボックスを初期値に戻す
         document.getElementById("pin-coordinates-lat").textContent = ""; // ピンの緯度を空にする
         document.getElementById("pin-coordinates-lng").textContent = ""; // ピンの経度を空にする
+        document.getElementById("lat").value = ""; // latのhidden fieldを空にする
+        document.getElementById("lng").value = ""; // lngのhidden fieldを空にする
         if (marker) {
           marker.setMap(null); // ピンを地図上から削除する
         }

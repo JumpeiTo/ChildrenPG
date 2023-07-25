@@ -1,27 +1,32 @@
 <h1>データ推移</h1>
-<h2>会員登録数</h2>
-<div class="row mb-4">
-  <div class="col-lg-6">
-    <!-- 日別のグラフを表示するキャンバス要素 -->
-    <canvas id="daily_customer_chart"></canvas>
+<% if @daily_customer_chart_data.present? %>
+  <h2>会員登録数</h2>
+  <div class="row mb-4">
+    <div class="col-lg-6">
+      <!-- 日別のグラフを表示するキャンバス要素 -->
+      <canvas id="daily_customer_chart"></canvas>
+    </div>
+    
+    <div class="col-lg-6">
+      <!-- 月別のグラフを表示するキャンバス要素 -->
+      <canvas id="monthly_customer_chart"></canvas>
+    </div>
   </div>
-  <div class="col-lg-6">
-    <!-- 月別のグラフを表示するキャンバス要素 -->
-    <canvas id="monthly_customer_chart"></canvas>
-  </div>
-</div>
+<% end %>
 
-<h2>投稿数</h2>
-<div class="row">
-  <div class="col-lg-6">
-    <!-- 日別のグラフを表示するキャンバス要素 -->
-    <canvas id="daily_post_chart"></canvas>
+<% if @daily_post_chart_data.present? %>
+  <h2>投稿数</h2>
+  <div class="row">
+    <div class="col-lg-6">
+      <!-- 日別のグラフを表示するキャンバス要素 -->
+      <canvas id="daily_post_chart"></canvas>
+    </div>
+    <div class="col-lg-6">
+      <!-- 月別のグラフを表示するキャンバス要素 -->
+      <canvas id="monthly_post_chart"></canvas>
+    </div>
   </div>
-  <div class="col-lg-6">
-    <!-- 月別のグラフを表示するキャンバス要素 -->
-    <canvas id="monthly_post_chart"></canvas>
-  </div>
-</div>
+<% end %>
 
 <!--chart.jsスクリプト-->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

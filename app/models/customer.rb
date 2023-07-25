@@ -38,29 +38,29 @@ class Customer < ApplicationRecord
     super && (is_deleted == false)
   end
   
-# 日別の登録数を集計するスコープ
-scope :group_by_day_count, -> {
-  min_created_at = Post.minimum(:created_at)
-  exists = min_created_at.present?
-  start_date = exists ? min_created_at.to_date : Date.today - 1.month
-  end_date = Date.today
-  counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
-  date_range = (start_date..end_date).to_a
-  filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
-  filled_counts
-}
+  # 日別の登録数を集計するスコープ
+  scope :group_by_day_count, -> {
+    min_created_at = Customer.minimum(:created_at)
+    exists = min_created_at.present?
+    start_date = exists ? min_created_at.to_date : Date.today - 1.month
+    end_date = Date.today
+    counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
+    date_range = (start_date..end_date).to_a
+    filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
+    filled_counts
+  }
 
-# 月別の登録数を集計するスコープ
-scope :group_by_month_count, -> {
-  min_created_at = Post.minimum(:created_at)
-  exists = min_created_at.present?
-  start_date = exists ? min_created_at.to_date.beginning_of_month : Date.today.beginning_of_month - 5.month
-  end_date = Date.today.end_of_month
-  counts = group("strftime('%Y-%m', created_at)").count
-  date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }
-  filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
-  filled_counts
-}
+  # 月別の登録数を集計するスコープ
+  scope :group_by_month_count, -> {
+    min_created_at = Customer.minimum(:created_at)
+    exists = min_created_at.present?
+    start_date = exists ? min_created_at.to_date.beginning_of_month : Date.today.beginning_of_month - 5.month
+    end_date = Date.today.end_of_month
+    counts = group("strftime('%Y-%m', created_at)").count
+    date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }
+    filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
+    filled_counts
+  }
 
   
   # ransack検索カラムのアソシエーション

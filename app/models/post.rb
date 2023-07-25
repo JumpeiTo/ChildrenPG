@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  has_one_attached :image
+  has_one_attached :post_image
   
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
@@ -16,11 +16,11 @@ class Post < ApplicationRecord
   enum playtime_method: { 'oneday': 0, '2hours': 1, '4hours': 2, '6hours': 3, '8hours': 4 }
   
   def get_post_image(width, height)
-    unless image.attached?
+    unless post_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image32.png')
-      image.attach(io: File.open(file_path), filename: 'default-image.png', content_type: 'image/png')
+      post_image.attach(io: File.open(file_path), filename: 'default-image.png', content_type: 'image/png')
     end
-    image.variant(resize_to_limit: [width, height]).processed
+    post_image.variant(resize_to_limit: [width, height]).processed
   end
   
   # 投稿いいねをしているか
@@ -30,7 +30,8 @@ class Post < ApplicationRecord
   
   # 日別の投稿数を集計するスコープ
   scope :group_by_day_count, -> {
-    start_date = Post.minimum(:created_at)&.to_date
+    # start_dateが未定義の場合にデフォルトの値を設定
+    start_date = Post.minimum(:created_at)&.to_date || Date.today - 1.month
     end_date = Date.today
     counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
     date_range = (start_date..end_date).to_a
@@ -40,7 +41,8 @@ class Post < ApplicationRecord
 
   # 月別の投稿数を集計するスコープ
   scope :group_by_month_count, -> {
-    start_date = Post.minimum(:created_at)&.to_date.beginning_of_month
+    # start_dateが未定義の場合にデフォルトの値を設定
+    start_date = Post.minimum(:created_at)&.to_date&.beginning_of_month || Date.today.beginning_of_month - 5.month
     end_date = Date.today.end_of_month
     counts = group("strftime('%Y-%m', created_at)").count
     date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }

@@ -1,14 +1,14 @@
 <div class="mx-auto col-12">
-  <div class="d-flex justify-content-between">
-    <h1>
-      <% if @customer %>
-        <%= "#{@customer.name}さんのコメント一覧" %>
-      <% elsif @post %>
-        <%= "投稿ID「#{@post.id}」のコメント一覧" %>
-      <% else %>
-        投稿一覧
-      <% end %>
-    </h1>
+  <h1 class="mb-3">
+    <% if @customer %>
+      <%= "#{@customer.name}さんのコメント一覧" %>
+    <% elsif @post %>
+      <%= "投稿ID「#{@post.id}」のコメント一覧" %>
+    <% else %>
+      投稿一覧
+    <% end %>
+  </h1>
+  <div class="d-flex justify-content-end my-1">
     <%= search_form_for @q, url: admin_post_comments_path do |f| %>
       <div class="d-flex">
         <%= f.search_field :comment_or_customer_name_cont, class: 'form-control mr-2', placeholder: '名前,コメント', style: "width: 250px;" %>

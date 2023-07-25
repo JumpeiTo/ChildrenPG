@@ -1,8 +1,8 @@
 <div class="mx-auto col-12">
-  <div class="d-flex justify-content-between">
-    <h1>
-      <%= @customer ? "#{@customer.name}さんの投稿一覧" : "投稿一覧" %>
-    </h1>
+  <h1 class="mb-3">
+    <%= @customer ? "#{@customer.name}さんの投稿一覧" : "投稿一覧" %>
+  </h1>
+  <div class="d-flex justify-content-end my-1">
     <div class="d-flex align-items-center">
       <%= search_form_for @q, url: admin_posts_path do |f| %>
         <div class="d-flex">

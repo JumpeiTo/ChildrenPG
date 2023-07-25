@@ -41,7 +41,7 @@ class Admin::PostsController < ApplicationController
   private
   
   def post_params
-    params.require(:post).permit(:image, :customer_id, :playground_id, :title, :text, :playtime, :rate, target_age_ids: [], tag_ids: [])
+    params.require(:post).permit(:post_image, :customer_id, :playground_id, :title, :text, :playtime, :rate, target_age_ids: [], tag_ids: [])
   end
   
   def set_post

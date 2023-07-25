@@ -46,12 +46,11 @@ class Post < ApplicationRecord
     exists = min_created_at.present?
     start_date = exists ? min_created_at.to_date.beginning_of_month : Date.today.beginning_of_month - 5.month
     end_date = Date.today.end_of_month
-    counts = group("strftime('%Y-%m', created_at)").count
+    counts = group("DATE_FORMAT(created_at, '%Y-%m')").count
     date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }
     filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
     filled_counts
   }
-
   
   # 並び替えメソッド
   scope :latest, -> { order(created_at: :desc) }  # 登録新しい順

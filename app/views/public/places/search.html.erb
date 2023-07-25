@@ -1,35 +1,51 @@
 <div class="row">
-  <div class="col-md-3">
-    <h2>検索結果</h2>
+    <!--検索リザルト結果-->
+  <div class="col-md-8">
+    <h1>検索結果</h1>
+    <%= render partial: 'search_results', locals: { places: @places } %>
+  </div>
+  
+  <div class="col-md-4">
+    <h2 class="mt-2 mb-2 ml-0">再検索</h2>
     <%= form_with(url: places_search_path, method: :get, id: 'filter-search_form') do |f| %>
-      <%= f.text_field :name, value: params[:name], placeholder: '遊び場名を入力してください' %>
-      <%= f.label :types, 'カテゴリー' %>
-      <%= f.select :types, options_for_select([['どこに遊びに？', nil], ['公園', 'park'], ['動物園', 'zoo'], ['観光名所', 'tourist_attraction'], ['遊園地', 'amusement_park'], ['水族館', 'aquarium'], ['美術館', 'art_gallery'], ['書店', 'book_store'], ['ボウリング場', 'bowling_alley'], ['カフェ', 'cafe'], ['キャンプ場', 'campground'], ['デパート', 'department_store'], ['図書館', 'library'], ['映画館', 'movie_theater'], ['博物館', 'museum'], ['ペットショップ', 'pet_store'], ['学校', 'school'], ['レストラン', 'restaurant'], ['ショッピングモール', 'shopping_mall'], ['スタジアム', 'stadium'], ['店舗', 'store']],selected: params[:types])  %>
-      <p id="error-text">検索したい周辺の位置に<br>ピンをさしてください</p>
-      <div class="d-flex">
-        <label for="pin-coordinates-lat">緯度:</label>
-        <div id="pin-coordinates-lat"></div> <!-- ピンの緯度を表示する要素 -->
+      <div class="form-group mb-2">
+        <%= f.label :name, '遊び場名' %>
+        <%= f.text_field :name, value: params[:name], placeholder: '遊び場名を入力してください', class: 'form-control', style: "width: 80%;" %>
       </div>
-      <div class="d-flex">
-        <label for="pin-coordinates-lng">経度:</label>
-        <div id="pin-coordinates-lng"></div> <!-- ピンの経度を表示する要素 -->
+      <div class="form-group mb-2">
+        <%= f.label :types, 'カテゴリー' %>
+        <%= f.select :types, options_for_select([['どこに遊びに？', nil], ['公園', 'park'], ['動物園', 'zoo'], ['観光名所', 'tourist_attraction'], ['遊園地', 'amusement_park'], ['水族館', 'aquarium'], ['美術館', 'art_gallery'], ['書店', 'book_store'], ['ボウリング場', 'bowling_alley'], ['カフェ', 'cafe'], ['キャンプ場', 'campground'], ['デパート', 'department_store'], ['図書館', 'library'], ['映画館', 'movie_theater'], ['博物館', 'museum'], ['ペットショップ', 'pet_store'], ['学校', 'school'], ['レストラン', 'restaurant'], ['ショッピングモール', 'shopping_mall'], ['スタジアム', 'stadium'], ['店舗', 'store']],selected: params[:types]), {}, class: 'form-control', style: "width: 60%;" %>
       </div>
-      <%= f.label :radius, '検索範囲:' %>
-      <%= f.select :radius, options_for_select([['どこまで遠くに？', nil], ['1Km','1000'], ['5Km','5000'], ['10Km','10000'], ['30Km','30000']], selected: params[:radius]) %>
+      <div class="form-group mb-2">
+        <%= f.label :radius, '検索範囲' %>
+        <%= f.select :radius, options_for_select([['どこまで遠くに？', nil], ['1Km','1000'], ['5Km','5000'], ['10Km','10000'], ['30Km','30000']], selected: params[:radius]),{}, class: 'form-control', style: "width: 60%;" %>
+      </div>
       <%= f.hidden_field :lat, value: params[:lat], id: 'lat' %>
       <%= f.hidden_field :lng, value: params[:lng], id: 'lng' %>
       
-      <%= f.submit '検索', id: "submit_button" %>
-      <%= button_tag '条件リセット', type: 'button', id: "condition_reset_button" %>
+      <%= f.submit '遊び場検索', id: "submit_button", class: "btn btn-blue px-5 mr-2 mb-3" %>
+      <%= button_tag '条件リセット', type: 'button', id: "condition_reset_button", class: "btn btn-sm btn-secondary mb-2" %>
+      
+      <div class="d-flex form-group mb-2 mb-1">
+        <div for="pin-coordinates-lat">緯度:</div>
+        <div id="pin-coordinates-lat" class="ml-1"></div> <!-- ピンの緯度を表示する要素 -->
+      </div>
+      <div class="d-flex form-group mb-1">
+        <label for="pin-coordinates-lng">経度:</label>
+        <div id="pin-coordinates-lng" class="ml-1"></div> <!-- ピンの経度を表示する要素 -->
+      </div>
     <% end %>
-    <input id="address" type="textbox" placeholder="場所を入力してください" >
-    <input type="button" value="探す" onclick="codeAddress()">
+    <div class="input-group d-flx mb-2" style="width: 90%;">
+      <input id="address" type="textbox" class="form-control" placeholder="場所を入力してください" style="width: 70%;">
+      <button type="button" class="btn btn-outline-blue custom-button" onclick="codeAddress()">探す</button>
+    </div>
+      
     <div id="map"></div>
     
     <style>
       #map {
-        height: 250px;
-        width: 250px;
+        height: 400px;
+        width: 100%;
       }
     </style>
     
@@ -136,9 +152,5 @@
       
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
-  </div>
-  <!--検索リザルト結果-->
-  <div class="col-md-9">
-    <%= render partial: 'search_results', locals: { places: @places } %>
   </div>
 </div>

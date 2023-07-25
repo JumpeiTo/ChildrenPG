@@ -1,6 +1,31 @@
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~toastr/toastr";
 
+* {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+:not(.btn, .badge, .fa-solid, .toast-message, .status, .fa-comment-dots) {
+  color: #4d4d4d;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #4d4d4d;
+}
+
+main, .nav-link{
+  background-color: #FFFEF9;
+}
+
+.main {
+  max-width: 1200px;
+  width: 100%;
+  padding-right: 5%;
+  padding-left: 5%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 // main領域が少ない時footer固定化
 body {
   display: flex;
@@ -21,22 +46,21 @@ div.field_with_errors input {
   background-color: #fce4b4;
 }
 
-
-
 // 遊び場検索結果一覧リンク
 .places {
+  background-color: #faf4e8;
   &:hover {
-    background-color: #fffaf0;
+    background-color: #f0e9da;
     text-decoration: none;
   }
 }
 
 // 投稿一覧リンク
 .post {
-  background-color: #fffaf0;
+  background-color: #faf4e8;
   border-radius: 7px;
   &:hover {
-    background-color: #fff7e6;
+    background-color: #f0e9da;
     text-decoration: none;
   }
 }
@@ -44,16 +68,14 @@ div.field_with_errors input {
 // いいねボタン設定
 .favorite-wrapper {
   display: inline-block;
-  background-color: #fffaf0;
+  background-color: #fcdcdf;
   border-radius: 50px;
   padding: 1px 8px;
-  border: 2px solid #deb887;
+  border: 2px solid #f7cbcf;
 }
 .favorite-wrapper a:hover {
-  background-color: #fff7e6;
   text-decoration: none;
 }
-
 
 // 主に名前表示で使用
 .nickname a:hover {
@@ -69,7 +91,166 @@ div.field_with_errors input {
   border: dashed 2px #fff7e6;
 }
 
+// ページネーション
 .pagination {
   justify-content: center;
 }
+.page-link {
+  color: #6699CC;
+}
+.page-item.active .page-link{
+  background-color: #6699CC;
+  border-color: #6699CC;
+}
+
+// マーカーの投稿数
+.info-window span {
+  font-weight: bold;
+}
+
+// ピン操作説明
+.pin-operation {
+  width: fit-content;
+}
+.pin-operation p {
+  font-size: 0.9em;
+}
+
+
+
+
+.top-border {
+  border-top: 1px dotted #4d4d4d;
+}
+
+h1 {
+  width: fit-content;
+  font-size: 36px;
+  position: relative;
+  padding-left: 1.2em;
+  margin-bottom: 10px;
+  color: #9c8c84; // 候補 #c9b986
+}
+
+h1:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f1bb";/*アイコンのユニコード*/
+  font-weight: 900;
+  position: absolute;
+  font-size: 1em;
+  left: 2px;
+  top: 2px;
+  color: #c0ca80;
+}
+
+h2 {
+  margin-left: 3%;
+  font-size: 26px;
+  width: fit-content;
+  position: relative;
+}
+
+h2:after {
+  content: "";
+  position: absolute;
+  top: 29px;
+  left: 0;
+  bottom: 0;
+  width: 150%;
+  height: 4px;
+  background: -webkit-repeating-linear-gradient(-45deg, #CAC280, #CAC280 2px, #fff 2px, #fff 4px);
+  background: repeating-linear-gradient(-45deg, #CAC280, #CAC280 2px, #fff 2px, #fff 4px);
+}
+
+.custom-button {
+  background-color: #fff;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+// 緑ボタン
+.btn-green {
+  color: #fff;
+  background-color: #b2c72c;
+  &:hover {
+    color: #fff;
+    background-color: #92a322;
+  }
+}
+// 青ボタン
+.btn-blue {
+  color: #fff;
+  background-color: #6699CC;
+  &:hover {
+    color: #fff;
+    background-color: #527aa3;
+  }
+}
+// 赤ボタン
+.btn-red {
+  color: #fff;
+  background-color: #EC5766;
+  &:hover {
+    color: #fff;
+    background-color: #c74854;
+  }
+}
+
+// 黄色ボタン
+.btn-yellow {
+  color: #fff;
+  background-color: #fcce42;
+  &:hover {
+    color: #fff;
+    background-color: #e3b93b;
+  }
+}
+
+// 緑アウトラインボタン
+.btn-outline-green {
+  color: #89CA25;
+  border-color: #89CA25;
+  &:hover {
+    color: #fff;
+    background-color: #97B170;
+    border-color: #97B170;
+  }
+}
+// 青アウトラインボタン
+.btn-outline-blue {
+  color: #6699CC;
+  border-color: #6699CC;
+  &:hover {
+    color: #fff;
+    background-color: #6699CC;
+    border-color: #6699CC;
+  }
+}
+// 黄色アウトラインボタン
+.btn-outline-yellow {
+  color: #fcce42;
+  border-color: #fcce42;
+  &:hover {
+    color: #fff;
+    background-color: #fcce42;
+    border-color: #fcce42;
+  }
+}
+
+// 青
+.blue {
+  color: #6699CC;
+  &:hover {
+    color: #527aa3;
+  }
+}
+// 赤
+.red {
+  color: #EC5766;
+  &:hover {
+    color: #c74854;
+  }
+}
+
+
+
 

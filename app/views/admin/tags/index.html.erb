@@ -1,16 +1,13 @@
-<div class="px-1 ml-md-2">
-  <h5 class="bg-light text-center ml-5 mb-4" style="width: 220px;">タグ一覧・追加</h5>
-</div>
-<div class="col-sm-12 col-md-10 col-lg-9 col-xl-7 px-sm-0 px-md-1">
+<div class="col-sm-12 col-md-11 col-lg-9 col-xl-7 mx-auto">
+  <h1>タグ一覧・追加</h1>
   <%= render 'form', tag: @tag %>
   
   <div class="col-md-10 ml-0 mt-4 px-0">
-    <table class="table table-hover">
+    <table class="table">
       <thead>
         <tr>
-          <th class="bg-light col-4 col-sm-4">タグ</th>
-          <th class="bg-light col-4 col-sm-4"></th>
-          <th class="bg-light col-4 col-sm-4"></th>
+          <th class="bg-light col-4 col-sm-3">タグ</th>
+          <th class="bg-light col-4 col-sm-3"></th>
         </tr>
       </thead>
       <tbody>
@@ -18,10 +15,12 @@
           <tr>
             <td><%= tag.name %></td>
             <td>
-              <%= link_to '編集する', edit_admin_tag_path(tag), class: 'btn btn-sm btn-success' %>
-            </td>
-            <td>
-              <%= link_to '削除する', admin_tag_path(tag), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
+              <%= link_to edit_admin_tag_path(tag), class: "btn btn-sm btn-green mr-4 mb-sm-0 mb-2" do %>
+                <i class="fa-solid fa-pen-to-square"> 編集する</i>
+              <% end %>
+              <%= link_to admin_tag_path(tag), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-red" do %>
+                <i class="fa-solid fa-trash"> 削除する</i>
+              <% end %>
             </td>
           </tr>
         <% end %>

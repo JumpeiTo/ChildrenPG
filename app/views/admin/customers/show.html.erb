@@ -1,0 +1,61 @@
+<div class="col-11 mx-auto">
+  <h1><%=  @customer.name %>さんの会員詳細</h1>
+  <div class="row">
+    <div class="col-7 pr-0">
+      <table class="table table-borderless">
+        <tr>
+          <th>会員ID</th>
+          <td class="px-0"><%= @customer.id %></td>
+        </tr>
+        <tr>
+          <th>氏名</th>
+          <td class="px-0"><%= @customer.name %></td>
+        </tr>
+        <tr>
+          <th>ニックネーム</th>
+          <td class="px-0"><%= @customer.nickname %></td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td class="px-0"><%= @customer.email %></td>
+        </tr>
+        <tr>
+          <th>公開設定</th>
+          <td class="<%= @customer.is_hidden == false ? 'text-success px-0' : 'text-muted px-0' %>">
+            <strong><%= @customer.is_hidden == false ? '公開' : '非公開' %></strong>
+          </td>
+        </tr>
+        <tr>
+          <th>会員ステータス</th>
+          <td class="<%= @customer.is_deleted == false ? 'text-success px-0' : 'text-muted px-0' %>">
+            <strong><%= @customer.is_deleted == false ? '有効' : '退会' %></strong>
+          </td>
+        </tr>
+        <tr>
+          <th>投稿数</th>
+          <td class="px-0"><%= @customer.posts.count %></td>
+        </tr>
+        <tr>
+          <th>作成日</th>
+          <td class="px-0"><%= @customer.created_at.strftime("%Y年%m月%d日") %></td>
+        </tr>
+        <th></th>
+        <td class="px-0">
+          <%= link_to admin_posts_path(customer_id: @customer.id), class: "btn btn-blue btn-sm px-4 mr-2" do %>
+            <i class="fa-solid fa-file-pen"> 投稿一覧を見る</i>
+          <% end %>
+          <%= link_to admin_post_comments_path(customer_id: @customer.id), class: "btn btn-blue btn-sm px-4" do %>
+            <i class="fa-solid fa-file-pen"> コメント一覧を見る</i>
+          <% end %></br>
+          <%= link_to edit_admin_customer_path(@customer), class: "btn btn-green btn-sm px-4 mt-2" do %>
+            <i class="fa-solid fa-pen-to-square"> 編集する</i>
+          <% end %>
+        </td>
+      </table>
+    </div>
+      
+    <div class="col-5 pl-0">
+      <%= image_tag @customer.get_profile_image("70%", "70%") %>
+    </div>
+  </div>
+</div>

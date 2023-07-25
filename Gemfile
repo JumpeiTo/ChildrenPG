@@ -65,6 +65,7 @@ gem 'dotenv-rails'
 gem 'google_places'
 gem "enum_help"
 gem 'image_processing', '~> 1.2'
+gem 'ransack'
 
 # 本番環境のための設定
 group :production do

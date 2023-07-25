@@ -1,0 +1,60 @@
+<div class="mx-auto col-12">
+  <div class="d-flex justify-content-between">
+    <h1>会員一覧</h1>
+    <%= search_form_for @q, url: admin_customers_path do |f| %>
+      <div class="d-flex">
+        <%= f.search_field :name_or_email_or_nickname_cont, class: 'form-control mr-2', placeholder: '名前,ニックネーム,メール', style: "width: 250px;" %>
+        <button class="btn btn-outline-green mr-3" type="submit" style="width: 80px;" >
+           <i class="fa-solid fa-magnifying-glass">検索</i>
+        </button>
+        <select class="custom-select" id="sort_by" onChange="location.href=value;" style="width: 120px;">
+          <option value="">並び替え</option>
+          <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'created_at+desc') %>">新しい会員</option>
+          <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'created_at+ask') %>">古い会員</option>
+          <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'is_hidden+ask') %>">投稿公開</option>
+          <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'is_hidden+desc') %>">投稿非公開</option>
+          <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'is_deleted+ask') %>">活動中会員</option>
+          <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'is_deleted+desc') %>">退会会員</option>
+        </select>
+      </div>
+    <% end %>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="bg-light"><%= sort_link(@q, :created_at, "会員ID") %></th>
+        <th class="bg-light"><%= sort_link(@q, :name, "氏名") %></th>
+        <th class="bg-light">メールアドレス</th>
+        <th class="bg-light"><%= sort_link(@q, :is_hidden, "公開設定") %></th>
+        <th class="bg-light"><%= sort_link(@q, :is_deleted, "ステータス") %></th>
+        <th class="bg-light">投稿数</th>
+        <th class="bg-light"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @customers.each do |customer| %>
+      <tr>
+        <td><%= link_to customer.id, admin_customer_path(customer), class: "text-dark" %></td>
+        <td><%= link_to customer.name, admin_customer_path(customer), class: "text-dark" %></td>
+        <td><%= link_to customer.email, admin_customer_path(customer), class: "text-dark" %></td>
+        <td style="<%= customer.is_hidden == false ? 'color: #89CA25;' : 'color: #6c757d;' %>">
+          <strong class="status"><%= customer.is_hidden == false ? '公開' : '非公開' %></strong>
+        </td>
+        <td style="<%= customer.is_deleted == false ? 'color: #89CA25;' : 'color: #6c757d;' %>">
+          <strong class="status"><%= customer.is_deleted == false ? '有効' : '退会' %></strong>
+        </td>
+        <td><%= customer.posts.count %></td>
+         <td>
+          <%= link_to admin_customer_path(customer), class: "text-info" do %>
+            <i class="fa-solid fa-file-pen blue"></i>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div>
+    <%= paginate @customers, theme: 'bootstrap-5' %>
+  </div>
+</div>

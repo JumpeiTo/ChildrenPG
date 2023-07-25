@@ -22,9 +22,49 @@ class Customer < ApplicationRecord
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
+  
+  # ゲストログイン用
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |customer|
+      customer.password = SecureRandom.urlsafe_base64
+      customer.name = 'ゲストユーザー'
+      customer.nickname = 'ゲストユーザー'
+      customer.is_hidden = true
+    end
+  end
 
   # is_deletedがfalseならtrueを返すようにしている
   def active_for_authentication?
     super && (is_deleted == false)
+  end
+  
+# 日別の登録数を集計するスコープ
+scope :group_by_day_count, -> {
+  start_date = Post.minimum(:created_at)&.to_date
+  end_date = Date.today
+  counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
+  date_range = (start_date..end_date).to_a
+  filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
+  filled_counts
+}
+
+# 月別の登録数を集計するスコープ
+scope :group_by_month_count, -> {
+  start_date = Post.minimum(:created_at)&.to_date.beginning_of_month
+  end_date = Date.today.end_of_month
+  counts = group("strftime('%Y-%m', created_at)").count
+  date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }
+  filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
+  filled_counts
+}
+
+  
+  # ransack検索カラムのアソシエーション
+  def self.ransackable_associations(auth_object = nil)
+    ["post_comments", "post_favorite_posts", "post_favorites", "posts"]
+  end
+  # ransack検索するカラム
+  def self.ransackable_attributes(auth_object = nil)
+    ["name", "nickname", "email", "created_at","is_hidden","is_deleted"]
   end
 end

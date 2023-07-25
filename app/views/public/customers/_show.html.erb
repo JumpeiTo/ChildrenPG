@@ -1,20 +1,17 @@
+<h1>会員詳細</h1>
+
+<%= image_tag customer.get_profile_image(200,280) %><br>
+<h4 class="mt-1 mb-3"><%= customer.nickname %></h4>
 <% if customer == current_customer %>
-  <h2>マイページ</h2>
-<% else %>
-  <h2><%= customer.nickname %>の詳細</h2>
+  <p><%= customer.email %></p>
+  <p><%= customer.name %></p>
 <% end %>
+<% publish = customer.is_hidden? ? '非公開' : '公開' %>
+公開設定: <span style="color: <%= customer.is_hidden? ? '#6c757d' : '#89CA25' %>;"><%= publish %></span>
+
 <div class="d-flex align-items-center my-3">
-  <h5 class="my-0 font-weight-bold">登録情報</h5>
-  <% if customer == current_customer %>
-    <%= link_to "編集する", edit_customers_path, class: "btn btn-sm btn-success" %>
-    <%= link_to "退会する", customers_check_path, class: "btn btn-sm btn-danger" %>
+  <% if customer == current_customer && customer.email != "guest@example.com"%>
+    <%= link_to "編集する", edit_customers_path, class: "btn btn-green mr-3 px-4" %>
+    <%= link_to "退会する", customers_check_path, class: "btn btn-sm btn-red mt-1" %>
   <% end %>
 </div>
-<%= image_tag customer.get_profile_image(100,100) %><br>
-<% if customer == current_customer %>
-  <%= customer.email %><br>
-  <%= customer.name %><br>
-<% end %>
-<%= customer.nickname %><br>
-<% publish = customer.is_hidden? ? '非公開' : '公開' %>
-公開設定: <%= publish %>

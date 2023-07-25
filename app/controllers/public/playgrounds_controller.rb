@@ -14,7 +14,11 @@ class Public::PlaygroundsController < ApplicationController
   
   def show
     @playground = Playground.find(params[:id])
-    @posts = @playground.post.page(params[:page]).per(10)
+    sort_by = params[:sort_by]
+    # sort_byが指定されていない場合、デフォルト値として"latest"（新着順）を設定する
+    sort_by = "latest" unless %w[latest old rate_high rate_low likes_count_high likes_count_low comments_many comments_few].include?(sort_by)
+    # 指定されたsort_byに応じて投稿を並び替えて取得し、非表示のカスタマーを除外して表示する
+    @posts = @playground.post.public_send(sort_by).joins(:customer).where(customers: { is_hidden: false }).page(params[:page]).per(10)
   end
 
   private

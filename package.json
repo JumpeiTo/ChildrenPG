@@ -10,8 +10,10 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.4.4",
     "bootstrap": "4.6.2",
+    "chart.js": "^4.3.0",
     "jquery": "^3.7.0",
     "popper.js": "^1.16.1",
+    "rails_admin": "3.1.2",
     "select2": "^4.1.0-rc.0",
     "toastr": "^2.1.4",
     "turbolinks": "^5.2.0",
@@ -21,5 +23,8 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3"
+  },
+  "resolutions": {
+    "rails_admin/@fortawesome/fontawesome-free": "^5.15.0"
   }
 }

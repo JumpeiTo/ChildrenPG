@@ -1,0 +1,135 @@
+<h1>データ推移</h1>
+<h2>会員登録数</h2>
+<div class="row mb-4">
+  <div class="col-lg-6">
+    <!-- 日別のグラフを表示するキャンバス要素 -->
+    <canvas id="daily_customer_chart"></canvas>
+  </div>
+  <div class="col-lg-6">
+    <!-- 月別のグラフを表示するキャンバス要素 -->
+    <canvas id="monthly_customer_chart"></canvas>
+  </div>
+</div>
+
+<h2>投稿数</h2>
+<div class="row">
+  <div class="col-lg-6">
+    <!-- 日別のグラフを表示するキャンバス要素 -->
+    <canvas id="daily_post_chart"></canvas>
+  </div>
+  <div class="col-lg-6">
+    <!-- 月別のグラフを表示するキャンバス要素 -->
+    <canvas id="monthly_post_chart"></canvas>
+  </div>
+</div>
+
+<!--chart.jsスクリプト-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+<script>
+  document.addEventListener("turbolinks:load", function() {
+    // バックエンドから渡された日別と月別のデータを取得
+    const daily_post_chartData = <%= @daily_post_chart_data.to_json.html_safe %>;
+    const monthly_post_chartData = <%= @monthly_post_chart_data.to_json.html_safe %>;
+    
+    const daily_customer_chartData = <%= @daily_customer_chart_data.to_json.html_safe %>;
+    const monthly_customer_chartData = <%= @monthly_customer_chart_data.to_json.html_safe %>;
+    
+    // 日別の会員登録数グラフを描画
+    var dailyCustomerCtx = document.getElementById("daily_customer_chart").getContext('2d');
+    var dailyCustomerChart = new Chart(dailyCustomerCtx, {
+      // グラフの設定
+      type: 'line', // グラフの種類を折れ線グラフに設定
+      data: {
+        labels: Object.keys(daily_customer_chartData), // グラフのX軸に表示する日付の配列
+        datasets: [{
+          label: '日別会員登録数',
+          data: Object.values(daily_customer_chartData), // データセットのY軸に表示する日別の投稿数の配列
+          backgroundColor: 'rgba(255, 80, 120, 0.2)', // 棒の背景色
+          borderColor: 'rgba(255, 80, 120, 1.0)', // 棒の枠線の色
+          borderWidth: 1, // 棒の枠線の幅
+          fill: true // 棒の塗りつぶしを有効にする
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true // Y軸の値を0から始めるように設定
+          }
+        }
+      }
+    });
+    
+    // 月別の会員登録数グラフを描画
+    var monthlyCustomerCtx = document.getElementById("monthly_customer_chart").getContext('2d');
+    var monthlyCustomerChart = new Chart(monthlyCustomerCtx, {
+      type: 'bar',
+      data: {
+        labels: Object.keys(monthly_customer_chartData), 
+        datasets: [{
+          label: '月別会員登録数',
+          data: Object.values(monthly_customer_chartData),
+          backgroundColor: 'rgba(80, 120, 255, 0.2)',
+          borderColor: 'rgba(80, 120, 255, 1.0)',
+          borderWidth: 1,
+          fill: true
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+    
+    // 日別の投稿数グラフを描画
+    var dailypostCtx = document.getElementById("daily_post_chart").getContext('2d');
+    var daily_post_chart = new Chart(dailypostCtx, {
+      type: 'line',
+      data: {
+        labels: Object.keys(daily_post_chartData),
+        datasets: [{
+          label: '日別投稿数',
+          data: Object.values(daily_post_chartData),
+          backgroundColor: 'rgba(255, 80, 120, 0.2)',
+          borderColor: 'rgba(255, 80, 120, 1.0)',
+          borderWidth: 1,
+          fill: true
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  
+    // 月別の投稿数グラフを描画
+    var monthlypostCtx = document.getElementById("monthly_post_chart").getContext('2d');
+    var monthly_post_chart = new Chart(monthlypostCtx, {
+      type: 'bar',
+      data: {
+        labels: Object.keys(monthly_post_chartData),
+        datasets: [{
+          label: '月別投稿数',
+          data: Object.values(monthly_post_chartData),
+          backgroundColor: 'rgba(80, 120, 255, 0.2)',
+          borderColor: 'rgba(80, 120, 255, 1.0)',
+          borderWidth: 1,
+          fill: true
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  });
+</script>

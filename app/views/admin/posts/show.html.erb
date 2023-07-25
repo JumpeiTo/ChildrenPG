@@ -1,0 +1,77 @@
+<div class="col-11 mx-auto">
+  <h1>投稿詳細</h1>
+  <div class="row">
+    <div class="col-7 pr-0">
+      <table class="table table-borderless">
+        <tr>
+          <th>投稿ID</th>
+          <td class="px-0"><%= @post.id %></td>
+        </tr>
+        <tr>
+          <th>投稿者</th>
+          <td class="px-0"><%= @post.customer.name %></td>
+        </tr>
+        <tr>
+          <th>遊び場</th>
+          <td class="px-0"><%= @post.playground.name %></td>
+        </tr>
+        <tr>
+          <th>タイトル</th>
+          <td class="px-0"><%= @post.title %></td>
+        </tr>
+        <tr>
+          <th>本文</th>
+          <td class="px-0"><%= simple_format(h(@post.text)) %></td>
+        </tr>
+        <tr>
+          <th>関連タグ</th>
+          <td class="px-0">
+            <% @post.tags.each do |tag| %>
+              <span class="badge badge-info"><%= tag.name %></span>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>対象年齢</th>
+          <td class="px-0">
+            <% @post.target_ages.each do |target_age| %>
+              <span class="badge badge-success"><%= target_age.age %></span>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>評価</th>
+          <td class="px-0"><%= @post.rate %>点</td>
+        </tr>
+        <tr>
+          <th>コメント数</th>
+          <td class="px-0"><%= @post.post_comments.count %></td>
+        </tr>
+        <tr>
+          <th>いいね数</th>
+          <td class="px-0"><%= @post.post_favorites.count %></td>
+        </tr>
+        <tr>
+          <th>作成日</th>
+          <td class="px-0"><%= @post.created_at.strftime("%Y年%m月%d日") %></td>
+        </tr>
+        <th></th>
+        <td class="px-0">
+          <%= link_to admin_post_comments_path(post_id: @post.id), class: "btn btn-blue btn-sm px-4 mr-2 mb-2" do %>
+            <i class="fa-regular fa-comment-dots"></i> コメント一覧を見る</i>
+          <% end %></br>
+          <%= link_to edit_admin_post_path(@post), class: "btn btn-green btn-sm px-4" do %>
+            <i class="fa-solid fa-pen-to-square"> 編集する</i>
+          <% end %>
+          <%= link_to admin_post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-red btn-sm px-4" do %>
+            <i class="fa-solid fa-trash"> 削除する</i>
+          <% end %>
+        </td>
+      </table>
+    </div>
+      
+    <div class="col-5 pl-0">
+      <%= image_tag @post.get_post_image("50%", "50%") %>
+    </div>
+  </div>
+</div>

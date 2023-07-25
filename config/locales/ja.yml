@@ -3,132 +3,168 @@ ja:
   enums:
     post:
       playtime_method:
-        oneday: "1日中"
-        2hours: "2時間"
-        4hours: "4時間"
-        6hours: "6時間"
-        8hours: "8時間"
-  select2:
-    errorLoading: "データの読み込み中にエラーが発生しました"
-    inputTooLong: "入力が長すぎます"
+        oneday: '1日中'
+        2hours: '2時間'
+        4hours: '4時間'
+        6hours: '6時間'
+        8hours: '8時間'
   activerecord:
     errors:
       messages:
-        record_invalid: "バリデーションに失敗しました: %{errors}"
+        record_invalid: 'バリデーションに失敗しました: %{errors}'
         restrict_dependent_destroy:
-          has_one: "%{record}が存在しているので削除できません"
-          has_many: "%{record}が存在しているので削除できません"
+          has_one: '%{record}が存在しているので削除できません'
+          has_many: '%{record}が存在しているので削除できません'
     models:
-      tag: "タグ"
+      admin: '管理者'
+      customer: 'ユーザー'
+      playground: '遊び場'
+      post: '投稿'
+      category: 'カテゴリー'
+      tag: 'タグ'
+      target_age: '対象年齢'
+      post_favorite: 'いいね'
+      post_comment: 'コメント'
+      playground_category: '遊び場⇔カテゴリー'
+      post_tag: '投稿⇔タグ'
+      post_target_age: '投稿⇔対象年齢'
+      
     attributes:
-      tag:
-        name: "タグ名"
+      admin:
+        email: 'メールアドレス'
+        password: 'パスワード'
       customer:
-        name: "名前"
-        nickname: "ニックネーム"
-        email: "メールアドレス"
-        password: "パスワード"
-        password_confirmation: "確認パスワード"
+        name: '名前'
+        nickname: 'ニックネーム'
+        email: 'メールアドレス'
+        password: 'パスワード'
+        password_confirmation: '確認パスワード'
+        is_deleted: '退会済'
+        is_hidden: '非公開'
+      playground:
+        place_id: 'PlaceID'
+        latitude: '緯度'
+        longitude: '経度'
+        name: '名前'
+        overview: '概要'
+        icon: 'アイコン'
+        postal_code: '郵便番号'
+        address: '住所'
+        prefecture: '住所（県）'
+        rate: '評価'
+        open_now: '営業状況'
+        business_hours: '営業時間'
+        website: 'ウェブサイト'
+        phone_number: '電話番号'
+        photo_url: '画像'
       post:
-        rate: "評価"
+        customer: 'ユーザー'
+        playground: '遊び場'
+        title: 'タイトル'
+        text: '本文'
+        rate: '評価'
+        image: '画像'
+      tag:
+        name: 'タグ名'
+        
   categories:
     name:
-      park: "公園"
-      tourist_attraction: "観光名所"
-      point_of_interest: "興味のある場所"
-      establishment: "施設"
-      amusement_park: "遊園地"
-      aquarium: "水族館"
-      art_gallery: "美術館"
-      atm: "ATM"
-      bakery: "パン屋"
-      bank: "銀行"
-      bar: "バー"
-      beauty_salon: "美容院"
-      bicycle_store: "自転車店"
-      book_store: "書店"
-      bowling_alley: "ボウリング場"
-      bus_station: "バス停"
-      cafe: "カフェ"
-      campground: "キャンプ場"
-      car_dealer: "自動車ディーラー"
-      car_rental: "レンタカー"
-      car_repair: "自動車修理"
-      car_wash: "カーウォッシュ"
-      casino: "カジノ"
-      cemetery: "墓地"
-      church: "教会"
-      city_hall: "市役所"
-      clothing_store: "衣料品店"
-      convenience_store: "コンビニエンスストア"
-      courthouse: "裁判所"
-      dentist: "歯科医"
-      department_store: "デパート"
-      doctor: "医者"
-      drugstore: "薬局"
-      electrician: "電気工"
-      electronics_store: "家電店"
-      embassy: "大使館"
-      fire_station: "消防署"
-      florist: "花屋"
-      funeral_home: "葬儀社"
-      furniture_store: "家具店"
-      gas_station: "ガソリンスタンド"
-      gym: "ジム"
-      hair_care: "美容室"
-      hardware_store: "ホームセンター"
-      hindu_temple: "ヒンドゥー寺院"
-      home_goods_store: "生活用品店"
-      hospital: "病院"
-      insurance_agency: "保険代理店"
-      jewelry_store: "宝石店"
-      laundry: "ランドリー"
-      lawyer: "弁護士"
-      library: "図書館"
-      light_rail_station: "路面電車駅"
-      liquor_store: "酒屋"
-      local_government_office: "地方自治体の事務所"
-      locksmith: "鍵屋"
-      lodging: "宿泊施設"
-      meal_delivery: "配食サービス"
-      meal_takeaway: "お持ち帰り"
-      mosque: "モスク"
-      movie_rental: "DVDレンタル"
-      movie_theater: "映画館"
-      moving_company: "引越し業者"
-      museum: "博物館"
-      night_club: "ナイトクラブ"
-      painter: "ペインター"
-      parking: "駐車場"
-      pet_store: "ペットショップ"
-      pharmacy: "薬局"
-      physiotherapist: "理学療法士"
-      plumber: "配管工"
-      police: "警察署"
-      post_office: "郵便局"
-      primary_school: "小学校"
-      real_estate_agency: "不動産会社"
-      restaurant: "レストラン"
-      roofing_contractor: "屋根工事業者"
-      rv_park: "RVパーク"
-      school: "学校"
-      secondary_school: "中学校・高校"
-      shoe_store: "靴屋"
-      shopping_mall: "ショッピングモール"
-      spa: "スパ"
-      stadium: "スタジアム"
-      storage: "倉庫"
-      store: "店舗"
-      subway_station: "地下鉄駅"
-      supermarket: "スーパーマーケット"
-      synagogue: "シナゴーグ"
-      taxi_stand: "タクシー乗り場"
-      train_station: "駅"
-      transit_station: "交通機関の乗り換え駅"
-      travel_agency: "旅行代理店"
-      university: "大学"
-      veterinary_care: "獣医"
-      zoo: "動物園"
+      park: '公園'
+      tourist_attraction: '観光名所'
+      point_of_interest: '興味のある場所'
+      establishment: '施設'
+      amusement_park: '遊園地'
+      aquarium: '水族館'
+      art_gallery: '美術館'
+      atm: 'ATM'
+      bakery: 'パン屋'
+      bank: '銀行'
+      bar: 'バー'
+      beauty_salon: '美容院'
+      bicycle_store: '自転車店'
+      book_store: '書店'
+      bowling_alley: 'ボウリング場'
+      bus_station: 'バス停'
+      cafe: 'カフェ'
+      campground: 'キャンプ場'
+      car_dealer: '自動車ディーラー'
+      car_rental: 'レンタカー'
+      car_repair: '自動車修理'
+      car_wash: 'カーウォッシュ'
+      casino: 'カジノ'
+      cemetery: '墓地'
+      church: '教会'
+      city_hall: '市役所'
+      clothing_store: '衣料品店'
+      convenience_store: 'コンビニエンスストア'
+      courthouse: '裁判所'
+      dentist: '歯科医'
+      department_store: 'デパート'
+      doctor: '医者'
+      drugstore: '薬局'
+      electrician: '電気工'
+      electronics_store: '家電店'
+      embassy: '大使館'
+      fire_station: '消防署'
+      florist: '花屋'
+      funeral_home: '葬儀社'
+      furniture_store: '家具店'
+      gas_station: 'ガソリンスタンド'
+      gym: 'ジム'
+      hair_care: '美容室'
+      hardware_store: 'ホームセンター'
+      hindu_temple: 'ヒンドゥー寺院'
+      home_goods_store: '生活用品店'
+      hospital: '病院'
+      insurance_agency: '保険代理店'
+      jewelry_store: '宝石店'
+      laundry: 'ランドリー'
+      lawyer: '弁護士'
+      library: '図書館'
+      light_rail_station: '路面電車駅'
+      liquor_store: '酒屋'
+      local_government_office: '地方自治体の事務所'
+      locksmith: '鍵屋'
+      lodging: '宿泊施設'
+      meal_delivery: '配食サービス'
+      meal_takeaway: 'お持ち帰り'
+      mosque: 'モスク'
+      movie_rental: 'DVDレンタル'
+      movie_theater: '映画館'
+      moving_company: '引越し業者'
+      museum: '博物館'
+      night_club: 'ナイトクラブ'
+      painter: 'ペインター'
+      parking: '駐車場'
+      pet_store: 'ペットショップ'
+      pharmacy: '薬局'
+      physiotherapist: '理学療法士'
+      plumber: '配管工'
+      police: '警察署'
+      post_office: '郵便局'
+      primary_school: '小学校'
+      real_estate_agency: '不動産会社'
+      restaurant: 'レストラン'
+      roofing_contractor: '屋根工事業者'
+      rv_park: 'RVパーク'
+      school: '学校'
+      secondary_school: '中学校・高校'
+      shoe_store: '靴屋'
+      shopping_mall: 'ショッピングモール'
+      spa: 'スパ'
+      stadium: 'スタジアム'
+      storage: '倉庫'
+      store: '店舗'
+      subway_station: '地下鉄駅'
+      supermarket: 'スーパーマーケット'
+      synagogue: 'シナゴーグ'
+      taxi_stand: 'タクシー乗り場'
+      train_station: '駅'
+      transit_station: '交通機関の乗り換え駅'
+      travel_agency: '旅行代理店'
+      university: '大学'
+      veterinary_care: '獣医'
+      zoo: '動物園'
   date:
     abbr_day_names:
     - 日
@@ -161,9 +197,9 @@ ja:
     - 金曜日
     - 土曜日
     formats:
-      default: "%Y/%m/%d"
-      long: "%Y年%m月%d日(%a)"
-      short: "%m/%d"
+      default: '%Y/%m/%d'
+      long: '%Y年%m月%d日(%a)'
+      short: '%m/%d'
     month_names:
     - 
     - 1月
@@ -187,16 +223,16 @@ ja:
       about_x_hours: 約%{count}時間
       about_x_months: 約%{count}ヶ月
       about_x_years: 約%{count}年
-      almost_x_years: "%{count}年弱"
+      almost_x_years: '%{count}年弱'
       half_a_minute: 30秒前後
-      less_than_x_seconds: "%{count}秒未満"
-      less_than_x_minutes: "%{count}分未満"
-      over_x_years: "%{count}年以上"
-      x_seconds: "%{count}秒"
-      x_minutes: "%{count}分"
-      x_days: "%{count}日"
-      x_months: "%{count}ヶ月"
-      x_years: "%{count}年"
+      less_than_x_seconds: '%{count}秒未満'
+      less_than_x_minutes: '%{count}分未満'
+      over_x_years: '%{count}年以上'
+      x_seconds: '%{count}秒'
+      x_minutes: '%{count}分'
+      x_days: '%{count}日'
+      x_months: '%{count}ヶ月'
+      x_years: '%{count}年'
     prompts:
       second: 秒
       minute: 分
@@ -206,7 +242,7 @@ ja:
       year: 年
     template:
       body: 次の項目を確認してください
-      header: "%{model}に%{count}個のエラーが発生しました"
+      header: '%{model}に%{count}個のエラーが発生しました'
   helpers:
     select:
       prompt: 選択してください
@@ -217,37 +253,37 @@ ja:
   number:
     currency:
       format:
-        delimiter: ","
-        format: "%n%u"
+        delimiter: ','
+        format: '%n%u'
         precision: 0
-        separator: "."
+        separator: '.'
         significant: false
         strip_insignificant_zeros: false
         unit: 円
     format:
-      delimiter: ","
+      delimiter: ','
       precision: 3
       round_mode: default
-      separator: "."
+      separator: '.'
       significant: false
       strip_insignificant_zeros: false
     human:
       decimal_units:
-        format: "%n %u"
+        format: '%n %u'
         units:
           billion: 十億
           million: 百万
           quadrillion: 千兆
           thousand: 千
           trillion: 兆
-          unit: ""
+          unit: ''
       format:
-        delimiter: ""
+        delimiter: ''
         precision: 3
         significant: true
         strip_insignificant_zeros: true
       storage_units:
-        format: "%n%u"
+        format: '%n%u'
         units:
           byte: バイト
           eb: EB
@@ -258,29 +294,29 @@ ja:
           tb: TB
     percentage:
       format:
-        delimiter: ""
-        format: "%n%"
+        delimiter: ''
+        format: '%n%'
     precision:
       format:
-        delimiter: ""
+        delimiter: ''
   support:
     array:
-      last_word_connector: "、"
-      two_words_connector: "、"
-      words_connector: "、"
+      last_word_connector: '、'
+      two_words_connector: '、'
+      words_connector: '、'
   time:
     am: 午前
     formats:
-      default: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
-      long: "%Y/%m/%d %H:%M"
-      short: "%m/%d %H:%M"
+      default: '%Y年%m月%d日(%a) %H時%M分%S秒 %z'
+      long: '%Y/%m/%d %H:%M'
+      short: '%m/%d %H:%M'
     pm: 午後
     
-    site_title: "ChildrenPG"
+    site_title: 'ChildrenPG'
   views:
     pagination:
-      first: "&laquo; 最初"
-      last: "最後 &raquo;"
-      previous: "&lsaquo; 前"
-      next: "次 &rsaquo;"
-      truncate: "..."
+      first: '&laquo; 最初'
+      last: '最後 &raquo;'
+      previous: '&lsaquo; 前'
+      next: '次 &rsaquo;'
+      truncate: '...'

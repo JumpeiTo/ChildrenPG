@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
   root to: 'public/homes#top'
   
-
-  
   # public ルーティング
   scope module: :public do
+    get 'homes/about' => "homes#about"
     resource :customers, only: [:show, :edit, :update]
     get 'customers/check' => "customers#check"
     patch 'customers/withdrawal' => "customers#withdrawal"
@@ -24,7 +23,11 @@ Rails.application.routes.draw do
   
   # admin ルーティング
   namespace :admin do
+    get 'homes/top' =>'homes#top'
     resources :tags, except: [:show, :new]
+    resources :customers, only: [:index, :show, :edit, :update] 
+    resources :posts, only: [:index, :show, :edit, :update, :destroy]
+    resources :post_comments, only: [:index, :destroy]
   end
   
   # devise customer ルーティング
@@ -32,6 +35,9 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
+  devise_scope :customer do
+    post 'public/guest_sign_in', to: 'public/sessions#guest_sign_in'
+  end
   
   # devise admin ルーティング
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {

@@ -1,0 +1,59 @@
+<div class="mx-auto col-12">
+  <div class="d-flex justify-content-between">
+    <h1>
+      <% if @customer %>
+        <%= "#{@customer.name}さんのコメント一覧" %>
+      <% elsif @post %>
+        <%= "投稿ID「#{@post.id}」のコメント一覧" %>
+      <% else %>
+        投稿一覧
+      <% end %>
+    </h1>
+    <%= search_form_for @q, url: admin_post_comments_path do |f| %>
+      <div class="d-flex">
+        <%= f.search_field :comment_or_customer_name_cont, class: 'form-control mr-2', placeholder: '名前,コメント', style: "width: 250px;" %>
+        <button class="btn btn-outline-green mr-3" type="submit" style="width: 80px; ">
+          検索 <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <select class="custom-select" id="sort_by" onChange="location.href=value;" style="width: 140px;">
+          <option value="">並び替え</option>
+          <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'created_at+desc') %>">新しいコメント</option>
+          <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'created_at+ask') %>">古いコメント</option>
+        </select>
+      </div>
+    <% end %>
+  </div>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="bg-light" style="width: 9%;"><%= sort_link(@q, :created_at, "コメントID",class:"text-dark") %></th>
+        <th class="bg-light" style="width: 9%;"><%= sort_link(@q, :post_id, "投稿ID",class:"text-dark") %></th>
+        <th class="bg-light" style="width: 15%;"><%= sort_link(@q, :customer_name, "投稿者",class:"text-dark") %></th>
+        <th class="bg-light" style="width: 30%;"><%= sort_link(@q, :comment, "コメント",class:"text-dark") %></th>
+        <th class="bg-light" style="width: 12%;"><%= sort_link(@q, :created_at, "作成日",class:"text-dark") %></th>
+        <th class="bg-light" style="width: 2%;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @post_comments.each do |post_comment| %>
+      <tr>
+        <td><%= post_comment.id %></td>
+        <td><%= link_to post_comment.post_id, admin_post_path(post_comment.post), class: "text-dark" %></td>
+        <td><%= link_to post_comment.customer.name, admin_customer_path(post_comment.customer), class: "text-dark" %></td>
+        <td><%= post_comment.comment %></td>
+        <td><%= post_comment.created_at.strftime("%Y年%m月%d日") %></td>
+        <td>
+          <%= link_to admin_post_comment_path(post_comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "red" do %>
+            <i class="fa-solid fa-trash"></i>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div>
+    <%= paginate @post_comments, theme: 'bootstrap-5' %>
+  </div>
+</div>

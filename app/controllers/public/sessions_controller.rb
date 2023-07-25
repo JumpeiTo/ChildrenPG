@@ -3,7 +3,25 @@
 class Public::SessionsController < Devise::SessionsController
   before_action :customer_state, only: [:create]
   # before_action :configure_sign_in_params, only: [:create]
-
+  
+  def after_sign_in_path_for(resource)
+    if current_customer # 既存ユーザーか？
+      customers_path
+    else
+      customers_path
+    end
+  end
+ 
+  def after_sign_out_path_for(resource)
+    root_path
+  end
+  
+  def guest_sign_in
+    customer = Customer.guest
+    sign_in customer
+    flash[:info] = "ゲストユーザーとしてログインしました。"
+    redirect_to root_path
+  end
   # GET /resource/sign_in
   # def new
   #   super

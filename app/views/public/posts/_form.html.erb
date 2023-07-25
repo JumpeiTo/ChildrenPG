@@ -1,52 +1,52 @@
 <h1><%= action_name == 'new' ? '新規投稿' : '投稿編集' %></h1>
 
-    <%= form_with model: post, url: (post.persisted? ? post_path(post) : posts_path), class: 'form', local: true do |f| %>
-      <div class="form-group">
-        <%= f.label :写真 %></br>
-        <%= f.file_field :image, accept: "image/*", class: 'form-control' %>
+<%= form_with model: post, url: (post.persisted? ? post_path(post) : posts_path), class: 'form', local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :写真 %></br>
+    <%= f.file_field :image, accept: "image/*", class: 'form-control-file' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :title,"タイトル" %></br>
+    <%= f.text_field :title, class: 'form-control', placeholder: 'タイトルを入力してください'  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :text,"本文" %></br>
+    <%= f.text_area :text, class: 'form-control', placeholder: '追記したいことを書いてください' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :rate,"評価" %></br>
+    <%= f.number_field :rate, in: 0..100, class: 'form-control', placeholder: '0~100で遊び場の評価をしてください' %>
+    <%= render "layouts/error", model: f, attribute: :rate %>
+  </div>
+
+  <div class="form-group">
+    <p class="mb-2">遊べる時間 (必須)</p>
+    <% Post.playtime_methods.each do |key, value| %>
+      <div class="form-check form-check-inline">
+        <%= f.radio_button :playtime, :"#{value}", class: 'form-check-input' %>
+        <%= f.label "playtime_#{value}", I18n.t("enums.post.playtime_method.#{key}"), class: 'form-check-label' %>
       </div>
-      <div class="form-group">
-        <%= f.label :title,"タイトル" %></br>
-        <%= f.text_field :title, class: 'form-control', placeholder: 'タイトルを入力してください'  %>
-      </div>
-    
-      <div class="form-group">
-        <%= f.label :text,"本文" %></br>
-        <%= f.text_area :text, class: 'form-control', placeholder: '追記したいことを書いてください' %>
-      </div>
-      
-      <div class="form-group">
-        <%= f.label :rate,"評価" %></br>
-        <%= f.number_field :rate, in: 0..100, class: 'form-control', placeholder: '0~100で遊び場の評価をしてください' %>
-        <%= render "layouts/error", model: f, attribute: :rate %>
-      </div>
-    
-      <div class="form-group">
-        <p class="mb-2">遊べる時間 (必須)</p>
-        <% Post.playtime_methods.each do |key, value| %>
-          <div class="form-check form-check-inline">
-            <%= f.radio_button :playtime, :"#{value}", class: 'form-check-input' %>
-            <%= f.label "playtime_#{value}", I18n.t("enums.post.playtime_method.#{key}"), class: 'form-check-label' %>
-          </div>
-        <% end %>
-      </div>
-      
-      <div>
-        <p class="mb-2">対象年齢 (複数選択可)</p>
-        <% @ages.each do |age| %>
-          <%= f.check_box :target_age_ids, { multiple: true }, age.id, nil %>
-          <%= f.label age.age, for: "post_target_age_ids_#{age.id}" %>
-        <% end %>
-      </div>
-      
-      <div>
-        <p class="mb-2">タグ (複数選択可)</p>
-        <% @tags.each do |tag| %>
-          <%= f.check_box :tag_ids, { multiple: true }, tag.id, nil %>
-          <%= f.label tag.name, for: "post_tag_ids_#{tag.id}" %>
-        <% end %>
-      </div>
-      <!--遊び場IDを送るための記述-->
-      <%= f.hidden_field :playground_id, value: post.playground_id %>
-      <%= f.submit (action_name == 'new' ? '新規登録' : '変更を保存'), class: (action_name == 'new' ? 'btn btn-primary px-4' : 'btn btn-success px-4') %>
     <% end %>
+  </div>
+  
+  <div>
+    <p class="mb-2">対象年齢 (複数選択可)</p>
+    <% @ages.each do |age| %>
+      <%= f.check_box :target_age_ids, { multiple: true }, age.id, nil %>
+      <%= f.label age.age, for: "post_target_age_ids_#{age.id}" %>
+    <% end %>
+  </div>
+  
+  <div>
+    <p class="mb-2">タグ (複数選択可)</p>
+    <% @tags.each do |tag| %>
+      <%= f.check_box :tag_ids, { multiple: true }, tag.id, nil %>
+      <%= f.label tag.name, for: "post_tag_ids_#{tag.id}" %>
+    <% end %>
+  </div>
+  <!--遊び場IDを送るための記述-->
+  <%= f.hidden_field :playground_id, value: post.playground_id %>
+  <%= f.submit (action_name == 'new' ? '新規登録' : '変更を保存する'), class: (action_name == 'new' ? 'btn btn-blue px-4' : 'btn btn-green px-4') %>
+<% end %>

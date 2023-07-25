@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   
   # public ルーティング
   scope module: :public do
+    get 'homes/about' => "homes#about"
     resource :customers, only: [:show, :edit, :update]
     get 'customers/check' => "customers#check"
     patch 'customers/withdrawal' => "customers#withdrawal"

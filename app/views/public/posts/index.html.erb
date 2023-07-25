@@ -1,6 +1,37 @@
-<h1>投稿一覧</h1>
 <div class="row">
-  <div class="col-4">
+  <div class="col-lg-8">
+    <div class="d-flex justify-content-between">
+      <h1>投稿一覧</h1>
+      <!--並び替えのセレクトボックス -->
+      <%= form_with(url: posts_path, method: :get, id: "sort-form") do |f| %>
+        <!--@pramの値をjson形式で送る-->
+        <%= f.hidden_field :q, value: (raw @param.to_json) %>
+        <div class="form-group mr-3">
+          <%= f.select :sort_by, options_for_select(
+            [
+              ['新着順', 'latest'],
+              ['古い順', 'old'],
+              ['評価(高)', 'rate_high'],
+              ['評価(低)', 'rate_low'],
+              ['いいね(多)', 'likes_count_high'],
+              ['いいね(少)', 'likes_count_low'],
+              ['コメント(多)', 'comments_many'],
+              ['コメント(少)', 'comments_few']
+            ],
+            @param[:sort_by]), { include_blank: '並び替え' }, class: 'form-control', style: 'width: 130px;', onchange: 'javascript: $("#sort-form").submit();' %>
+        </div>
+      <% end %>
+    </div>
+    <% @posts.each do |post| %>
+      <%= render 'public/posts/posts_name', post: post %>
+      <%= render 'post_index', post: post %>
+    <% end %>
+    <div class="pagination">
+      <%= paginate @posts, theme: 'bootstrap-5' %>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
     <h2>絞り込み</h2>
     <!--ransackの検索フォーム-->
     <%= search_form_for @q, url: posts_path do |f| %>
@@ -47,34 +78,5 @@
     <% end %>
   </div>
   
-  <div class="col-8">
-    <!--並び替えのセレクトボックス -->
-    <%= form_with(url: posts_path, method: :get, id: "sort-form") do |f| %>
-      <!--@pramの値をjson形式で送る-->
-      <%= f.hidden_field :q, value: (raw @param.to_json) %>
-      <div class="form-group">
-        <%= f.select :sort_by, options_for_select(
-          [
-            ['新着順', 'latest'],
-            ['古い順', 'old'],
-            ['評価(高)', 'rate_high'],
-            ['評価(低)', 'rate_low'],
-            ['いいね(多)', 'likes_count_high'],
-            ['いいね(少)', 'likes_count_low'],
-            ['コメント(多)', 'comments_many'],
-            ['コメント(少)', 'comments_few']
-          ],
-          @param[:sort_by]), { include_blank: '並び替え' }, class: 'form-control', style: 'width: 130px;', onchange: 'javascript: $("#sort-form").submit();' %>
-      </div>
-    <% end %>
-    
-    <% @posts.each do |post| %>
-      <%= render 'public/posts/posts_name', post: post %>
-      <%= render 'post_index', post: post %>
-    <% end %>
-    <div class="pagination">
-      <%= paginate @posts, theme: 'bootstrap-5' %>
-    </div>
-  </div>
 </div>
 

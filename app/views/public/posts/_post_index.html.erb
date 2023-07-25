@@ -1,32 +1,51 @@
-<div class="row mb-3">
+<div class="row mb-2 " style="height: 200px; width: 100%; position: relative;">
   <div class="col-4 post">
     <%= link_to playground_path(post.playground_id), class: 'text-dark post' do %>
       <div>
-        <%= post.playground.name %></br>
-        <%= image_tag post.playground.photo_url, size: "180x120" %>
+        <p class="mt-2 my-1" style="font-size: clamp(12px, calc(20vw / 14), 17px);"><%= post.playground.name.truncate(14) %></p>
+        <div style="height: 95%; width: 95%;">
+          <%= image_tag post.playground.photo_url, size: "205x140" %>
+        </div>
       </div>
     <% end %>
   </div>
-  <div class="col-8 d-flex post">
-    <%= link_to post_path(post.id), class: 'text-dark post' do %>
-      <div>
-        <%= image_tag post.get_post_image(150, 100), class: "img-fluid" %>
+  
+  <%= link_to post_path(post.id), class: 'text-dark post' do %>
+    <div class="col-8 post pr-1">
+      <% if post.title != "" %>
+        <h3 class="mt-2" style="font-size: clamp(10px, calc(40vw / 18), 26px);"><%= post.title.truncate(19) %></h3>
+      <% else %>
+        <h3 class="mt-2" style="font-size: clamp(10px, calc(40vw / 18), 26px);">タイトルなし</h3>
+      <% end %>
+      
+      <div class="row">
+        <div class="col-5">
+          <%= image_tag post.get_post_image(160, 140), class: "img-fluid" %>
+        </div>
+        <div class="col-7">
+          <p class="mb-1" style="font-size: clamp(8px, calc(20vw / 14), 16px);"><%= post.text.truncate(40) %></p>
+          <p class="mb-1">評価: <%= post.rate %></p>
+          <p class="mb-1">更新日時: <%= time_ago_in_words(post.updated_at) %>前</p>
+        </div>
       </div>
-      <div>
-        <h3><%= post.title %></h3>
-        <p><%= post.text %></p>
-        <p>評価: <%= post.rate %></p>
-        <p>更新日時: <%= time_ago_in_words(post.updated_at) %>前</p>
-      </div>
-      <div>
-        <!-- いいねボタン -->
+    
+      <!-- いいねボタン -->
+      <div class="favorite">
         <div class="favorite-btn-<%= post.id %>">
           <% if customer_signed_in? %>
             <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
           <% end %>
         </div>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
+
+<style>
+  .favorite {
+    position: absolute;
+    top: -16px;
+    right: 10px;
+  }
+</style>
 

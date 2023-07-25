@@ -1,59 +1,79 @@
 <!--遊び場詳細-->
 <div class="row">
-  <div class="col-4">
-    <%= render 'playground_show', playground: @playground %>
-  </div>
-  <div class="col-8">
-    <% if customer_signed_in? %>
+  <div class="col-lg-4">
+        <% if customer_signed_in? %>
       <%= form_with model: Playground.new, url: playgrounds_path, method: :post, local: true do |f| %>
         <%= f.hidden_field :place_id, value: @playground.place_id if @playground.place_id.present? %>
         <%= f.submit "投稿する" %>
       <% end %>
     <% end %>
-    <h1>投稿一覧</h1>
-    
-    <!--並び替え-->
-    <%= form_with(url: playground_path(@playground), method: :get, local: true) do |f| %>
-      <div class="form-group">
-        <%= f.select :sort_by,options_for_select(
-          [ ['新着順', 'latest'],
-            ['古い順', 'old'],
-            ['評価(高)', 'rate_high'],
-            ['評価(低)', 'rate_low'],
-            ['いいね(多)', 'likes_count_high'],
-            ['いいね(少)', 'likes_count_low'],
-            ['コメント(多)', 'comments_many'],
-            ['コメント(少)', 'comments_few'] ],
-          params[:sort_by]),{ include_blank: '並び替え' },class: 'form-control', style: "width: 130px;",onChange: "javascript: this.form.submit();" %>
-      </div>
-    <% end %>
+    <%= render 'playground_show', playground: @playground %>
+  </div>
+  
+  <div class="col-lg-8">
+    <div class="d-flex justify-content-between">
+      <h1>投稿一覧</h1>
+      <!--並び替え-->
+      <%= form_with(url: playground_path(@playground), method: :get, local: true) do |f| %>
+        <div class="form-group">
+          <%= f.select :sort_by,options_for_select(
+            [ ['新着順', 'latest'],
+              ['古い順', 'old'],
+              ['評価(高)', 'rate_high'],
+              ['評価(低)', 'rate_low'],
+              ['いいね(多)', 'likes_count_high'],
+              ['いいね(少)', 'likes_count_low'],
+              ['コメント(多)', 'comments_many'],
+              ['コメント(少)', 'comments_few'] ],
+            params[:sort_by]),{ include_blank: '並び替え' },class: 'form-control', style: "width: 130px;",onChange: "javascript: this.form.submit();" %>
+        </div>
+      <% end %>
+    </div>
     
     <% @posts.each do |post| %>
-      <div>
+      <div style="position: relative;">
         <%= render 'public/posts/posts_name', post: post %>
-        <%= link_to post_path(post.id), class: 'text-dark post' do %>
-          <div class="row post mb-3">
-            <div class="col-3">
-              <%= image_tag post.get_post_image(150, 100), class: "img-fluid" %>
-            </div>
-            <div class="col-9">
-              <h3><%= post.title %></h3>
-              <p><%= post.text %></p>
-              <p>評価: <%= post.rate %></p>
-              <p>投稿日時: <%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
-            </div>
-            <!-- いいねボタン -->
-            <div class="favorite-btn-<%= post.id %> d-inline-block">
-              <% if customer_signed_in? %>
-                <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
-              <% end %>
+        
+         <%= link_to post_path(post.id), class: 'text-dark post' do %>
+          <div class="mb-2 post p-2" style="height: 180px; width: 100%;">
+            <% if post.title != "" %>
+              <h3 style="font-size: clamp(10px, calc(40vw / 18), 26px);"><%= post.title.truncate(28) %></h3>
+            <% else %>
+              <h3 style="font-size: clamp(10px, calc(40vw / 18), 26px);">タイトルなし</h3>
+            <% end %>
+            <div class="row">
+              <div class="col-4">
+                <%= image_tag post.get_post_image(150, 100), class: "img-fluid" %>
+              </div>
+              <div class="col-8">
+                <p><%= post.text %></p>
+                <p>評価: <%= post.rate %></p>
+                <p class="mb-1">更新日時: <%= time_ago_in_words(post.updated_at) %>前</p>
+              </div>
             </div>
           </div>
         <% end %>
-        <div class="pagination">
-          <%= paginate @posts, theme: 'bootstrap-5' %>
+        <!-- いいねボタン -->
+        <div class="favorite">
+          <div class="favorite-btn-<%= post.id %>">
+            <% if customer_signed_in? %>
+              <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
+            <% end %>
+          </div>
         </div>
       </div>
+        
     <% end %>
+    <div class="pagination">
+      <%= paginate @posts, theme: 'bootstrap-5' %>
+    </div>
   </div>
 </div>
+
+<style>
+  .favorite {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+  }
+</style>

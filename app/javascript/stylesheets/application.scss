@@ -252,5 +252,18 @@ h2:after {
 }
 
 
+@media screen and (min-width:480px) { 
+    /*　画面サイズが480pxからはここを読み込む　*/
 
+}
+
+@media screen and (min-width:768px) and ( max-width:1024px) {
+    /*　画面サイズが768pxから1024pxまではここを読み込む　*/
+
+}
+
+@media screen and (min-width:1024px) {
+    /*　画面サイズが1024pxからはここを読み込む　*/
+ 
+}
 

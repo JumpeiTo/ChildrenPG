@@ -25,14 +25,14 @@
       </div>
       <%= f.hidden_field :lat, id: 'lat' %>
       <%= f.hidden_field :lng, id: 'lng' %>
-      <%= f.submit '遊び場検索', id: "submit_button", class: "btn btn-blue px-5 mr-2 mb-2" %>
+      <%= f.submit '遊び場を検索', id: "submit_button", class: "btn btn-blue px-5 mr-2 mb-2" %>
       <%= button_tag '条件リセット', type: 'button', id: "condition_reset_button", class: "btn btn-sm btn-secondary mb-1" %>
     <% end %>
   </div>
   
   <div class="col-lg-8 mt-lg-0 mt-3">
     <div class="row">
-      <div class="input-group col-lg-6 mb-2 mb-lg-3" style="width: 70%;">
+      <div class="input-group col-lg-6 mb-2 mb-lg-3" style="width: 90%;">
         <input id="address" type="text" class="form-control" placeholder="場所を入力してください">
         <button type="button" class="btn btn-outline-blue custom-button" onclick="codeAddress()">探す</button>
       </div>

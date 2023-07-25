@@ -1,52 +1,54 @@
 <!-- サイト説明 -->
-<h1>ChildrenPG</h1>
-<div class="site-description">
-  <p>
-    私は週末に子供とお出かけの際、「今日はどこに行こうかな」「前に行った遊び場どこだっけ」と遊びに行く場所に悩む日が多くありました。
-    世の親御さんも同じ悩みを抱える人は多いでしょう。
-  </p>
-  <p>
-    そこで、過去に行った遊び場を投稿して見返したり、他の投稿者の遊び場を見れたりするサイトがあると悩まずにすぐ決められると思い作成に至りました。
-  </p>
+<div class="container">
+  <h1>ChildrenPG</h1>
+  <div class="site-description">
+    <p>
+      私は週末に子供とお出かけの際、「今日はどこに行こうかな」「前に行った遊び場どこだっけ」と遊びに行く場所に悩む日が多くありました。
+      世の親御さんも同じ悩みを抱える人は多いでしょう。
+    </p>
+    <p>
+      そこで、過去に行った遊び場を投稿して見返したり、他の投稿者の遊び場を見れたりするサイトがあると悩まずにすぐ決められると思い作成に至りました。
+    </p>
+  </div>
 </div>
 
 <!-- 主な利用シーン -->
-<div class="usage-scenarios">
+<div class="container mt-4">
   <h2>主な利用シーン</h2>
-  <p>
-    - 子供と遊び場に行き、また来たいなと思った時に、コメントや評価なども付け投稿してまた見返したい時
-  </p>
-  <p>
-    - 遊びに行く場所に迷っており、近場の遊び場や、人気の遊び場を調べたい時
-  </p>
+  <ul class="list-unstyled">
+    <li><i class="bi bi-check"></i> 子供と遊び場に行き、また来たいなと思った時に、コメントや評価なども付け投稿してまた見返したい時</li>
+    <li><i class="bi bi-check"></i> 遊びに行く場所に迷っており、近場の遊び場や、人気の遊び場を調べたい時</li>
+  </ul>
 </div>
 
 <!-- ターゲットユーザ -->
-<div class="target-users">
+<div class="container mt-4">
   <h2>ターゲットユーザ</h2>
-  <p>- 子供を連れて行く遊び場に悩む親御さん</p>
-  <p>- 新たな遊び場を探したい人</p>
-  <p>- 過去に行った遊び場を記録したい人</p>
+  <ul class="list-unstyled">
+    <li><i class="bi bi-check"></i> 子供を連れて行く遊び場に悩む親御さん</li>
+    <li><i class="bi bi-check"></i> 新たな遊び場を探したい人</li>
+    <li><i class="bi bi-check"></i> 過去に行った遊び場を記録したい人</li>
+  </ul>
 </div>
 
 <!-- サイトの特徴 -->
-<div class="site-features">
-  <h2>サイトの特徴</h2>
+<div class="container mt-4">
+  <h2 class="mb-3">サイトの特徴</h2>
   <div class="row">
     <div class="col-md-4">
-      <div class="feature-item">
+      <div class="feature-item bg-light p-3 mb-4">
         <h3>投稿機能</h3>
         <p>ユーザーが遊び場の投稿を行うことができます。写真やコメント、評価を付けて遊び場の記録を残すことができます。</p>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="feature-item">
+      <div class="feature-item bg-light p-3 mb-4">
         <h3>遊び場検索</h3>
         <p>ユーザーは遊び場を検索して、気になる遊び場の情報を確認することができます。地図機能を使用して近くの遊び場を探すことも可能です。</p>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="feature-item">
+      <div class="feature-item bg-light p-3 mb-4">
         <h3>お気に入り機能</h3>
         <p>ユーザーは気に入った遊び場をお気に入りとして保存することができます。お気に入りに登録した遊び場は後から簡単にアクセスできます。</p>
       </div>
@@ -55,41 +57,26 @@
 </div>
 
 <style>
-  .site-description {
-    margin-top: 20px;
-    font-size: 18px;
-  }
   .site-description p {
     margin-bottom: 20px;
   }
-  .site-features {
-    margin-top: 40px;
-  }
-  .site-features .feature-item {
+
+  .feature-item {
     padding: 20px;
     background-color: #F5F5F5;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px;
   }
-  .site-features .feature-item h3 {
+
+  .feature-item h3 {
     font-size: 24px;
     color: #89CA25;
   }
-  .site-features .feature-item p {
-    margin-top: 10px;
-  }
-  .target-users {
-    margin-top: 40px;
-  }
-  .target-users p {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  .usage-scenarios {
-    margin-top: 40px;
-  }
+
+  .target-users p,
   .usage-scenarios p {
     font-size: 18px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 </style>

@@ -30,27 +30,36 @@ class Post < ApplicationRecord
   
   # 日別の投稿数を集計するスコープ
   scope :group_by_day_count, -> {
+    # 投稿の最小作成日時を取得
     min_created_at = Post.minimum(:created_at)
     exists = min_created_at.present?
+    # 開始日と終了日を設定
     start_date = exists ? min_created_at.to_date : Date.today - 1.month
     end_date = Date.today
+    # 日別の投稿数を集計
     counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
     date_range = (start_date..end_date).to_a
+    # 期間内の日付に対して投稿数を埋める
     filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
     filled_counts
   }
 
   # 月別の投稿数を集計するスコープ
   scope :group_by_month_count, -> {
+    # 投稿の最小作成日時を取得
     min_created_at = Post.minimum(:created_at)
     exists = min_created_at.present?
+    # 開始日と終了日を設定
     start_date = exists ? min_created_at.to_date.beginning_of_month : Date.today.beginning_of_month - 5.month
     end_date = Date.today.end_of_month
+    # 月別の投稿数を集計
     counts = group("DATE_FORMAT(created_at, '%Y-%m')").count
     date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }
+    # 期間内の年月に対して投稿数を埋める
     filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
     filled_counts
   }
+
   
   # 並び替えメソッド
   scope :latest, -> { order(created_at: :desc) }  # 登録新しい順

@@ -16,17 +16,11 @@ class Public::PostsController < ApplicationController
     @post.customer_id = current_customer.id
     @ages = TargetAge.all
     @tags = Tag.all
-    if @post.valid?
-      if @post.save
-        flash[:success] = "投稿が作成されました"
-        redirect_to posts_path
-      else
-        flash[:warning] = "未記入項目があります"
-        flash.discard
-        render :new
-      end
+    if @post.save
+      flash[:success] = "投稿が作成されました"
+      redirect_to posts_path
     else
-      flash[:warning] = "投稿に失敗しました"
+      flash[:warning] = "未記入項目があります"
       flash.discard
       render :new
     end
@@ -68,11 +62,13 @@ class Public::PostsController < ApplicationController
   end
   
   def update
+    @ages = TargetAge.all
+    @tags = Tag.all
     if @post.update(post_params)
       flash[:success] = "投稿が更新されました"
       redirect_to post_path(@post)
     else
-      flash[:warning] = "更新に失敗しました"
+      flash[:warning] = "未記入項目があります"
       flash.discard
       render :edit
     end

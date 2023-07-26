@@ -6,12 +6,14 @@
     <div class="d-flex align-items-center">
       <%= search_form_for @q, url: admin_posts_path do |f| %>
         <div class="d-flex">
-          <%= f.search_field :title_or_text_cont, class: 'form-control mr-2', placeholder: 'タイトル,本文', style: "width: 200px;" %>
-          <%= f.search_field :playground_name_cont, class: 'form-control mr-2', placeholder: '遊び場名', style: "width: 200px;" %>
-          <%= f.search_field :customer_name_cont, class: 'form-control mr-2', placeholder: '投稿者名', style: "width: 150px;" %>
-          <button class="btn btn-outline-green mr-3" type="submit" style="width: 80px; ">
-            検索 <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
+          <% unless @customer.present? %>
+            <%= f.search_field :title_or_text_cont, class: 'form-control mr-2', placeholder: 'タイトル,本文', style: "width: 200px;" %>
+            <%= f.search_field :playground_name_cont, class: 'form-control mr-2', placeholder: '遊び場名', style: "width: 200px;" %>
+            <%= f.search_field :customer_name_cont, class: 'form-control mr-2', placeholder: '投稿者名', style: "width: 150px;" %>
+            <button class="btn btn-outline-green mr-3" type="submit" style="width: 80px; ">
+              検索 <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          <% end %>
           <select class="custom-select" id="sort_by" onChange="location.href=value;" style="width: 120px;">
             <option value="">並び替え</option>
             <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'created_at+desc') %>">新しい投稿</option>

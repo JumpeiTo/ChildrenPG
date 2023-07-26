@@ -4,11 +4,12 @@ class Admin::PostsController < ApplicationController
   
   
   def index
+    # binding.pry
     if params[:customer_id]
       @customer = Customer.find(params[:customer_id])
       @q = @customer.posts.ransack(params[:q])
       @posts = @q.result(distinct: true).page(params[:page]).per(10)
-      else
+    else
       @q = Post.ransack(params[:q])
       @posts = @q.result(distinct: true).page(params[:page]).per(10)
     end

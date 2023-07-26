@@ -46,7 +46,6 @@
             <%= form_with model: [@post, @post_comment] do |f| %>
               <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" , class: "form-control w-75", style: "height: 70px;" %>
               <%= f.submit "送信する" , class: 'btn btn-sm btn-blue' %>
-              <%= render "layouts/error", model: f, attribute: :comment %>
             <% end %>
           </div>
         <% end %>

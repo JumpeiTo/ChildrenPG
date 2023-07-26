@@ -77,7 +77,7 @@ class Public::PostsController < ApplicationController
   def destroy
     @post.destroy
     flash[:error] = "投稿が削除されました"
-    redirect_to posts_path
+    redirect_to customers_path(current_customer)
   end
   
   private

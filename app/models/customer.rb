@@ -37,26 +37,22 @@ class Customer < ApplicationRecord
   def active_for_authentication?
     super && (is_deleted == false)
   end
-  
-  # 日別の登録数を集計するスコープ
-  scope :group_by_day_count, -> {
-    min_created_at = Customer.minimum(:created_at)
-    exists = min_created_at.present?
-    start_date = exists ? min_created_at.to_date : Date.today - 1.month
+    
+  # 日別の会員登録数を集計するスコープ
+  scope :group_by_day_customer_count, -> {
+    start_date = Date.today - 29.days # 過去30日間
     end_date = Date.today
-    counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
+    counts = group("DATE(created_at)").where(created_at: start_date..end_date).count.transform_keys { |date| date.to_date }
     date_range = (start_date..end_date).to_a
     filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
     filled_counts
   }
 
-  # 月別の登録数を集計するスコープ
-  scope :group_by_month_count, -> {
-    min_created_at = Customer.minimum(:created_at)
-    exists = min_created_at.present?
-    start_date = exists ? min_created_at.to_date.beginning_of_month : Date.today.beginning_of_month - 5.month
-    end_date = Date.today.end_of_month
-    counts = group("DATE_FORMAT(created_at, '%Y-%m')").count
+  # 月別の会員登録数を集計するスコープ
+  scope :group_by_month_customer_count, -> {
+    start_date = Date.today - 11.months # 過去12か月間
+    end_date = Date.today
+    counts = group("DATE_TRUNC('month', created_at)").where(created_at: start_date..end_date).count.transform_keys { |date| date.strftime('%Y-%m') }
     date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }
     filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
     filled_counts

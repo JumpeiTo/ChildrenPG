@@ -52,7 +52,7 @@ class Customer < ApplicationRecord
   scope :group_by_month_customer_count, -> {
     start_date = Date.today - 11.months # 過去12か月間
     end_date = Date.today
-    counts = group("DATE_TRUNC('month', created_at)").where(created_at: start_date..end_date).count.transform_keys { |date| date.strftime('%Y-%m') }
+    counts = group("DATE_FORMAT(created_at, '%Y-%m')").where(created_at: start_date..end_date).count
     date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }
     filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
     filled_counts

@@ -42,7 +42,7 @@ class Post < ApplicationRecord
   scope :group_by_month_post_count, -> {
     start_date = 12.months.ago.to_date.beginning_of_month
     end_date = Date.today.end_of_month
-    counts = group("DATE_TRUNC('month', created_at)").where(created_at: start_date..end_date).count
+    counts = group("DATE_FORMAT(created_at, '%Y-%m')").where(created_at: start_date..end_date).count
     date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }
     filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
     filled_counts

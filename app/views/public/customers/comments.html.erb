@@ -1,6 +1,6 @@
 <!--ユーザー詳細のコメントした投稿一覧-->
 <div class="row">
-  <% unless @customer.is_hidden? %>
+  <% unless @customer.is_hidden? && @customer != current_customer%>
     <div class="col-md-4">
       <%= render 'show', customer: @customer %>
     </div>

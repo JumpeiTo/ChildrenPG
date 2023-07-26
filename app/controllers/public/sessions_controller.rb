@@ -8,7 +8,7 @@ class Public::SessionsController < Devise::SessionsController
     if current_customer # 既存ユーザーか？
       customers_path
     else
-      customers_path
+      root_path
     end
   end
  

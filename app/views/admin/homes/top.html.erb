@@ -29,7 +29,6 @@
     
 <script>
   document.addEventListener("turbolinks:load", function() {
-    console.log(<%= @daily_post_chart_data %>);
     // バックエンドから渡された日別と月別のデータを取得
     const daily_post_chartData = <%= @daily_post_chart_data.to_json.html_safe %>;
     const monthly_post_chartData = <%= @monthly_post_chart_data.to_json.html_safe %>;

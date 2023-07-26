@@ -7,6 +7,7 @@ class Public::CustomersController < ApplicationController
   def show
     # 並び替えの条件は @sort_by 変数によって決まる
     @posts = @customer.posts.public_send(@sort_by).page(params[:page]).per(10)
+    # binding.pry
   end
   
   def favorites

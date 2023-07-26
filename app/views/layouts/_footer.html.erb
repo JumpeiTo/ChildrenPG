@@ -2,12 +2,14 @@
   <div class="container">
     <div class="row mt-2">
       <div class="col-md-6 my-auto">
-        <h5>ChildrenPG</h5>
-        <p>遊び場検索・保存サイト</p>
+        <%= link_to root_path, data: {"turbolinks"=>false} do %>
+          <h5>ChildrenPG</h5>
+          <p>遊び場検索・保存サイト</p>
+        <% end %>
       </div>
       <div class="col-md-3">
         <ul class="list-unstyled">
-          <li><a href="#">ホーム</a></li>
+          <li><%= link_to "ホーム", root_path, data: {"turbolinks"=>false} %></li>
           <li><a href="#">遊び場一覧</a></li>
           <li><a href="#">サイト説明</a></li>
           <li><a href="#">プライバシーポリシー</a></li>

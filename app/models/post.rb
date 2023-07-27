@@ -50,8 +50,12 @@ class Post < ApplicationRecord
     # 集計の対象期間を設定します。今回は12ヶ月前の月初めから今月の月末までの期間を指定しています。
     start_date = 12.months.ago.to_date.beginning_of_month
     end_date = Date.today.end_of_month
-    # データベースクエリを使って、指定した期間内の月ごとの投稿数を集計します。
-    counts = group("DATE_FORMAT(created_at, '%Y-%m')").where(created_at: start_date..end_date).count
+    # 本番環境か？
+    if Rails.env == 'production'
+      counts = group("DATE_FORMAT(created_at, '%Y-%m')").where(created_at: start_date..end_date).count
+    else
+      counts = group("strftime(created_at, '%Y-%m')").where(created_at: start_date..end_date).count
+    end
     # countsは{年-月 => 投稿数, 年-月 => 投稿数, ...}というハッシュの形式です。
     # 指定した期間内のすべての年-月を含む配列を作成します。
     date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }

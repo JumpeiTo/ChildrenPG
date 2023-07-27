@@ -1,26 +1,37 @@
-<footer class="footer" style="background-color: #f4e4d4;">
+<footer class="footer">
   <div class="container">
     <div class="row mt-2">
-      <div class="col-md-6 my-auto">
+      <div class="col-sm-6 my-auto">
         <%= link_to root_path, data: {"turbolinks"=>false} do %>
-          <h5>ChildrenPG</h5>
-          <p>遊び場検索・保存サイト</p>
+          <div class="d-flex align-items-center">
+            <div>
+              <%= image_tag 'logo.not.name.png', size: '65x65' %>
+            </div>
+            <div class="ml-2 mt-2">
+              <h5>ChildrenPG</h5>
+              <p>遊び場検索・保存サイト</p>
+            </div>
+          </div>
         <% end %>
       </div>
-      <div class="col-md-3">
-        <ul class="list-unstyled">
-          <li><%= link_to "ホーム", root_path, data: {"turbolinks"=>false} %></li>
-          <li><a href="#">遊び場一覧</a></li>
-          <li><a href="#">サイト説明</a></li>
-          <li><a href="#">プライバシーポリシー</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <ul class="list-unstyled">
-          <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
-          <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
-          <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
-        </ul>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-md-6">
+            <ul class="list-unstyled">
+              <li><%= link_to "ホーム", root_path, data: {"turbolinks"=>false} %></li>
+              <li><a href="#">遊び場一覧</a></li>
+              <li><a href="#">サイト説明</a></li>
+              <li><a href="#">プライバシーポリシー</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-unstyled">
+              <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+              <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+              <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     

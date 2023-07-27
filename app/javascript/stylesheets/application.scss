@@ -17,6 +17,16 @@ main, .nav-link{
   background-color: #FFFEF9;
 }
 
+header, footer {
+  background-color: #f4ead4;
+}
+
+// リンクホバー時の色変え
+a:hover {
+  color: #6699CC;
+  text-decoration: none;
+}
+
 .main {
   max-width: 1200px;
   width: 100%;

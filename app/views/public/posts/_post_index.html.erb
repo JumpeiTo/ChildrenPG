@@ -1,51 +1,38 @@
-<div class="row mb-2 " style="height: 200px; width: 100%; position: relative;">
-  <div class="col-4 post">
-    <%= link_to playground_path(post.playground_id), class: 'text-dark post' do %>
-      <div>
-        <p class="mt-2 my-1" style="font-size: clamp(12px, calc(20vw / 14), 17px);"><%= post.playground.name.truncate(14) %></p>
-        <div style="height: 95%; width: 95%;">
-          <%= image_tag post.playground.photo_url, size: "205x140" %>
-        </div>
+<div class="row mb-2" style="height: 200px; width: 100%;">
+  <%= link_to playground_path(post.playground_id), class: 'list-bg col-4 playground' do %>
+    <div class="platground">
+      <p class="mt-2 my-1" style="font-size: 17px;"><%= post.playground.name.truncate(13) %></p>
+      <div class="" style="height: 145px; width: 100%;">
+        <%= image_tag post.playground.photo_url, size: "205x148", class: "playground-image" %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
   
-  <%= link_to post_path(post.id), class: 'text-dark post' do %>
-    <div class="col-8 post pr-1">
+  <%= link_to post_path(post.id), class: 'list-bg col-8 post' do %>
+    <div class="post" style="height: 96%; width: 100%;">
       <% if post.title != "" %>
-        <h3 class="mt-2" style="font-size: clamp(10px, calc(40vw / 18), 26px);"><%= post.title.truncate(19) %></h3>
+        <h3 class="mt-2" style="font-size: 26px;"><%= post.title.truncate(16) %></h3>
       <% else %>
-        <h3 class="mt-2" style="font-size: clamp(10px, calc(40vw / 18), 26px);">タイトルなし</h3>
+        <h3 class="mt-2" style="font-size: 26px;">タイトルなし</h3>
       <% end %>
       
-      <div class="row">
-        <div class="col-5">
-          <%= image_tag post.get_post_image(160, 140), class: "img-fluid", style: "width: 100%;" %>
+      <div class="d-flex align-items-center" style="height: 75%; width: 100%;">
+        <div class="" style="height: 135px; width: 190px;">
+          <%= image_tag post.get_post_image(140, 140), class: "post-image" %>
         </div>
-        <div class="col-7">
-          <p class="mb-1" style="font-size: clamp(8px, calc(20vw / 14), 16px);"><%= post.text.truncate(40) %></p>
-          <p class="mb-1">評価: <%= post.rate %></p>
-          <p class="mb-1">更新日時: <%= time_ago_in_words(post.updated_at) %>前</p>
-        </div>
-      </div>
-    
-      <!-- いいねボタン -->
-      <div class="favorite">
-        <div class="favorite-btn-<%= post.id %>">
-          <% if customer_signed_in? %>
-            <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
-          <% end %>
+        <div class="position-relative ml-3" style="height: 100%; width: 275px;">
+          <p class="mb-1" style="font-size: 16px;"><%= post.text.truncate(55) %></p>
+          <p class="rate position-absolute mb-1" style="left: 0; bottom: 0;"><%= post.rate %>点</p>
+          <p class="mb-1 position-absolute" style="right: 0; bottom: 0;">更新日時: <%= time_ago_in_words(post.updated_at) %>前</p>
         </div>
       </div>
     </div>
   <% end %>
 </div>
 
-<style>
-  .favorite {
-    position: absolute;
-    top: -16px;
-    right: 10px;
-  }
-</style>
-
+<!-- いいねボタン -->
+<div class="favorite-btn-<%= post.id %> position-absolute" style="top: 2px; right: 26px;">
+  <% if customer_signed_in? %>
+    <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
+  <% end %>
+</div>

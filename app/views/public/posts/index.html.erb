@@ -22,12 +22,16 @@
         </div>
       <% end %>
     </div>
+    
     <% @posts.each do |post| %>
-      <%= render 'public/posts/posts_name', post: post %>
-      <%= render 'post_index', post: post %>
+      <div class="post-list mb-2" style="position: relative;">
+        <%= render 'public/posts/posts_name', post: post %>
+        <%= render 'post_index', post: post %>
+      </div>
     <% end %>
+    
     <div class="pagination">
-      <%= paginate @posts, theme: 'bootstrap-5' %>
+        <%= paginate @posts, theme: 'bootstrap-5' %>
     </div>
   </div>
 

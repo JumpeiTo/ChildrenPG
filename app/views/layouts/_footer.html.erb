@@ -14,7 +14,7 @@
           </div>
         <% end %>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 mt-2">
         <div class="row">
           <!--会員ログイン後ヘッダー-->
           <% if customer_signed_in? %>
@@ -103,7 +103,7 @@
       <span id="top-btn">
         <a href="#">
           <div class="top-btn">
-            <i class="fa-regular fa-circle-up"></i>
+            <i class="fa-regular fa-circle-up top-btn"></i>
           </div>
         </a>
       </span>
@@ -123,7 +123,7 @@
   }
   .top-btn {
     position: absolute;
-    right: 15px;
+    right: 8px;
     bottom: 20px;
     font-size: 3.8rem;
   }
@@ -132,24 +132,7 @@
     font-size: 0.9rem;
   }
   
-  h3 {
-    position: relative;
-    font-size: 18px;
-    width: fit-content;
-    margin-top: 5px;
-  }
-  
-  h3::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 110%;
-    height: 1.5px; 
-    background-color: #b8b7ab; 
-  }
   @media screen and (min-width:375px) and ( max-width:768px) {
-    /*　画面サイズが768pxから1024pxまではここを読み込む　*/
     .logo-image {
       width: 45px;
       height: 45px;

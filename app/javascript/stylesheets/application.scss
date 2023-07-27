@@ -45,7 +45,7 @@ body {
 main {
   flex: 1;
 }
-
+  
 // toast表示位置調整
 .toast-top-right {
   top: 100px;
@@ -263,7 +263,8 @@ h2:after {
 
 
 @media screen and (min-width:480px) { 
-    /*　画面サイズが480pxからはここを読み込む　*/
+  /*　画面サイズが480pxからはここを読み込む　*/
+
 
 }
 

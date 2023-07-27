@@ -1,43 +1,190 @@
 <footer class="footer">
   <div class="container">
-    <div class="row mt-2">
-      <div class="col-sm-6 my-auto">
+    <div class="row mt-2 mx-3 mx-sm-2">
+      <div class="col-md-4 my-auto">
         <%= link_to root_path, data: {"turbolinks"=>false} do %>
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center logo">
             <div>
-              <%= image_tag 'logo.not.name.png', size: '65x65' %>
+              <%= image_tag 'logo.not.name.png', size: '65x65', class: 'logo-image' %>
             </div>
             <div class="ml-2 mt-2">
-              <h5>ChildrenPG</h5>
-              <p>遊び場検索・保存サイト</p>
+              <h5 class="mb-0 mb-md-3">ChildrenPG</h5>
+              <p style="font-size: 1rem;">遊び場検索・保存サイト</p>
             </div>
           </div>
         <% end %>
       </div>
-      <div class="col-sm-6">
+      <div class="col-md-8">
         <div class="row">
-          <div class="col-md-6">
-            <ul class="list-unstyled">
-              <li><%= link_to "ホーム", root_path, data: {"turbolinks"=>false} %></li>
-              <li><a href="#">遊び場一覧</a></li>
-              <li><a href="#">サイト説明</a></li>
-              <li><a href="#">プライバシーポリシー</a></li>
-            </ul>
-          </div>
-          <div class="col-md-6">
-            <ul class="list-unstyled">
-              <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
-              <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
-              <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
-            </ul>
-          </div>
+          <!--会員ログイン後ヘッダー-->
+          <% if customer_signed_in? %>
+            <div class="col-sm">
+              <ul class="list-unstyled">
+                <h3>初めての方へ</h3>
+                <li><%= link_to "サイト説明", homes_about_path %></li>
+                <li><%= link_to "ログアウトする",destroy_customer_session_path, method: :delete %></li>
+              </ul>
+            </div>
+            <div class="col-sm">
+              <ul class="list-unstyled">
+                <h3>サイトマップ</h3>
+                <li><%= link_to "遊び場を探す", root_path, data: {"turbolinks"=>false} %></li>
+                <li><%= link_to "皆の投稿を見る", posts_path %></li>
+                <li><%= link_to "マイページ",customers_path %></li>
+                <li><%= link_to "いいねした投稿を見る", customer_favorite_posts_path(customer_id: current_customer.id) %></li>
+              </ul>
+            </div>
+            <div class="col-sm">
+              <ul class="list-unstyled">
+                <h3>SNS</h3>
+                <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+              </ul>
+            </div>
+          <!--管理者ログイン後ヘッダー-->
+          <% elsif admin_signed_in? %>
+            <div class="col-sm">
+              <ul class="list-unstyled">
+                <h3>サイトマップ</h3>
+                <li><%= link_to "データ推移を見る", admin_homes_top_path, data: {"turbolinks"=>false} %></li>
+                <li><%= link_to "会員の投稿一覧を見る", admin_posts_path %></li>
+                <li><%= link_to "会員一覧を見る", admin_customers_path %></li>
+                <li><%= link_to "会員のコメント一覧を見る", admin_post_comments_path %></li>
+                <li><%= link_to "投稿タグを管理する", admin_tags_path %></li>
+                <li><%= link_to "ログアウトする",destroy_admin_session_path, method: :delete %></li>
+              </ul>
+            </div>
+            <div class="col-sm">
+              <ul class="list-unstyled">
+                <h3>会員側サイト</h3>
+                <li><%= link_to "サイト説明", homes_about_path %></li>
+                <li><%= link_to "遊び場を探す", root_path, data: {"turbolinks"=>false} %></li>
+                <li><%= link_to "皆の投稿を見る", posts_path %></li>
+              </ul>
+            </div>
+            <div class="col-sm">
+              <ul class="list-unstyled">
+                <h3>SNS</h3>
+                <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+              </ul>
+            </div>
+          <!--共通ログイン前ヘッダー-->
+          <% else %>
+            <div class="col-sm">
+              <ul class="list-unstyled">
+                <h3>初めての方へ</h3>
+                <li><%= link_to "サイト説明", homes_about_path %></li>
+                <li><%= link_to "新規登録する", new_customer_registration_path %></li>
+                <li><%= link_to "ログインする",new_customer_session_path %></li>
+              </ul>
+            </div>
+            <div class="col-sm">
+              <ul class="list-unstyled">
+                <h3>サイトマップ</h3>
+                <li><%= link_to "遊び場を探す", root_path, data: {"turbolinks"=>false} %></li>
+                <li><%= link_to "皆の投稿を見る", posts_path %></li>
+              </ul>
+            </div>
+            <div class="col-sm">
+              <ul class="list-unstyled">
+                <h3>SNS</h3>
+                <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+              </ul>
+            </div>
+          <% end %>
         </div>
       </div>
+      <!--トップに移動するボタン-->
+      <span id="top-btn">
+        <a href="#">
+          <div class="top-btn">
+            <i class="fa-regular fa-circle-up"></i>
+          </div>
+        </a>
+      </span>
     </div>
     
     <hr class="my-0">
     <div class="text-center">
-      <p class="my-2">&copy; 2023 ChildrenPG. All rights reserved.</p>
+      <p class="my-2" style="font-size: 0.9rem;">&copy; 2023 ChildrenPG. All rights reserved.</p>
     </div>
   </div>
 </footer>
+
+<style>
+  /*トップに移動するボタン*/
+  .container {
+    position: relative;
+  }
+  .top-btn {
+    position: absolute;
+    right: 15px;
+    bottom: 20px;
+    font-size: 3.8rem;
+  }
+  
+  a {
+    font-size: 0.9rem;
+  }
+  
+  h3 {
+    position: relative;
+    font-size: 18px;
+    width: fit-content;
+    margin-top: 5px;
+  }
+  
+  h3::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 110%;
+    height: 1.5px; 
+    background-color: #b8b7ab; 
+  }
+  @media screen and (min-width:375px) and ( max-width:768px) {
+    /*　画面サイズが768pxから1024pxまではここを読み込む　*/
+    .logo-image {
+      width: 45px;
+      height: 45px;
+    }
+    .logo h5 {
+      font-size: 1.1rem;
+    }
+    .logo p {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+<script>
+  $(function() {
+    var topBtn = $('#top-btn a');
+    topBtn.hide();
+    $(window).scroll(function() {
+      var scrollHeight = $(document).height(); // ページの全体の高さ
+      var scrollPosition = $(window).height() + $(window).scrollTop(); // 現在のスクロール位置 + ウィンドウの高さ
+      
+      if (scrollHeight - scrollPosition <= 100) {
+        // ページの最下部に近づいたらトップに戻るボタンを表示
+        topBtn.fadeIn(1000);
+      } else {
+        // ページの最下部でない場合はトップに戻るボタンを非表示
+        topBtn.fadeOut();
+      }
+    });
+
+    topBtn.click(function () {
+      $('body, html').animate({
+        scrollTop: 0
+      }, 500); // トップに戻る時間
+      event.preventDefault();
+    });
+  });
+</script>

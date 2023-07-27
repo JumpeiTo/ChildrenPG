@@ -27,42 +27,66 @@ class Post < ApplicationRecord
   def favorited_by?(customer)
     post_favorites.exists?(customer_id: customer.id)
   end
+      # 日別の投稿数を集計するスコープ
+  # scope :group_by_day_post_count, -> {
+  #   # 集計の対象期間を設定します。30日前から今日までの期間を指定しています。
+  #   start_date = 30.days.ago.to_date
+  #   end_date = Date.today
+  #   # データベースクエリを使って、指定した期間内の日付ごとの投稿数を集計します。
+  #   counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
+  #   # countsは{日付 => 投稿数, 日付 => 投稿数, ...}というハッシュの形式です。
+  #   # 指定した期間内のすべての日付を含む配列を作成します。
+  #   date_range = (start_date..end_date).to_a
+  #   # 上記で作成したdate_rangeを使って、データベースクエリの結果を埋める形で、日別の投稿数をまとめたハッシュを作成します。
+  #   # 期間内に投稿のない日は、0としてカウントします。
+  #   filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
+  #   # 日付ごとの投稿数をまとめたハッシュを返します。
+  #   filled_counts
+  # }
   
-    # 日別の投稿数を集計するスコープ
+  # # 月別の投稿数を集計するスコープ
+  # scope :group_by_month_post_count, -> {
+  #   # 集計の対象期間を設定します。今回は12ヶ月前の月初めから今月の月末までの期間を指定しています。
+  #   start_date = 12.months.ago.to_date.beginning_of_month
+  #   end_date = Date.today.end_of_month
+  #   # 本番環境か？
+  #   if Rails.env == 'production'
+  #     counts = group("DATE_FORMAT(created_at, '%Y-%m')").where(created_at: start_date..end_date).count
+  #   else
+  #     counts = group("strftime(created_at, '%Y-%m')").where(created_at: start_date..end_date).count
+  #   end
+  #   # countsは{年-月 => 投稿数, 年-月 => 投稿数, ...}というハッシュの形式です。
+  #   # 指定した期間内のすべての年-月を含む配列を作成します。
+  #   date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }
+  #   # 上記で作成したdate_rangeを使って、データベースクエリの結果を埋める形で、月別の投稿数をまとめたハッシュを作成します。
+  #   # 期間内に投稿のない月は、0としてカウントします。
+  #   filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
+  #   # 年-月ごとの投稿数をまとめたハッシュを返します。
+  #   filled_counts
+  # }
+  
+  # 日別の投稿数を集計するスコープ
   scope :group_by_day_post_count, -> {
-    # 集計の対象期間を設定します。30日前から今日までの期間を指定しています。
     start_date = 30.days.ago.to_date
     end_date = Date.today
-    # データベースクエリを使って、指定した期間内の日付ごとの投稿数を集計します。
     counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
-    # countsは{日付 => 投稿数, 日付 => 投稿数, ...}というハッシュの形式です。
-    # 指定した期間内のすべての日付を含む配列を作成します。
     date_range = (start_date..end_date).to_a
-    # 上記で作成したdate_rangeを使って、データベースクエリの結果を埋める形で、日別の投稿数をまとめたハッシュを作成します。
-    # 期間内に投稿のない日は、0としてカウントします。
     filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
-    # 日付ごとの投稿数をまとめたハッシュを返します。
     filled_counts
   }
   
   # 月別の投稿数を集計するスコープ
   scope :group_by_month_post_count, -> {
-    # 集計の対象期間を設定します。今回は12ヶ月前の月初めから今月の月末までの期間を指定しています。
-    start_date = 12.months.ago.to_date.beginning_of_month
+    start_date = Date.today - 11.months
     end_date = Date.today.end_of_month
-    # 本番環境か？
     if Rails.env == 'production'
-      counts = group("DATE_FORMAT(created_at, '%Y-%m')").where(created_at: start_date..end_date).count
+      # counts = group("DATE_FORMAT(created_at, '%Y-%m')").where(created_at: start_date..end_date).count
+      counts = group("DATE_FORMAT(created_at, '%Y-%m')").count
     else
-      counts = group("strftime(created_at, '%Y-%m')").where(created_at: start_date..end_date).count
+      counts = group("strftime('%Y-%m', created_at)").count
     end
-    # countsは{年-月 => 投稿数, 年-月 => 投稿数, ...}というハッシュの形式です。
-    # 指定した期間内のすべての年-月を含む配列を作成します。
     date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }
-    # 上記で作成したdate_rangeを使って、データベースクエリの結果を埋める形で、月別の投稿数をまとめたハッシュを作成します。
-    # 期間内に投稿のない月は、0としてカウントします。
     filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
-    # 年-月ごとの投稿数をまとめたハッシュを返します。
     filled_counts
   }
   

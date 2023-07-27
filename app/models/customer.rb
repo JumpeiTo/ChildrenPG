@@ -38,34 +38,8 @@ class Customer < ApplicationRecord
     super && (is_deleted == false)
   end
   
-  #   # 日別の会員登録数を集計するスコープ
-  # scope :group_by_day_customer_count, -> {
-  #   start_date = Date.today - 29.days # 過去30日間
-  #   end_date = Date.today
-  #   counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
-  #   date_range = (start_date..end_date).to_a
-  #   filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
-  #   filled_counts
-  # }
-
-  # # 月別の会員登録数を集計するスコープ
-  # scope :group_by_month_customer_count, -> {
-  #   start_date = Date.today - 11.months # 過去12か月間
-  #   end_date = Date.today
-  #   if Rails.env == 'production'
-  #     counts = group("DATE_FORMAT(created_at, '%Y-%m')").where(created_at: start_date..end_date).count
-  #   else
-  #     counts = group("strftime(created_at, '%Y-%m')").where(created_at: start_date..end_date).count
-  #   end
-  #   date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }
-  #   filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
-  #   filled_counts
-  # }
-  
   # 日別の登録数を集計するスコープ
   scope :group_by_day_customer_count, -> {
-    # min_created_at = Customer.minimum(:created_at)
-    # exists = min_created_at.present?
     start_date = 30.days.ago.to_date
     end_date = Date.today
     counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
@@ -76,12 +50,9 @@ class Customer < ApplicationRecord
 
   # 月別の登録数を集計するスコープ
   scope :group_by_month_customer_count, -> {
-    # min_created_at = Customer.minimum(:created_at)
-    # exists = min_created_at.present?
     start_date = Date.today - 11.months
     end_date = Date.today.end_of_month
     if Rails.env == 'production'
-      # counts = group("DATE_FORMAT(created_at, '%Y-%m')").where(created_at: start_date..end_date).count
       counts = group("DATE_FORMAT(created_at, '%Y-%m')").count
     else
       counts = group("strftime('%Y-%m', created_at)").count
@@ -90,8 +61,6 @@ class Customer < ApplicationRecord
     filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
     filled_counts
   }
-  
-
   
   # ransack検索カラムのアソシエーション
   def self.ransackable_associations(auth_object = nil)

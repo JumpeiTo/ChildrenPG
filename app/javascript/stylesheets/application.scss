@@ -262,7 +262,7 @@ h2:after {
 }
 
 
-@media screen and (min-width:480px) { 
+@media screen and (min-width:375px)  and ( max-width:768px){ 
   /*　画面サイズが480pxからはここを読み込む　*/
 
 

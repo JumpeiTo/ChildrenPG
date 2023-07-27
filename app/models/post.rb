@@ -28,13 +28,14 @@ class Post < ApplicationRecord
     post_favorites.exists?(customer_id: customer.id)
   end
   
-  # 日別の投稿数を集計するスコープ
+    # 日別の投稿数を集計するスコープ
   scope :group_by_day_post_count, -> {
     # 集計の対象期間を設定します。30日前から今日までの期間を指定しています。
     start_date = 30.days.ago.to_date
     end_date = Date.today
     # データベースクエリを使って、指定した期間内の日付ごとの投稿数を集計します。
-    counts = group("DATE(created_at)").where(created_at: start_date..end_date).count
+    # counts = group("DATE(created_at)").where(created_at: start_date..end_date).count
+    counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
     # countsは{日付 => 投稿数, 日付 => 投稿数, ...}というハッシュの形式です。
     # 指定した期間内のすべての日付を含む配列を作成します。
     date_range = (start_date..end_date).to_a

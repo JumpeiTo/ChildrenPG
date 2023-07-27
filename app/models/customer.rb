@@ -42,7 +42,7 @@ class Customer < ApplicationRecord
   scope :group_by_day_customer_count, -> {
     start_date = Date.today - 29.days # 過去30日間
     end_date = Date.today
-    counts = group("DATE(created_at)").where(created_at: start_date..end_date).count.transform_keys { |date| date.to_date }
+    counts = group("DATE(created_at)").count.transform_keys { |date| date.to_date }
     date_range = (start_date..end_date).to_a
     filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
     filled_counts

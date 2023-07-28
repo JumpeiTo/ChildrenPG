@@ -1,62 +1,64 @@
-<h2>詳細検索結果</h2>
+<div class="col-lg-8 col-md-10 col-12 mx-auto">
+  <h1>詳細検索結果</h1>
 
-<div>
-  <h4><img src="<%= @place.icon %>" alt="アイコン" width="40" height="40"> <%= @place.name %></h4>
+  <p class="mb-2" style="font-size: 26px;"><img src="<%= @place.icon %>" alt="アイコン" width="38" height="38"> <%= @place.name %></p>
   
+  <h3>概要</h3>
   <% if @place.json_result_object["editorial_summary"].present? %>
     <% summary = @place.json_result_object["editorial_summary"] %>
     <% if summary["overview"].present? %>
       <p><%= summary["overview"] %></p>
     <% end %>
   <% end %>
-
-  <p>住所:</p>〒<%= @place.postal_code %>
+  
+  <h3>住所</h3>
+  <p class="mb-1">〒<%= @place.postal_code %>
   <% province = ""
      @place.address_components.each do |component|
        if component["types"].include?("administrative_area_level_1")
          province = component["long_name"]
        end
-     end %>
-  
+     end %></p>
   <p><%= province + @place.vicinity %></p>
-
-
-  <% if @place.rating.present? %>
-    <p>Google評価: <%= @place.rating %></p>
-  <% else %>
-    <p>Google評価: なし</p>
+  
+  <h3>電話番号</h3>
+  <% if @place.international_phone_number.present? %>
+    <p><%= @place.international_phone_number %></p>
   <% end %>
-
+  
+  <h3>Google評価</h3>
+  <% if @place.rating.present? %>
+    <p><%= @place.rating %>点</p>
+  <% else %>
+    <p>なし</p>
+  <% end %>
+  
+  <h3>営業状況</h3>
   <% if @place.opening_hours.present? && @place.opening_hours.is_a?(Hash) %>
-    <h5>営業時間</h5>
     <% if @place.opening_hours["open_now"] %>
-      <p>現在営業中</p>
+      <strong class="status" style="color: #89CA25;">現在営業中</strong>
     <% else %>
-      <p>現在営業していません</p>
+      <strong class="status" style="color: #6c757d;">現在営業時間外</strong>
     <% end %>
-    <ul>
+    <ul class="p-0">
       <% @place.opening_hours["weekday_text"].each do |weekday| %>
         <li class="list-inline"><%= weekday %></li>
       <% end %>
     </ul>
   <% end %>
 
-
+  <h3>公式ウェブサイト</h3>
   <% if @place.website.present? %>
-    <p>公式ウェブサイト: <a href="<%= @place.website %>"><%= @place.website %></a></p>
-  <% end %>
-
-  <% if @place.international_phone_number.present? %>
-    <p>電話番号: <%= @place.international_phone_number %></p>
+    <p><a href="<%= @place.website %>"><%= @place.website %></a></p>
   <% end %>
 
   <% if @place.photos.present? %>
     <% @place.photos.each do |photo| %>
       <% photo_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=#{photo.photo_reference}&key=#{ENV['GOOGLE_API_KEY']}" %>
-      <img src="<%= photo_url %>" alt="写真" width="180" height="120">
+      <img class="mr-1 mb-1 place-image" src="<%= photo_url %>" alt="写真" width="210" height="150">
     <% end %>
   <% else %>
-    <img src="/assets/no_image32.png" width="180" height="120">
+    <img class="place-image" src="/assets/no_image32.png" width="210" height="150">
   <% end %>
   
   <% if @place.json_result_object["geometry"].present? %>
@@ -83,7 +85,46 @@
       <%= f.hidden_field :phone_number, value: @place.international_phone_number if @place.international_phone_number.present? %>
       <%= f.hidden_field :photo_url, value: @place.photos.first&.photo_reference.present? ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=#{@place.photos.first.photo_reference}&key=#{ENV['GOOGLE_API_KEY']}" : nil %>
       <%= f.hidden_field :category, value: @place.types.join(",") if @place.types.present? %>
-      <%= f.submit "投稿する" %>
+      <%= f.submit "投稿する", class: 'btn btn-blue px-4 mt-1' %>
     <% end %>
   <% end %>
 </div>
+
+<div class="mx-auto" style="width: 100%;">
+  <% if customer_signed_in? %>
+    <%= form_with model: Playground.new, url: playgrounds_path, method: :post, local: true do |f| %>
+      <%= f.hidden_field :place_id, value: @place.place_id if @place.place_id.present? %>
+      <%= f.hidden_field :latitude, value: latitude if latitude.present? %>
+      <%= f.hidden_field :longitude, value: longitude if longitude.present? %>
+      <%= f.hidden_field :name, value: @place.name  if @place.name.present? %>
+      <%= f.hidden_field :overview, value: summary["overview"] if summary.present? %>
+      <%= f.hidden_field :icon, value: @place.icon if @place.icon.present? %>
+      <%= f.hidden_field :postal_code, value: @place.postal_code if @place.postal_code.present? %>
+      <%= f.hidden_field :address, value: @place.vicinity if @place.vicinity.present? %>
+      <%= f.hidden_field :prefecture, value: province if province.present? %>
+      <%= f.hidden_field :rate, value: @place.rating if @place.rating.present? %>
+      <%= f.hidden_field :open_now, value: @place.opening_hours["open_now"] if @place.opening_hours.present? %>
+      <%= f.hidden_field :business_hours, value: @place.opening_hours["weekday_text"].to_json if @place.opening_hours.present?%>
+      <%= f.hidden_field :website, value: @place.website if @place.website.present? %>
+      <%= f.hidden_field :phone_number, value: @place.international_phone_number if @place.international_phone_number.present? %>
+      <%= f.hidden_field :photo_url, value: @place.photos.first&.photo_reference.present? ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=#{@place.photos.first.photo_reference}&key=#{ENV['GOOGLE_API_KEY']}" : nil %>
+      <%= f.hidden_field :category, value: @place.types.join(",") if @place.types.present? %>
+      <%= f.submit "投稿する", class: 'btn btn-block btn-blue px-4 mt-1', id: "post_button" %>
+    <% end %>
+  <% end %>
+</div>
+<style>
+  #post_button {
+    margin: 0 10%;
+    width: 70%;
+    position: fixed;
+    bottom: 3%;
+  }
+
+  @media screen and (min-width: 375px) and (max-width: 768px) {
+    #post_button {
+      margin: 0 ;
+      width: 90%;
+    }
+  }
+</style>

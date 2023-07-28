@@ -1,8 +1,8 @@
 <div class="row m-0" style="height: 200px; width: 100%;">
   <%= link_to playground_path(post.playground_id), class: 'col-4 p-2 list-bg playground', style: 'height: 100%; width: auto;' do %>
     <div class="platground p-1" style="height: 100%; width: auto;">
-      <p class="m-0" style="font-size: 18px; height: 18%; overflow: hidden;"><%= post.playground.name %></p>
-      <div class="pt-2" style="height: 82%; width: auto;">
+      <p class="m-0" style="font-size: 18px; height: 15%; overflow: hidden;"><%= post.playground.name %></p>
+      <div class="pt-2" style="height: 85%; width: auto;">
         <%= image_tag post.playground.photo_url, size: "205x148", class: "playground-image" %>
       </div>
     </div>
@@ -20,10 +20,10 @@
         <div class="" style="height: 100%; width: 40%;">
           <%= image_tag post.get_post_image(140, 140), class: "post-image" %>
         </div>
-        <div class="position-relative pl-3" style="height: 100%; width: 60%;">
+        <div class="position-relative pl-xl-3 pl-lg-2 pl-3" style="height: 100%; width: 60%;">
           <p class="mb-1" style="font-size: 16px;"><%= post.text.truncate(57) %></p>
           <p class="rate position-absolute mb-0 ml-3" style="left: 0; bottom: 0;"><%= post.rate %>点</p>
-          <p class="position-absolute mb-0" style="font-size: 16px; right: 0; bottom: 0;">更新日時: <%= time_ago_in_words(post.updated_at) %>前</p>
+          <p class="position-absolute mb-0" style="font-size: 16px; right: 0; bottom: 0;">更新日: <%= time_ago_in_words(post.updated_at) %>前</p>
         </div>
       </div>
     </div>

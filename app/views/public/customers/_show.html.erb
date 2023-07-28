@@ -1,7 +1,9 @@
 <h1>会員詳細</h1>
+<div class="mb-2" style="height: 200px; width: 80%;">
+  <%= image_tag customer.get_profile_image(200,280), class: "profile_image" %>
+</div>
 
-<%= image_tag customer.get_profile_image(200,280) %><br>
-<h4 class="mt-1 mb-3"><%= customer.nickname %></h4>
+<p class="font-weight-bold" style="font-size: 22px;"><%= customer.nickname %></p>
 <% if customer == current_customer %>
   <p><%= customer.email %></p>
   <p><%= customer.name %></p>

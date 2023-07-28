@@ -1,35 +1,39 @@
-<%= link_to playground_path(playground), class: 'text-dark' do %>
-  <h4><img src="<%= playground.icon %>" alt="アイコン" width="40" height="40"> <%= playground.name %></h4>
-  <% if playground.photo_url.present? %>
-    <%= image_tag playground.photo_url, alt: "写真", width: "210", height: "140" %>
-  <% else %>
-    <img src="/assets/no_image32.png" width="210" height="140" alt="デフォルト画像">
-  <% end %>
+<%= link_to playground_path(playground) do %>
+  <p class="mb-2" style="font-size: 24px;"><img src="<%= playground.icon %>" alt="アイコン" width="30" height="30"> <%= playground.name %></p>
+  <div class="mb-2" style="width: auto; height: 250px;">
+    <% if playground.photo_url.present? %>
+      <%= image_tag playground.photo_url, alt: "写真", width: "210", height: "140", class: "playground-image" %>
+    <% else %>
+      <img src="/assets/no_image32.png" width="210" height="140" alt="デフォルト画像", class= "playground-image" >
+    <% end %>
+  </div>
 <% end %>
-<p>概要: <%= playground.overview %></p>
-<p></p>
-<p>住所: 〒<%= playground.postal_code %><br>
+<h3>概要</h3>
+<p><%= playground.overview %></p>
+<h3>住所</h3>
+<p>〒<%= playground.postal_code %><br>
   <%= playground.prefecture %><%= playground.address %></p>
-<p>
-  営業状況:
+<h3>営業状況</h3>
+<pclass="mb-1">
   <% if playground.open_now %>
-    営業中
+    <strong class="status" style="color: #89CA25;">現在営業中</strong>
   <% else %>
-    営業時間外
+    <strong class="status" style="color: #6c757d;">現在営業時間外</strong>
   <% end %>
-</p>
 <% if playground.business_hours %>
-  <ul>
+  <ul class="list-unstyled">
     <% JSON.parse(playground.business_hours).each do |hours| %>
       <% day, time_range = hours.split(': ') %>
       <li><%= day %>: <%= time_range %></li>
     <% end %>
   </ul>
 <% end %>
-<p>ウェブサイト: <%= link_to playground.website, playground.website, target: "_blank" %></p>
-<p>電話番号: <%= playground.phone_number %></p>
-<h2>カテゴリー</h2>
-<ul>
+<h3>電話番号</h3>
+<p><%= playground.phone_number %></p>
+<h3>公式ウェブサイト</h3>
+<p style="overflow: hidden;"><%= link_to playground.website, playground.website, target: "_blank" %></p>
+<h3>カテゴリー</h3>
+<ul style="margin-left: -19px;">
   <% playground.categories.each do |category| %>
     <li><%= I18n.t("categories.name.#{category.name}") %></li>
   <% end %>

@@ -55,7 +55,28 @@ window.addEventListener('popstate', function(e) {
       }
 });
 
+// 投稿ボタン設定
+$(document).on('turbolinks:load', function() {
+  var postButton = $('#post_button');
+  postButton.hide();
 
+  // スクロールイベントを定義
+  $(window).scroll(function() {
+    var scrollHeight = $(document).height(); // ページの全体の高さ
+    var scrollPosition = $(window).height() + $(window).scrollTop(); // 現在のスクロール位置 + ウィンドウの高さ
+
+    if (scrollHeight - scrollPosition <= 150) {
+      // ページの最下部に近づいたら投稿ボタンを非表示
+      postButton.fadeOut(200);
+    } else {
+      // ページの最下部でない場合は投稿ボタンを表示
+      postButton.fadeIn(500);
+    }
+  });
+
+  // 初回表示時にもスクロールイベントを発火させる
+  $(window).trigger('scroll');
+});
 
 Rails.start()
 Turbolinks.start()

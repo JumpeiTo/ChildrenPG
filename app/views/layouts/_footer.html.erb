@@ -100,7 +100,7 @@
         </div>
       </div>
       <!--トップに移動するボタン-->
-      <span id="top-btn">
+      <span id="top_btn">
         <a href="#">
           <div class="top-btn">
             <i class="fa-regular fa-circle-up top-btn"></i>
@@ -148,7 +148,7 @@
 
 <script>
   $(function() {
-    var topBtn = $('#top-btn a');
+    var topBtn = $('#top_btn a');
     topBtn.hide();
     $(window).scroll(function() {
       var scrollHeight = $(document).height(); // ページの全体の高さ
@@ -156,10 +156,10 @@
       
       if (scrollHeight - scrollPosition <= 100) {
         // ページの最下部に近づいたらトップに戻るボタンを表示
-        topBtn.fadeIn(1000);
+        topBtn.fadeIn(500);
       } else {
         // ページの最下部でない場合はトップに戻るボタンを非表示
-        topBtn.fadeOut();
+        topBtn.fadeOut(200);
       }
     });
 

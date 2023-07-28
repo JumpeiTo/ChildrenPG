@@ -1,18 +1,21 @@
 <!--遊び場詳細-->
 <div class="row">
   <div class="col-lg-4">
-        <% if customer_signed_in? %>
-      <%= form_with model: Playground.new, url: playgrounds_path, method: :post, local: true do |f| %>
-        <%= f.hidden_field :place_id, value: @playground.place_id if @playground.place_id.present? %>
-        <%= f.submit "投稿する" %>
-      <% end %>
-    <% end %>
+    <h1 class="mt-2">遊び場詳細</h1>
     <%= render 'playground_show', playground: @playground %>
+    <div>
+      <% if customer_signed_in? %>
+        <%= form_with model: Playground.new, url: playgrounds_path, method: :post, local: true, id: "playground-form" do |f| %>
+          <%= f.hidden_field :place_id, value: @playground.place_id if @playground.place_id.present? %>
+          <%= f.submit "投稿する", class: 'btn btn-block btn-blue px-4', id: "post_button" %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
   
   <div class="col-lg-8">
     <div class="d-flex justify-content-between">
-      <h1>投稿一覧</h1>
+      <h2>投稿一覧</h2>
       <!--並び替え-->
       <%= form_with(url: playground_path(@playground), method: :get, local: true) do |f| %>
         <div class="form-group">
@@ -29,7 +32,7 @@
         </div>
       <% end %>
     </div>
-    
+    <!--一覧-->
     <% @posts.each do |post| %>
       <div class="post-list mb-2" style="position: relative;">
         <%= render 'public/posts/posts_name', post: post %>
@@ -49,13 +52,11 @@
                   <h3 class="m-0" style="font-size: 22px; height: 15%;">タイトルなし</h3>
                 <% end %>
                 <div class="position-relative pt-2" style="height: 85%;">
-                  <p class="mb-1" style="font-size: 16px;"><%= post.text.truncate(94) %></p>
+                  <p class="mb-1" style="font-size: 16px;"><%= post.text.truncate(90) %></p>
                   <p class="rate position-absolute mb-0" style="left: 0; bottom: 0;"><%= post.rate %>点</p>
-                  <p class="position-absolute mb-0" style="font-size: 16px; right: 0; bottom: 0;">更新日時: <%= time_ago_in_words(post.updated_at) %>前</p>
+                  <p class="position-absolute mb-0" style="font-size: 16px; right: 0; bottom: 0;">更新日: <%= time_ago_in_words(post.updated_at) %>前</p>
                 </div>
               </div>
-              
-              
             </div>
           </div>
         <% end %>
@@ -75,5 +76,23 @@
         
 </div>
 
+
+
 <style>
+  #post_button {
+    width: 32%;
+    position: fixed;
+    left: 3%;
+    bottom: 3%;
+  }
+
+  @media screen and (min-width: 375px) and (max-width: 768px) {
+    #post_button {
+    width: 90%;
+    margin: 0 5%;
+    position: fixed;
+    left: 0;
+    bottom: 3%;
+    }
+  }
 </style>

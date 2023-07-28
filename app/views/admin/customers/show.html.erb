@@ -21,14 +21,14 @@
         </tr>
         <tr>
           <th>公開設定</th>
-          <td class="<%= @customer.is_hidden == false ? 'text-success px-0' : 'text-muted px-0' %>">
-            <strong><%= @customer.is_hidden == false ? '公開' : '非公開' %></strong>
+          <td class="px-0" style="<%= @customer.is_hidden == false ? 'color: #89CA25;' : 'color: #6c757d;' %>">
+            <strong class="status"><%= @customer.is_hidden == false ? '公開' : '非公開' %></strong>
           </td>
         </tr>
         <tr>
           <th>会員ステータス</th>
-          <td class="<%= @customer.is_deleted == false ? 'text-success px-0' : 'text-muted px-0' %>">
-            <strong><%= @customer.is_deleted == false ? '有効' : '退会' %></strong>
+          <td class="px-0" style="<%= @customer.is_hidden == false ? 'color: #89CA25;' : 'color: #6c757d;' %>">
+            <strong class="status"><%= @customer.is_deleted == false ? '有効' : '退会' %></strong>
           </td>
         </tr>
         <tr>
@@ -44,7 +44,7 @@
           <%= link_to admin_posts_path(customer_id: @customer.id), class: "btn btn-blue btn-sm px-4 mr-2" do %>
             <i class="fa-solid fa-file-pen"> 投稿一覧を見る</i>
           <% end %>
-          <%= link_to admin_post_comments_path(customer_id: @customer.id), class: "btn btn-blue btn-sm px-4" do %>
+          <%= link_to admin_post_comments_path(customer_id: @customer.id), class: "btn btn-blue btn-sm px-4 mt-2 mt-xl-0" do %>
             <i class="fa-solid fa-file-pen"> コメント一覧を見る</i>
           <% end %></br>
           <%= link_to edit_admin_customer_path(@customer), class: "btn btn-green btn-sm px-4 mt-2" do %>
@@ -54,8 +54,8 @@
       </table>
     </div>
       
-    <div class="col-5 pl-0">
-      <%= image_tag @customer.get_profile_image("70%", "70%") %>
+    <div class="col-5 px-0" style="height: 400px; width: 100%;">
+      <%= image_tag @customer.get_profile_image(200,280), class: "profile_image" %>
     </div>
   </div>
 </div>

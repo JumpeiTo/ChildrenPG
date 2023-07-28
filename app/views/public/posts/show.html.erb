@@ -1,8 +1,6 @@
 <div class="row">
-  <div class="col-4">
-    <%= render 'public/playgrounds/playground_show', playground: @playground %>
-  </div>
   <div class="col-8">
+    <h1>投稿詳細</h1>
     <% unless  @post.customer.is_hidden? %>
       <%= render 'public/posts/posts_name', post: @post %>
       <div class="post-group d-flex">
@@ -91,5 +89,9 @@
     <% else %>
     <h3>非公開ユーザーの投稿です</h3>
     <% end %>
+  </div>
+  <div class="col-4">
+    <h2 class="ml-lg-0">遊び場詳細</h2>
+    <%= render 'public/playgrounds/playground_show', playground: @playground %>
   </div>
 </div>

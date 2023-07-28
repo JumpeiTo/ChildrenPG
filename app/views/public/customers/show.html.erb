@@ -8,7 +8,7 @@
     <div class="col-8">
       <div class="d-flex justify-content-between">
         <h2 class="ml-0 mb-3">投稿一覧</h2>
-        <% if @post != nil %>
+        <% if @posts != nil %>
           <div class="mr-3">
             <!--並び替え-->
             <%= form_with(url: customers_path(customer_id: @customer.id), method: :get, local: true) do |f| %>
@@ -26,7 +26,15 @@
       <% if @posts.any? %>
         <div id="post-list">
           <% @posts.each do |post| %>
-            <%= render 'public/posts/post_index', post: post %>
+            <div class="post-list mb-4" style="position: relative;">
+              <%= render 'public/posts/post_index', post: post %>
+              <!-- いいねボタン -->
+              <div class="favorite-btn-<%= post.id %> position-absolute" style="top: -20px; right: 26px;">
+                <% if customer_signed_in? %>
+                  <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
+                <% end %>
+              </div>
+            </div>
           <% end %>
         </div>
         <div class="pagination">

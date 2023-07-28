@@ -27,6 +27,12 @@
       <div class="post-list mb-2" style="position: relative;">
         <%= render 'public/posts/posts_name', post: post %>
         <%= render 'post_index', post: post %>
+        <!-- いいねボタン -->
+        <div class="favorite-btn-<%= post.id %> position-absolute" style="top: 2px; right: 26px;">
+          <% if customer_signed_in? %>
+            <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
+          <% end %>
+        </div>
       </div>
     <% end %>
     

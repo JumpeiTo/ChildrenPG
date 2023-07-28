@@ -31,49 +31,49 @@
     </div>
     
     <% @posts.each do |post| %>
-      <div style="position: relative;">
+      <div class="post-list mb-2" style="position: relative;">
         <%= render 'public/posts/posts_name', post: post %>
         
-         <%= link_to post_path(post.id), class: 'text-dark post' do %>
-          <div class="mb-2 post p-2" style="height: 180px; width: 100%;">
-            <% if post.title != "" %>
-              <h3 style="font-size: clamp(10px, calc(40vw / 18), 26px);"><%= post.title.truncate(28) %></h3>
-            <% else %>
-              <h3 style="font-size: clamp(10px, calc(40vw / 18), 26px);">タイトルなし</h3>
-            <% end %>
-            <div class="row">
-              <div class="col-4">
-                <%= image_tag post.get_post_image(150, 100), class: "img-fluid" %>
+        <%= link_to post_path(post.id) do %>
+          <div class="list-bg p-2" style="height: 200px; width: 100%; border-radius: 7px;">
+            <div class="row m-0 p-1" style="height: 100%; width: auto;">
+              
+              <div class="col-4 p-0" style="height: 100%; width: auto;">
+                <%= image_tag post.get_post_image(140, 140), class: "post-image" %>
               </div>
-              <div class="col-8">
-                <p><%= post.text %></p>
-                <p>評価: <%= post.rate %></p>
-                <p class="mb-1">更新日時: <%= time_ago_in_words(post.updated_at) %>前</p>
+              
+              <div class="col-8 px-3">
+                <% if post.title != "" %>
+                  <h3 class="m-0" style="font-size: 22px; height: 15%;"><%= post.title.truncate(18) %></h3>
+                <% else %>
+                  <h3 class="m-0" style="font-size: 22px; height: 15%;">タイトルなし</h3>
+                <% end %>
+                <div class="position-relative pt-2" style="height: 85%;">
+                  <p class="mb-1" style="font-size: 16px;"><%= post.text.truncate(94) %></p>
+                  <p class="rate position-absolute mb-0" style="left: 0; bottom: 0;"><%= post.rate %>点</p>
+                  <p class="position-absolute mb-0" style="font-size: 16px; right: 0; bottom: 0;">更新日時: <%= time_ago_in_words(post.updated_at) %>前</p>
+                </div>
               </div>
+              
+              
             </div>
           </div>
         <% end %>
+          
         <!-- いいねボタン -->
-        <div class="favorite">
-          <div class="favorite-btn-<%= post.id %>">
-            <% if customer_signed_in? %>
-              <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
-            <% end %>
-          </div>
+        <div class="favorite-btn-<%= post.id %> position-absolute" style="top: 2px; right: 26px;">
+          <% if customer_signed_in? %>
+            <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
+          <% end %>
         </div>
       </div>
-        
     <% end %>
     <div class="pagination">
       <%= paginate @posts, theme: 'bootstrap-5' %>
     </div>
   </div>
+        
 </div>
 
 <style>
-  .favorite {
-    position: absolute;
-    top: 4px;
-    right: 10px;
-  }
 </style>

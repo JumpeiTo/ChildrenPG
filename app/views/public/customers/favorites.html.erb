@@ -14,7 +14,7 @@
           <%= link_to "コメントした投稿", customer_comment_posts_path(customer_id: @customer.id), class: "btn btn-sm btn-outline-yellow" %>
         </div>
         <% if @favorite_posts.any? %>
-          <div class="mr-3">
+          <div class="mr-3 mb-1">
             <!--並び替え-->
             <%= form_with(url: customer_favorite_posts_path(customer_id: @customer.id), method: :get) do |f| %>
               <%= render 'sort', f: f %>
@@ -26,8 +26,16 @@
       <% if @favorite_posts.any? %>
         <div id="post-list">
           <% @favorite_posts.each do |post| %>
-            <%= render 'public/posts/posts_name', post: post %>
-            <%= render 'public/posts/post_index', post: post ,customer: @customer %>
+            <div class="post-list mb-2" style="position: relative;">
+              <%= render 'public/posts/posts_name', post: post %>
+              <%= render 'public/posts/post_index', post: post ,customer: @customer %>
+              <!-- いいねボタン -->
+              <div class="favorite-btn-<%= post.id %> position-absolute" style="top: 2px; right: 26px;">
+                <% if customer_signed_in? %>
+                  <%= render 'public/post_favorites/post_favorites', post_id: post.id , post: post %>
+                <% end %>
+              </div>
+            </div>
           <% end %>
         </div>
         <div class="pagination">

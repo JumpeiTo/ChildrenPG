@@ -1,6 +1,6 @@
 <div class="nickname ml-3">
   <%= link_to customers_path(customer_id: post.customer.id), class: "badge-bg badge badge-pill badge-secondary" do %>
-    <% if post.customer.is_hidden? %>
+    <% if post.customer.is_hidden? && post.customer != current_customer %>
       非公開ユーザー
     <% elsif post.customer.is_deleted? %>
       退会済ユーザー

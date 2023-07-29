@@ -21,7 +21,12 @@
   [ChildrenPGサイトURL](https://children-pg.com/)
 ​
 ## 設計書
-  後ほど作成予定
+### ER図
+  ![ER図](images/er.png)
+### 画面遷移図
+  ![画面遷移図](images/Screen-transition-diagram.png)
+### テーブル定義書
+  [テーブル定義書](https://docs.google.com/spreadsheets/d/1jOBM3sZy6LnKiMm5Rac6xjVV12IoFLuvzI-UMytZUr4/edit?usp=sharing)
 ​
 ## 開発環境
 - OS：Linux(CentOS)

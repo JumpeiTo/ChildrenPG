@@ -22,9 +22,9 @@
 ​
 ## 設計書
 ### ER図
-  ![ER図](images/er.png)
+  !(app/assets/er.png)
 ### 画面遷移図
-  ![画面遷移図](images/Screen-transition-diagram.png)
+  !(app/assets/images/Screen-transition-diagram.png)
 ### テーブル定義書
   [テーブル定義書](https://docs.google.com/spreadsheets/d/1jOBM3sZy6LnKiMm5Rac6xjVV12IoFLuvzI-UMytZUr4/edit?usp=sharing)
 ​

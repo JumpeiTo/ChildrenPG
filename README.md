@@ -1,7 +1,4 @@
 # ChildrenPG
-## アプリケーションURL
-  [ChildrenPGサイトURL](https://children-pg.com/){:target="_blank"}
-​
 ## サイト概要
 ### サイトテーマ
   「今日子供とどこへ遊びに行こう。。。」「前に行った遊び場どこだっけ」が無くなるサイト
@@ -20,6 +17,9 @@
 - 子供と遊び場に行き、また来たいなと思った時に、コメントや評価なども付け投稿してまた見返したい時
 - 遊びに行く場所に迷っており、近場の遊び場や、人気の遊び場を調べたい時
 ​
+## アプリケーションURL
+  [ChildrenPGサイトURL](https://children-pg.com/)
+​
 ## 設計書
   後ほど作成予定
 ​
@@ -34,7 +34,7 @@
 - Google Places API
 - Google Maps JavaScript API
 - Google Geocoding API
-- ロゴ作成で以下を使用
+- ロゴ作成で以下を使用<br>
   [hatchful](https://www.shopify.com/jp/tools/logo-maker/my-logos)
-- ユーザー画像サンプル素材として以下を使用
+- ユーザー画像サンプル素材として以下を使用<br>
   [カクレノ](https://kotonohaworks.com/free-icons/user/)

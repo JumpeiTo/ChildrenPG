@@ -18,7 +18,7 @@ class Public::PostsController < ApplicationController
     @tags = Tag.all
     if @post.save
       flash[:success] = "投稿が作成されました"
-      redirect_to posts_path
+      redirect_to customers_path
     else
       flash[:warning] = "未記入項目があります"
       flash.discard

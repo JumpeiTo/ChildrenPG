@@ -27,7 +27,7 @@
           <th>関連タグ</th>
           <td class="px-0">
             <% @post.tags.each do |tag| %>
-              <span class="badge badge-info"><%= tag.name %></span>
+              <span class="badge btn-green"><%= tag.name %></span>
             <% end %>
           </td>
         </tr>
@@ -35,7 +35,7 @@
           <th>対象年齢</th>
           <td class="px-0">
             <% @post.target_ages.each do |target_age| %>
-              <span class="badge badge-success"><%= target_age.age %></span>
+              <span class="badge btn-blue"><%= target_age.age %></span>
             <% end %>
           </td>
         </tr>

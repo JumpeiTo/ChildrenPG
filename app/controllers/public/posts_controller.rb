@@ -53,6 +53,7 @@ class Public::PostsController < ApplicationController
     else
       @post_customer_nickname = @post.customer.nickname
     end
+    # binding.pry
   end
   
   def edit

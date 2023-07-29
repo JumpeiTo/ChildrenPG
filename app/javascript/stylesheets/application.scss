@@ -106,7 +106,7 @@ div.field_with_errors input {
 }
 
 // 名前表示
-.nickname .badge-bg {
+.nickname .badge {
   background-color: #c0ca80;
   font-size: 14px;
   &:hover {
@@ -117,7 +117,8 @@ div.field_with_errors input {
 // コメントゾーン
 .post-comment {
   line-height: 1.8;
-  border: dashed 2px #fff7e6;
+  border: dashed 2px #f4ead4;
+  border-radius: 7px;
 }
 
 // ページネーション

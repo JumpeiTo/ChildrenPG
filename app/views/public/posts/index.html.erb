@@ -6,7 +6,7 @@
       <%= form_with(url: posts_path, method: :get, id: "sort-form") do |f| %>
         <!--@pramの値をjson形式で送る-->
         <%= f.hidden_field :q, value: (raw @param.to_json) %>
-        <div class="form-group mr-3">
+        <div class="form-group mr-lg-2 mt-2 mb-2">
           <%= f.select :sort_by, options_for_select(
             [
               ['新着順', 'latest'],

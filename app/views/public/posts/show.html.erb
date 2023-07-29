@@ -1,64 +1,91 @@
 <div class="row">
-  <div class="col-8">
+  <div class="col-lg-8">
     <h1>投稿詳細</h1>
     <% unless  @post.customer.is_hidden? %>
-      <%= render 'public/posts/posts_name', post: @post %>
-      <div class="post-group d-flex">
-        <div>
-          <!--いいねボタン-->
-          <div class="favorite-btn">
-            <% if customer_signed_in? %>
-              <%= render 'public/post_favorites/post_favorites', post: @post %>
-            <% end %>
+      <div class="p-2 mb-3" style="border: dashed 2px #f4ead4; border-radius: 10px;">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <%= render 'public/posts/posts_name', post: @post %>
           </div>
-          
-          <%= image_tag @post.get_post_image(210, 140), class: "img-fluid" %>
+          <div class="d-flex align-items-center">
+            <p class="rate mb-0 mr-3" style="font-size: 20px;"><%= @post.rate %>点</p>
+            <!--いいねボタン-->
+            <div class="favorite-btn">
+              <% if customer_signed_in? %>
+                <%= render 'public/post_favorites/post_favorites', post: @post %>
+              <% end %>
+            </div>
+          </div>
         </div>
-        <div>
-          <h3><%= @post.title %></h3>
-          <p><%= simple_format(h(@post.text)) %></p>
-          <p><%= @post.rate %>点</p>
-          <p>遊べる時間: <span class="badge badge-warning"><%= Post.playtime_methods_i18n[Post.playtime_methods.invert[@post.playtime]] %></span></p>
-          <p>関連タグ:
-            <% @post.tags.each do |tag| %>
-              <span class="badge badge-info"><%= tag.name %></span>
-            <% end %>
-          </p>
-          <p>対象年齢:
-            <% @post.target_ages.each do |target_age| %>
-              <span class="badge badge-success"><%= target_age.age %></span>
-            <% end %>
-          </p>
-          <p>更新日時: <%= time_ago_in_words(@post.updated_at) %>前</p>
+        <% if @post.title != "" %>
+          <h3 class="mt-2 mb-0" style="font-size: 24px;"><%= @post.title %></h3>
+        <% else %>
+          <h3 class="mt-2 mb-0" style="font-size: 24px;">タイトルなし</h3>
+        <% end %>
+        <div class="row">
+          <div class="col-md-4 mt-2" style="height: 300px; width: 100%;">
+            <%= image_tag @post.get_post_image(140, 140), class: "post-image" %>
+          </div>
+          <div class="col-md-8">
+            <div style="width: 95%; min-height: 240px;">
+              <p><%= simple_format(h(@post.text)) %></p>
+              <p style="font-size: 22px;"><strong><%= Post.playtime_methods_i18n[Post.playtime_methods.invert[@post.playtime]] %></strong> 遊べます！</p>
+              <% if @post.tags.any? %>
+                <h3 class="mb-1">関連タグ</h3>
+                <p style="font-size: 17px;">
+                  <% @post.tags.each do |tag| %>
+                    <span class="badge btn-green py-1 px-2"><%= tag.name %></span>
+                  <% end %>
+                </p>
+              <% end %>
+              <% if @post.target_ages.any? %>
+                <h3 class="mb-1">対象年齢</h3>
+                <p style="font-size: 17px;">
+                <% @post.target_ages.each do |target_age| %>
+                  <span class="badge btn-blue py-1 px-2"><%= target_age.age %></span>
+                <% end %>
+              </p>
+              <% end %>
+            </div>
+            <div class="d-flex align-items-end justify-content-end mr-4">
+              <p class="d-inline-block mb-0 mr-3" style="font-size: 18px;">更新日時: <%= time_ago_in_words(@post.updated_at) %>前</p>
+              <% if @post.customer == current_customer %>
+                <%= link_to '編集する',edit_post_path(@post), class: 'btn btn btn-green px-3 mr-2' %>
+                <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-red' %>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
-      
-      <% if @post.customer == current_customer %>
-        <%= link_to '編集する',edit_post_path(@post), class: 'btn btn-sm btn-green' %>
-        <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-red' %>
-      <% end %>
-      
-      <div class="mt-3">
+      <!--コメント-->
+      <div>
+        <p class="mb-2 ml-1" style="font-size: 18px;">コメント件数：<%=@post_comments.count %></p>
         <% if customer_signed_in? %>
-          <div>
-            <%= form_with model: [@post, @post_comment] do |f| %>
-              <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" , class: "form-control w-75", style: "height: 70px;" %>
-              <%= f.submit "送信する" , class: 'btn btn-sm btn-blue' %>
-            <% end %>
-          </div>
+          <%= form_with model: [@post, @post_comment] do |f| %>
+            <div class="row mb-3 ml-1">
+              <div class="col-md-8 p-0">
+                <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに書いてください", class: "form-control", style: "height: 70px;" %>
+              </div>
+              <div class="col-md-2 mt-2 mt-md-0 pl-md-3 p-0 d-flex align-items-end">
+                <%= f.submit "送信する", class: 'btn btn-blue px-3' %>
+              </div>
+            </div>
+          <% end %>
         <% end %>
         <div>
-          <p>コメント件数：<%=@post_comments.count %></p>
-          
+          <!--コメント一覧-->
+          <% if @post_comments.any? %>
+            <h2 class="ml-1">コメント一覧</h2>  
+          <% end %>
           <% @post_comments.each do |post_comment| %>
-            <div class="post-comment pl-2">
+            <div class="post-comment pl-2 p-1 mb-1">
               <div>
                 <%= post_comment.comment %>
               </div>
               <div class="d-flex">
                 <div class="nickname mr-2">
                   <%= link_to customers_path(customer_id: post_comment.customer.id) do %>
-                    <span class="badge badge-pill badge-secondary">
+                    <span class="badge badge-pill badge-secondary" style="font-size: 14px;">
                       <% if post_comment.customer.is_hidden? %>
                         非公開ユーザー
                       <% elsif post_comment.customer.is_deleted? %>
@@ -80,18 +107,18 @@
               </div>
             </div>
           <% end %>
-          
           <div class="pagination mt-3">
             <%= paginate @post_comments, theme: 'bootstrap-5' %>
           </div>
         </div>
       </div>
     <% else %>
-    <h3>非公開ユーザーの投稿です</h3>
+      <p class="mt-3" style="font-size: 26px;">非公開ユーザーの投稿です</p>
     <% end %>
   </div>
-  <div class="col-4">
-    <h2 class="ml-lg-0">遊び場詳細</h2>
+
+  <div class="col-lg-4">
+    <h2 class="ml-1">遊び場詳細</h2>
     <%= render 'public/playgrounds/playground_show', playground: @playground %>
   </div>
 </div>

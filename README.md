@@ -1,4 +1,6 @@
 # ChildrenPG
+## アプリケーションURL
+  [ChildrenPGサイトURL](https://children-pg.com/){:target="_blank"}
 ​
 ## サイト概要
 ### サイトテーマ
@@ -7,7 +9,7 @@
 ### テーマを選んだ理由
   私は週末に子供とお出かけの際、「今日はどこに行こうかな」「前に行った遊び場どこだっけ」と遊びに行く場所に悩む日が多くありました。
   世の親御さんも同じ悩みを抱える人は多いでしょう。<br>
-  そこで、過去に行った遊び場を投稿して見返したり、他の投稿者の遊び場を見れたりするサイトがあると悩まずにすぐ決められると思い作成に至りました。
+  そこで、過去に行った遊び場を投稿して見返したり、他のユーザーの遊び場の投稿を見れたりするサイトがあると悩まずにすぐ決められると思い作成に至りました。
 ​
 ### ターゲットユーザ
 - 子供を連れて行く遊び場に悩む親御さん
@@ -29,4 +31,10 @@
 - IDE：Cloud9
 ​
 ## 使用素材
-  GoogleMAP-API(予定)
+- Google Places API
+- Google Maps JavaScript API
+- Google Geocoding API
+- ロゴ作成で以下を使用
+  [hatchful](https://www.shopify.com/jp/tools/logo-maker/my-logos)
+- ユーザー画像サンプル素材として以下を使用
+  [カクレノ](https://kotonohaworks.com/free-icons/user/)

@@ -9,7 +9,7 @@
       <div class="d-flex justify-content-between">
         <h2 class="ml-0 mb-3">投稿一覧</h2>
         <% if @posts != nil %>
-          <div class="mr-3">
+          <div class="mr-3 pt-2">
             <!--並び替え-->
             <%= form_with(url: customers_path(customer_id: @customer.id), method: :get, local: true) do |f| %>
               <%= render 'sort', f: f %>

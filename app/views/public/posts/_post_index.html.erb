@@ -1,7 +1,7 @@
 <div class="row m-0" style="height: 200px; width: 100%;">
   <%= link_to playground_path(post.playground_id), class: 'col-4 p-2 list-bg playground', style: 'height: 100%; width: auto;' do %>
     <div class="platground p-1" style="height: 100%; width: auto;">
-      <p class="m-0" style="font-size: 18px; height: 15%; overflow: hidden;"><%= post.playground.name %></p>
+      <p class="m-0 pl-2" style="font-size: 18px; height: 15%; overflow: hidden;"><%= post.playground.name %></p>
       <div class="pt-2" style="height: 85%; width: auto;">
         <%= image_tag post.playground.photo_url, size: "205x148", class: "playground-image" %>
       </div>

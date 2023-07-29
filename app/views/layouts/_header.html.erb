@@ -25,7 +25,7 @@
               <%= link_to "マイページ",customers_path, class: 'nav-link btn btn-light ml-lg-2 mt-1 mt-lg-0' %>
             </li>
             <li class="nav-item">
-              <%= link_to "会員ログアウト",destroy_customer_session_path, method: :delete, class: 'nav-link btn btn-light ml-lg-2 mt-1 mt-lg-0' %>
+              <%= link_to "ログアウト",destroy_customer_session_path, method: :delete, class: 'nav-link btn btn-light ml-lg-2 mt-1 mt-lg-0' %>
             </li>
           
           <!--管理者ログイン後ヘッダー-->
@@ -46,7 +46,7 @@
               <%= link_to "タグ一覧", admin_tags_path, class: 'nav-link btn btn-light ml-lg-2 mt-1 mt-lg-0' %>
             </li>
             <li class="nav-item">
-              <%= link_to "管理者ログアウト",destroy_admin_session_path, method: :delete, class: 'nav-link btn btn-light ml-lg-2 mt-1 mt-lg-0' %>
+              <%= link_to "ログアウト",destroy_admin_session_path, method: :delete, class: 'nav-link btn btn-light ml-lg-2 mt-1 mt-lg-0' %>
             </li>
           
           <!--共通ログイン前ヘッダー-->
@@ -62,9 +62,6 @@
             </li>
             <li class="nav-item">
               <%= link_to "ログイン",new_customer_session_path, class: 'nav-link btn btn-light ml-lg-2 mt-1 mt-lg-0' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "管理者ログイン",new_admin_session_path, class: 'nav-link btn btn-light ml-lg-2 mt-1 mt-lg-0' %>
             </li>
           <% end %>
         </ul>

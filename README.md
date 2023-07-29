@@ -22,11 +22,13 @@
 ​
 ## 設計書
 ### ER図
-  !(app/assets/er.png)
+  [ER図](https://drive.google.com/file/d/1k9dMnqH_1SjZl6k6fjRcGJVfpCb24_5O/view)
 ### 画面遷移図
-  !(app/assets/images/Screen-transition-diagram.png)
+  [画面遷移図](https://drive.google.com/file/d/1K6S8D1ldHTaZrKDP6hFmpUyBFV1riyCU/view)
 ### テーブル定義書
   [テーブル定義書](https://docs.google.com/spreadsheets/d/1jOBM3sZy6LnKiMm5Rac6xjVV12IoFLuvzI-UMytZUr4/edit?usp=sharing)
+### ワイヤーフレーム
+  [ワイヤーフレーム](https://www.figma.com/file/1uxKyXsYas5tdrC9IQnbdP/ChildrenPG%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%BC%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0?type=design&node-id=1%3A42&mode=design&t=8NDHOBEZh2vClhPs-1)
 ​
 ## 開発環境
 - OS：Linux(CentOS)

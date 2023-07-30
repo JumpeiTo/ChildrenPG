@@ -81,14 +81,32 @@
 
         </div>
         <!--検索ボタン-->
-        <button class="btn btn-blue mr-3 px-4" type="submit" style="width: fit-content; ">
+        <button class="btn btn-blue mr-3 px-5" type="submit" style="width: fit-content; ">
           検索 <i class="fa-solid fa-magnifying-glass"></i>
         </button>
+        <%= button_tag '条件リセット', type: 'button', id: "posts_search_reset_button", class: "btn btn-sm btn-secondary" %>
       </div>
     <% end %>
   </div>
 </div>
 
-<style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 条件リセットボタンをクリックした時の処理
+  document.getElementById('posts_search_reset_button').addEventListener('click', function(event) {
+    event.preventDefault(); // ボタンのデフォルトの挙動（フォームの送信）をキャンセル
 
-</style>
+    // 検索フォームの値を全てリセット
+    document.getElementById('q_title_or_text_or_playground_address_or_playground_name_or_playground_overview_cont').value = '';
+    document.getElementById('q_playground_prefecture_eq').value = '';
+    document.getElementById('q_rate_gteq').value = '';
+    document.getElementById('q_rate_lteq').value = '';
+    document.querySelectorAll('input[name="q[playtime_eq]"]').forEach(function(radio) {
+      radio.checked = false;
+    });
+    document.getElementById('q_post_target_ages_target_age_id_eq').value = '';
+    document.getElementById('q_post_tags_tag_id_eq').value = '';
+  });
+});
+</script>
+

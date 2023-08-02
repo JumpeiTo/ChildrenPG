@@ -3,7 +3,7 @@
   <%= form_with model: @post, url: admin_post_path(@post), class: 'form', local: true do |f| %>
     <div class="form-group ">
       <%= f.label :写真 %></br>
-      <%= f.file_field :image, accept: "image/*", class: 'form-control-file' %>
+      <%= f.file_field :post_image, accept: "image/*", class: 'form-control-file' %>
     </div>
     <div class="form-group">
       <%= f.label :title,"タイトル" %></br>

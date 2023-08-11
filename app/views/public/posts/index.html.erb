@@ -91,22 +91,20 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 条件リセットボタンをクリックした時の処理
-  document.getElementById('posts_search_reset_button').addEventListener('click', function(event) {
-    event.preventDefault(); // ボタンのデフォルトの挙動（フォームの送信）をキャンセル
-
-    // 検索フォームの値を全てリセット
+  // 条件リセットボタンがクリックされた時の処理を設定
+  document.getElementById('posts_search_reset_button').addEventListener('click', function() {
+    // 検索フォームの各フィールドの値をリセット
     document.getElementById('q_title_or_text_or_playground_address_or_playground_name_or_playground_overview_cont').value = '';
     document.getElementById('q_playground_prefecture_eq').value = '';
     document.getElementById('q_rate_gteq').value = '';
     document.getElementById('q_rate_lteq').value = '';
+    // 遊べる時間のラジオボタンをリセット
     document.querySelectorAll('input[name="q[playtime_eq]"]').forEach(function(radio) {
       radio.checked = false;
     });
+    // 対象年齢の選択肢をリセット
     document.getElementById('q_post_target_ages_target_age_id_eq').value = '';
+    // 関連タグの選択肢をリセット
     document.getElementById('q_post_tags_tag_id_eq').value = '';
   });
-});
 </script>
-

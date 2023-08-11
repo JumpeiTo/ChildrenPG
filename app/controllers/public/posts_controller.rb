@@ -27,7 +27,6 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    # binding.pry
     # パラメーターで渡された並び替え条件が有効なものであればそれを使い、無効な場合はデフォルトの「新着順」を使う
     sort_by = %w[latest old rate_high rate_low likes_count_high likes_count_low comments_many comments_few].include?(params[:sort_by]) ? params[:sort_by] : "latest"
     # params形式だとエラーになるため変数に置き換える。params[:q]がない場合空のqを入れ込む

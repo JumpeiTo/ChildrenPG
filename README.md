@@ -21,6 +21,8 @@
   [ChildrenPGサイトURL](https://children-pg.com/)
 ​
 ## 設計書
+### インフラ設計書
+  [インフラ設計書](https://drive.google.com/file/d/1agn4xvZ392O5PUQtYWIk8qXdqLEod2vd/view)
 ### ER図
   [ER図](https://drive.google.com/file/d/1k9dMnqH_1SjZl6k6fjRcGJVfpCb24_5O/view)
 ### 画面遷移図

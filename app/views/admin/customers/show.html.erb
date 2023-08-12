@@ -27,7 +27,7 @@
         </tr>
         <tr>
           <th>会員ステータス</th>
-          <td class="px-0" style="<%= @customer.is_hidden == false ? 'color: #89CA25;' : 'color: #6c757d;' %>">
+          <td class="px-0" style="<%= @customer.is_deleted == false ? 'color: #89CA25;' : 'color: #6c757d;' %>">
             <strong class="status"><%= @customer.is_deleted == false ? '有効' : '退会' %></strong>
           </td>
         </tr>

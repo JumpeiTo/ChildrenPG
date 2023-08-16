@@ -36,8 +36,12 @@ class Public::PostsController < ApplicationController
     end
     @q = Post.send(sort_by).ransack(param)
     @param = param
-    # Ransackのクエリを適用して、非表示ユーザーの投稿を除外してページネーションで表示
-    @posts = @q.result(distinct: true).joins(:customer).where(customers: { is_hidden: false }).page(params[:page]).per(10)
+    if customer_signed_in?
+      # Ransackのクエリを適用して、自分以外の非表示ユーザーの投稿を除外してページネーションで表示
+      @posts = @q.result(distinct: true).joins(:customer).where("customers.is_hidden = ? OR customers.id = ?", false, current_customer.id).page(params[:page]).per(10)
+    else
+      @posts = @q.result(distinct: true).joins(:customer).where(customers: { is_hidden: false }).page(params[:page]).per(10)
+    end
   end
   
   def show
@@ -52,7 +56,6 @@ class Public::PostsController < ApplicationController
     else
       @post_customer_nickname = @post.customer.nickname
     end
-    # binding.pry
   end
   
   def edit

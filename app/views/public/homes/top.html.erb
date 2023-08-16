@@ -3,8 +3,8 @@
     <h1>遊び場検索</h1>
     <%= form_with(url: places_search_path, method: :get, id: 'filter-search_form') do |f| %>
       <div class="form-group">
-        <%= f.label :name, '遊び場名' %>
-        <%= f.text_field :name, placeholder: '遊び場名を入力してください', class: 'form-control', style: "width: 80%;" %>
+        <%= f.label :name, '遊び場名、キーワード' %>
+        <%= f.text_field :name, placeholder: '例.〇〇公園、動物園、ジェットコースター', class: 'form-control', style: "width: 90%;" %>
       </div>
       <div class="form-group">
         <%= f.label :types, 'カテゴリー' %>

@@ -7,14 +7,14 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # ユーザーの作成
-customers = Customer.create!([
-  { email: 'tarou@example.com', password: 'password', name: '山田太郎', nickname: 'やまたろ', is_deleted: false, is_hidden: false, profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user1.png"), filename:"sample-user1.png") },
-  { email: 'hanako@example.com', password: 'password', name: '近藤花子', nickname: 'はなちゃん', is_deleted: false, is_hidden: false, profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user1.png"), filename:"sample-user1.png") }
+Customer.create!([
+  { email: "tarou@example.com", password: "password", name: "山田太郎", nickname: "やまたろ", is_deleted: false, is_hidden: false, profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user1.png"), filename: "sample-user1.png") },
+  { email: "hanako@example.com", password: "password", name: "近藤花子", nickname: "はなちゃん", is_deleted: false, is_hidden: false, profile_image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user1.png"), filename: "sample-user1.png") }
   # 他のユーザーデータを追加
 ])
 
-admins = Admin.create!([
-  { email: 'admin@example.com', password: 'cpg2307' }
+Admin.create!([
+  { email: "admin@example.com", password: "cpg2307" }
 ])
 
 TargetAge.create!([

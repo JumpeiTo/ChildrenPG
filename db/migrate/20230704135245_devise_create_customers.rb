@@ -38,7 +38,7 @@ class DeviseCreateCustomers < ActiveRecord::Migration[6.1]
       t.boolean :is_deleted, default: false, null: false
       t.boolean :is_hidden, default: false, null: false
 
-      
+
       t.timestamps null: false
     end
 

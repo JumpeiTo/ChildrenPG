@@ -11,7 +11,7 @@ class Public::PlaygroundsController < ApplicationController
     end
     redirect_to new_post_path(playground_id: @playground.id)
   end
-  
+
   def show
     @playground = Playground.find(params[:id])
     sort_by = params[:sort_by]
@@ -22,8 +22,7 @@ class Public::PlaygroundsController < ApplicationController
   end
 
   private
-
-  def playground_params
-    params.require(:playground).permit(:place_id, :latitude, :longitude, :name, :overview, :icon, :postal_code, :address, :prefecture, :rate, :open_now, :business_hours, :website, :phone_number, :photo_url)
-  end
+    def playground_params
+      params.require(:playground).permit(:place_id, :latitude, :longitude, :name, :overview, :icon, :postal_code, :address, :prefecture, :rate, :open_now, :business_hours, :website, :phone_number, :photo_url)
+    end
 end

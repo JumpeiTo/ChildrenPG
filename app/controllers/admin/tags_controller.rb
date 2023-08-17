@@ -1,12 +1,12 @@
 class Admin::TagsController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_tag, only: [:edit, :update, :destroy]
-  
+
   def index
     @tag = Tag.new
     @tags = Tag.all
   end
-  
+
   def create
     @tag = Tag.new(tag_params)
     if @tag.save
@@ -22,7 +22,7 @@ class Admin::TagsController < ApplicationController
 
   def edit
   end
-  
+
   def update
     if @tag.update(tag_params)
       flash[:success] = "タグが更新されました"
@@ -33,21 +33,19 @@ class Admin::TagsController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
     @tag.destroy
     flash[:error] = "タグが削除されました"
     redirect_to admin_tags_path
   end
-  
-  private
 
-  def tag_params
-    params.require(:tag).permit(:name)
-  end
-  
-  def set_tag
-    @tag = Tag.find(params[:id])
-  end
-  
+  private
+    def tag_params
+      params.require(:tag).permit(:name)
+    end
+
+    def set_tag
+      @tag = Tag.find(params[:id])
+    end
 end

@@ -13,8 +13,7 @@ class Public::PostFavoritesController < ApplicationController
   end
 
   private
-
-  def set_post
-    @post = Post.find_by(id: params[:post_id])
-  end
+    def set_post
+      @post = Post.find_by(id: params[:post_id])
+    end
 end

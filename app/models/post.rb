@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
   has_one_attached :post_image
-  
+
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
   has_many :post_target_ages, dependent: :destroy
@@ -10,19 +10,19 @@ class Post < ApplicationRecord
   has_many :post_favorite_customers, through: :post_favorites, source: :customer
   belongs_to :customer
   belongs_to :playground
-  
+
   validates :rate, presence: true
-  
+
   enum playtime_method: { 'oneday': 0, '2hours': 1, '4hours': 2, '6hours': 3, '8hours': 4 }
-  
+
   def get_post_image(width, height)
     unless post_image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image32.png')
-      post_image.attach(io: File.open(file_path), filename: 'default-image.png', content_type: 'image/png')
+      file_path = Rails.root.join("app/assets/images/no_image32.png")
+      post_image.attach(io: File.open(file_path), filename: "default-image.png", content_type: "image/png")
     end
     post_image.variant(resize_to_limit: [width, height]).processed
   end
-  
+
   # 投稿いいねをしているか
   def favorited_by?(customer)
     post_favorites.exists?(customer_id: customer.id)
@@ -39,10 +39,10 @@ class Post < ApplicationRecord
     # 開始日から終了日までの日付範囲を配列として取得します。
     date_range = (start_date..end_date).to_a
     # 日付範囲内の日付ごとに投稿数を取得し、存在しない日付は0として埋めます。
-    filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
+    filled_counts = date_range.index_with { |date| counts[date] || 0 }
     filled_counts
   }
-  
+
   # 月別の投稿数を集計するスコープ
   scope :group_by_month_post_count, -> {
     # 開始日として現在の日付から11ヶ月前の月初めの日付を取得
@@ -58,30 +58,30 @@ class Post < ApplicationRecord
       counts = group("strftime('%Y-%m', created_at)").count
     end
     # 開始日から終了日までの月ごとの年月を配列として取得します。
-    date_range = (start_date..end_date).map { |date| date.strftime('%Y-%m') }
+    date_range = (start_date..end_date).map { |date| date.strftime("%Y-%m") }
     # 年月ごとの投稿数を取得し、存在しない年月は0として埋めます。
-    filled_counts = date_range.map { |date| [date, counts[date] || 0] }.to_h
+    filled_counts = date_range.index_with { |date| counts[date] || 0 }
     filled_counts
   }
-  
+
   # 並び替えメソッド
   scope :latest, -> { order(created_at: :desc) }  # 登録新しい順
   scope :old, -> { order(created_at: :asc) }      # 登録古い順
   scope :rate_high, -> { order(rate: :desc) } # 評価高い順
   scope :rate_low, -> { order(rate: :asc) }   # 評価低い順
-  scope :likes_count_high, -> { left_joins(:post_favorites).group(:id).order(Arel.sql('COUNT(post_favorites.id) DESC')) } # いいねの数が多い順
-  scope :likes_count_low, -> { left_joins(:post_favorites).group(:id).order(Arel.sql('COUNT(post_favorites.id) ASC')) }  # いいねの数が少ない順
-  scope :comments_many, -> { left_joins(:post_comments).group(:id).order(Arel.sql('COUNT(post_comments.id) DESC')) }  # コメント多い順
-  scope :comments_few, -> { left_joins(:post_comments).group(:id).order(Arel.sql('COUNT(post_comments.id) ASC')) }  # コメント少ない順
-  
+  scope :likes_count_high, -> { left_joins(:post_favorites).group(:id).order(Arel.sql("COUNT(post_favorites.id) DESC")) } # いいねの数が多い順
+  scope :likes_count_low, -> { left_joins(:post_favorites).group(:id).order(Arel.sql("COUNT(post_favorites.id) ASC")) }  # いいねの数が少ない順
+  scope :comments_many, -> { left_joins(:post_comments).group(:id).order(Arel.sql("COUNT(post_comments.id) DESC")) }  # コメント多い順
+  scope :comments_few, -> { left_joins(:post_comments).group(:id).order(Arel.sql("COUNT(post_comments.id) ASC")) }  # コメント少ない順
+
   PREFECTURES = [
-    '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県',
-    '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県',
-    '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県',
-    '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県',
-    '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県',
-    '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県',
-    '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
+    "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県",
+    "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県",
+    "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県",
+    "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県",
+    "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県",
+    "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県",
+    "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
   ]
 
   # ransack検索カラムのアソシエーション

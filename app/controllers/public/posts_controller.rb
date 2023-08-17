@@ -1,7 +1,7 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_customer!, except: [:index, :show]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  
+
   def new
     @ages = TargetAge.all
     @tags = Tag.all
@@ -30,7 +30,7 @@ class Public::PostsController < ApplicationController
     # パラメーターで渡された並び替え条件が有効なものであればそれを使い、無効な場合はデフォルトの「新着順」を使う
     sort_by = %w[latest old rate_high rate_low likes_count_high likes_count_low comments_many comments_few].include?(params[:sort_by]) ? params[:sort_by] : "latest"
     # params形式だとエラーになるため変数に置き換える。params[:q]がない場合空のqを入れ込む
-    param = params[:q] || {"title_or_text_or_playground_address_or_playground_name_or_playground_overview_cont"=>"", "playground_prefecture_eq"=>"", "rate_gteq"=>"", "rate_lteq"=>"", "post_target_ages_target_age_id_eq"=>"", "post_tags_tag_id_eq"=>""} 
+    param = params[:q] || { "title_or_text_or_playground_address_or_playground_name_or_playground_overview_cont" => "", "playground_prefecture_eq" => "", "rate_gteq" => "", "rate_lteq" => "", "post_target_ages_target_age_id_eq" => "", "post_tags_tag_id_eq" => "" }
     if param.is_a?(String)
       param =  JSON.parse(param, symbolize_names: true) # JSON形式の文字列をRubyのHash形式に変換
     end
@@ -43,12 +43,12 @@ class Public::PostsController < ApplicationController
       @posts = @q.result(distinct: true).joins(:customer).where(customers: { is_hidden: false }).page(params[:page]).per(10)
     end
   end
-  
+
   def show
     @playground = @post.playground
     @post_comment = PostComment.new
     @post_comments = @post.post_comments.page(params[:page]).per(10)
-    
+
     if @post.customer.is_hidden?
       @post_customer_nickname = "非公開ユーザー"
     elsif @post.customer.is_deleted?
@@ -57,13 +57,13 @@ class Public::PostsController < ApplicationController
       @post_customer_nickname = @post.customer.nickname
     end
   end
-  
+
   def edit
     @playground = @post.playground
     @ages = TargetAge.all
     @tags = Tag.all
   end
-  
+
   def update
     @ages = TargetAge.all
     @tags = Tag.all
@@ -76,21 +76,19 @@ class Public::PostsController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
     @post.destroy
     flash[:error] = "投稿が削除されました"
     redirect_to customers_path(current_customer)
   end
-  
-  private
 
-  def post_params
-    params.require(:post).permit(:post_image, :customer_id, :playground_id, :title, :text, :playtime, :rate, target_age_ids: [], tag_ids: [])
-  end
-  
-  def set_post
-    @post = Post.find(params[:id]) 
-  end
-  
+  private
+    def post_params
+      params.require(:post).permit(:post_image, :customer_id, :playground_id, :title, :text, :playtime, :rate, target_age_ids: [], tag_ids: [])
+    end
+
+    def set_post
+      @post = Post.find(params[:id])
+    end
 end

@@ -11,13 +11,13 @@ class Public::PostCommentsController < ApplicationController
     end
     redirect_to request.referer
   end
-  
+
   def destroy
     PostComment.find(params[:id]).destroy
     flash[:error] = "コメントが削除されました"
     redirect_to post_path(params[:post_id])
-  end 
-  
+  end
+
   def edit
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
@@ -31,13 +31,12 @@ class Public::PostCommentsController < ApplicationController
       redirect_to @post
     else
       flash[:danger] = "編集に失敗しました"
-      render 'edit'
+      render "edit"
     end
   end
 
   private
-
-  def post_comment_params
-    params.require(:post_comment).permit(:comment)
-  end
+    def post_comment_params
+      params.require(:post_comment).permit(:comment)
+    end
 end

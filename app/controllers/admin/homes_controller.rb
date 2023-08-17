@@ -1,6 +1,6 @@
 class Admin::HomesController < ApplicationController
   before_action :authenticate_admin!
-  
+
   def top
     # 日別の投稿数を取得するクエリ（Postモデルのスコープを使用）
     @daily_post_chart_data = Post.group_by_day_post_count

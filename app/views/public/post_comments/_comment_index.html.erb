@@ -1,0 +1,33 @@
+<% if post.post_comments.any? %>
+  <h2 class="ml-1">コメント一覧</h2>  
+  <% post.post_comments.each do |post_comment| %>
+    <div class="post-comment pl-2 p-1 mb-1">
+      <div>
+        <%= post_comment.comment %>
+      </div>
+      <div class="d-flex">
+        <div class="nickname mr-2">
+          <%= link_to customers_path(customer_id: post_comment.customer.id) do %>
+            <span class="badge badge-pill badge-secondary" style="font-size: 14px;">
+              <% if post_comment.customer.is_hidden? %>
+                非公開ユーザー
+              <% elsif post_comment.customer.is_deleted? %>
+                退会済ユーザー
+              <% elsif post_comment.customer == current_customer %>
+                自分
+              <% else %>
+                <%= post_comment.customer.nickname %>
+              <% end %>
+            </span>
+          <% end %>
+        </div>
+        <div>
+          <%= time_ago_in_words(post_comment.created_at) %>前
+          <% if post_comment.customer == current_customer %>
+            <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), data: { confirm: '本当に削除しますか？' }, method: :delete, remote: true, class: 'red' %></br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

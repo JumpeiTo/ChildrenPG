@@ -1,6 +1,6 @@
 <% if post.post_comments.any? %>
   <h2 class="ml-1">コメント一覧</h2>  
-  <% post.post_comments.each do |post_comment| %>
+  <% post.post_comments.order(created_at: :desc).each do |post_comment| %>
     <div class="post-comment pl-2 p-1 mb-1">
       <div>
         <%= post_comment.comment %>

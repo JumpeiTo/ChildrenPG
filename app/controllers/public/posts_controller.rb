@@ -61,6 +61,12 @@ class Public::PostsController < ApplicationController
     @playground = @post.playground
     @ages = TargetAge.all
     @tags = Tag.all
+    if @post.customer == current_customer
+      render :edit
+    else
+      flash[:error] = "他人の投稿は編集できません"
+      redirect_to post_path(@post)
+    end
   end
 
   def update

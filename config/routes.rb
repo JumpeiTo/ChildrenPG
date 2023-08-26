@@ -4,11 +4,14 @@ Rails.application.routes.draw do
   # public ルーティング
   scope module: :public do
     get "homes/about" => "homes#about"
-    resource :customers, only: [:show, :edit, :update]
-    get "customers/check" => "customers#check"
-    patch "customers/withdrawal" => "customers#withdrawal"
-    get "customers/favorites" =>  "customers#favorites", as: "customer_favorite_posts"
-    get "customers/comments" =>  "customers#comments", as: "customer_comment_posts"
+    resource :customers, only: [:show, :edit, :update] do
+      collection do
+        get 'check'
+        patch 'withdrawal'
+        get 'favorites'
+        get 'comments'
+      end
+    end
 
     get "places/search", to: "places#search", as: "places_search"
     get "places/detailed_search", to: "places#detailed_search", as: "places_detailed_search"

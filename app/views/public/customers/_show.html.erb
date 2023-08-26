@@ -14,6 +14,6 @@
 <div class="d-flex align-items-center my-3">
   <% if customer == current_customer && customer.email != "guest@example.com"%>
     <%= link_to "編集する", edit_customers_path, class: "btn btn-green mr-3 px-4" %>
-    <%= link_to "退会する", customers_check_path, class: "btn btn-sm btn-red mt-1" %>
+    <%= link_to "退会する", check_customers_path, class: "btn btn-sm btn-red mt-1" %>
   <% end %>
 </div>

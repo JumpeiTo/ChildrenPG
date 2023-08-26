@@ -31,7 +31,7 @@
                 <li><%= link_to "遊び場を探す", root_path, data: {"turbolinks"=>false} %></li>
                 <li><%= link_to "皆の投稿を見る", posts_path %></li>
                 <li><%= link_to "マイページ",customers_path %></li>
-                <li><%= link_to "いいねした投稿を見る", customer_favorite_posts_path(customer_id: current_customer.id) %></li>
+                <li><%= link_to "いいねした投稿を見る", favorites_customers_path(customer_id: current_customer.id) %></li>
               </ul>
             </div>
             <div class="col-sm">

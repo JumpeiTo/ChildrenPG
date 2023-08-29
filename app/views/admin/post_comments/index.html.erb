@@ -17,7 +17,7 @@
             検索 <i class="fa-solid fa-magnifying-glass"></i>
           </button>
         <% end %>
-        <select class="custom-select" id="sort_by" onChange="location.href=value;" style="width: 140px;">
+        <select class="custom-select admin-keyword-sort" id="sort_by" onChange="location.href=value;">
           <option value="">並び替え</option>
           <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'created_at+desc') %>">新しいコメント</option>
           <option value="<%= sort_by_sort_url(sort_url(@q, :created_at), 'created_at+ask') %>">古いコメント</option>

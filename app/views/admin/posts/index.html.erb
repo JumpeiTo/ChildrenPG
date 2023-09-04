@@ -10,8 +10,8 @@
             <%= f.search_field :title_or_text_cont, class: 'form-control mr-2', placeholder: 'タイトル,本文', style: "width: 200px;" %>
             <%= f.search_field :playground_name_cont, class: 'form-control mr-2', placeholder: '遊び場名', style: "width: 200px;" %>
             <%= f.search_field :customer_name_cont, class: 'form-control mr-2', placeholder: '投稿者名', style: "width: 150px;" %>
-            <button class="btn btn-outline-green mr-3" type="submit" style="width: 80px; ">
-              検索 <i class="fa-solid fa-magnifying-glass"></i>
+            <button class="admin-search-btn btn btn-outline-green mr-3" type="submit" >
+              <i class="fa-solid fa-magnifying-glass">検索</i>
             </button>
           <% end %>
           <select class="custom-select admin-keyword-sort" id="sort_by" onChange="location.href=value;">

@@ -13,8 +13,8 @@
       <div class="d-flex">
         <% unless @customer.present? %>
           <%= f.search_field :comment_or_customer_name_cont, class: 'admin-ransack-search form-control mr-2', placeholder: '名前,コメント' %>
-          <button class="btn btn-outline-green mr-3" type="submit" style="width: 80px; ">
-            検索 <i class="fa-solid fa-magnifying-glass"></i>
+          <button class="admin-search-btn btn btn-outline-green mr-3" type="submit">
+            <i class="fa-solid fa-magnifying-glass">検索</i>
           </button>
         <% end %>
         <select class="custom-select admin-keyword-sort" id="sort_by" onChange="location.href=value;">

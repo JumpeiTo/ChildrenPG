@@ -18,7 +18,7 @@ class Customer < ApplicationRecord
 def get_profile_image(width, height)
   unless profile_image.attached?
     file_path = Rails.root.join("app/assets/images/no_image32.png")
-    profile_image.attach(io: File.open(file_path), filename: "default-image.png", content_type: ["image/png", "image/jpeg", "image/heig"])
+    profile_image.attach(io: File.open(file_path), filename: "default-image.png", content_type: ["image/png", "image/jpeg", "image/heic"])
   end
   # デフォルトの画像を添付した後に、変数を再度読み込む
   reload

@@ -18,11 +18,8 @@ class Customer < ApplicationRecord
 def get_profile_image(width, height)
   unless profile_image.attached?
     file_path = Rails.root.join("app/assets/images/no_image32.png")
-    profile_image.attach(io: File.open(file_path), filename: "default-image.png", content_type: ["image/png", "image/jpeg", "image/heic"])
+    profile_image.attach(io: File.open(file_path), filename: "default-image.png", content_type: ["image/png", "image/jpeg"])
   end
-  # デフォルトの画像を添付した後に、変数を再度読み込む
-  reload
-  # プロフィール画像のURLを生成
   profile_image.variant(resize_to_limit: [width, height]).processed
 end
 

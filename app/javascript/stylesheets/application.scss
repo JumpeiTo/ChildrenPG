@@ -149,27 +149,6 @@ div.field_with_errors input {
   font-size: 0.9em;
 }
 
-// 管理者並び替え
-.admin-keyword-sort{
-  width: 120px;
-}
-// 管理者検索ボタン
-.admin-search-btn{
-  width: 80px;
-}
-
-// 管理者検索入力欄
-.admin-search-input-customer{
-  width: 150px;
-}
-.admin-search-input{
-  width: 200px;
-}
-
-.admin-ransack-search{
-  width: 250px;
-}
-
 .top-border {
   border-top: 1px dotted #4d4d4d;
 }
@@ -229,11 +208,6 @@ h3:after {
 }
 main h3:after {
   width: 100%;
-}
-
-.custom-button {
-  background-color: #fff;
-  border-radius: 0 0.25rem 0.25rem 0;
 }
 
 // 緑ボタン

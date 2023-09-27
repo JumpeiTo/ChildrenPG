@@ -59,69 +59,9 @@ div.field_with_errors input {
   background-color: #fce4b4;
 }
 
-// 遊び場検索結果一覧リンク
-.list-bg {
-  background-color: #faf4e8;
-  &:hover {
-    background-color: #f0e9da;
-    text-decoration: none;
-  }
-}
 
-// いいねボタン設定
-.favorite-wrapper {
-  display: inline-block;
-  background-color: #fcdcdf;
-  border-radius: 50px;
-  padding: 1px 8px;
-  border: 2px solid #f7cbcf;
-}
-.favorite-wrapper a:hover {
-  text-decoration: none;
-}
-// 投稿の評価
-.rate {
-  display: inline-block;
-  font-size: 18px;
-  background-color: #fac69b;
-  padding: 3px 7px;
-  border-radius: 5px;
-}
 
-// 一覧（投稿と遊び場表示）
-.post-list .playground {
-  border-radius: 7px 0 0 7px; /* 左上 | 右上 | 右下 | 左下 */
-}
-.post-list .post {
-  border-radius: 0 7px 7px 0; 
-}
-.post-image, .playground-image, .profile_image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
 
-// 一覧のタイトル
-.list-bg h3 {
-  overflow: hidden;
-  border-bottom: 2px solid #b8b7ab;
-}
-
-// 名前表示
-.nickname .badge {
-  background-color: #c0ca80;
-  font-size: 14px;
-  &:hover {
-  background-color: #a1ab63;
-  }
-}
-
-// コメントゾーン
-.post-comment {
-  line-height: 1.8;
-  border: dashed 2px #f4ead4;
-  border-radius: 7px;
-}
 
 // ページネーション
 .pagination {

@@ -66,3 +66,16 @@
   border: dashed 2px #f4ead4;
   border-radius: 7px;
 }
+
+// マーカーの投稿数
+.info-window span {
+  font-weight: bold;
+}
+
+// ピン操作説明
+.pin-operation {
+  width: fit-content;
+}
+.pin-operation p {
+  font-size: 0.9em;
+}

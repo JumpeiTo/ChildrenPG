@@ -59,10 +59,6 @@ div.field_with_errors input {
   background-color: #fce4b4;
 }
 
-
-
-
-
 // ページネーション
 .pagination {
   justify-content: center;
@@ -74,19 +70,6 @@ div.field_with_errors input {
 .page-item.active .page-link{
   background-color: #6699CC;
   border-color: #6699CC;
-}
-
-// マーカーの投稿数
-.info-window span {
-  font-weight: bold;
-}
-
-// ピン操作説明
-.pin-operation {
-  width: fit-content;
-}
-.pin-operation p {
-  font-size: 0.9em;
 }
 
 .top-border {

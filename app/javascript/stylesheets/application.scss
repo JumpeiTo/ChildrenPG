@@ -217,6 +217,10 @@ main h3:after {
   }
 }
 
+.custom-button {
+  background-color: #fff;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
 
 @media screen and (min-width: 375px)  and ( max-width: 768px){ 
   /*　画面サイズが480pxからはここを読み込む　*/

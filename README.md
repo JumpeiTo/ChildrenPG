@@ -1,5 +1,5 @@
 # ChildrenPG
-  [ChildrenPGサイトURL](https://children-pg.com/)
+  [ChildrenPGサイトURL（停止中）](https://children-pg.com/)
   
 ## サイト概要
 ### サイトテーマ
